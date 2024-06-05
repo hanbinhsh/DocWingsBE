@@ -3,11 +3,14 @@ package com.example.docwingsbe.servers.impl;
 import com.example.docwingsbe.mapper.DWMapper;
 import com.example.docwingsbe.servers.DWServer;
 import jakarta.annotation.Resource;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+// 业务层接口的实现类
+@Service
 public class DWServerImpl implements DWServer {
     //依赖注入--数据访问层的接口
     @Resource

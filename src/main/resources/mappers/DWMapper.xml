@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--id与接口中的方法名相同，namespace与接口一致 方法的返回值类型一致-->
+<mapper namespace="com.filemanager.docwingsbe.mapper.DWMapper">
+    <select id="queryUsers" resultType="com.filemanager.docwingsbe.entity.User">
+        select * from user;
+    </select>
+    <select id="findUserById" resultType="com.filemanager.docwingsbe.entity.User" parameterType="Long">
+        select * from user where user_id = #{id};
+    </select>
+    <insert id="insertUser" parameterType="User" keyProperty="userId" useGeneratedKeys="true">
+        insert into user(user_name,psw,email,group_id,is_admin,phone) values
+            (#{user.userName},#{user.psw},#{user.email},#{user.groupId},#{user.isAdmin},#{user.phone});
+    </insert>
+</mapper>

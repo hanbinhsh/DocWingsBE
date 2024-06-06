@@ -26,7 +26,7 @@ public class DWServerImpl implements DWServer {
         // 调用数据访问层的接口中的方法
         List<Map<String, Object>> list = this.dwmMapper.select(map);
         // 逻辑处理
-        if (list.size() > 0) {
+        if (!list.isEmpty()) {
             result.put("message", "查询成功");
             result.put("data", list);
             result.put("count", list.size());

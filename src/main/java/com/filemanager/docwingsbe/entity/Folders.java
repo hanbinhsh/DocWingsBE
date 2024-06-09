@@ -1,6 +1,5 @@
 package com.filemanager.docwingsbe.entity;
 
-
 public class Folders {
 
   private long folderId;
@@ -9,9 +8,9 @@ public class Folders {
   private java.sql.Timestamp createTime;
   private long createrId;
   private String tag;
-  private java.sql.Timestamp lastModifyTime;
   private long isDeleted;
   private long lastModifierId;
+  private java.sql.Timestamp lastModifyTime;
 
 
   public long getFolderId() {
@@ -68,15 +67,6 @@ public class Folders {
   }
 
 
-  public java.sql.Timestamp getLastModifyTime() {
-    return lastModifyTime;
-  }
-
-  public void setLastModifyTime(java.sql.Timestamp lastModifyTime) {
-    this.lastModifyTime = lastModifyTime;
-  }
-
-
   public long getIsDeleted() {
     return isDeleted;
   }
@@ -92,6 +82,15 @@ public class Folders {
 
   public void setLastModifierId(long lastModifierId) {
     this.lastModifierId = lastModifierId;
+  }
+
+
+  public java.sql.Timestamp getLastModifyTime() {
+    return lastModifyTime;
+  }
+
+  public void setLastModifyTime(java.sql.Timestamp lastModifyTime) {
+    this.lastModifyTime = lastModifyTime;
   }
 
 }

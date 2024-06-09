@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.filemanager.docwingsbe.mapper.UserMapper">
+    <select id="loginVerification" resultType="com.filemanager.docwingsbe.entity.User">
+        SELECT * FROM docwingsdb.user WHERE user_name = #{userName} AND psw = SHA2(#{password},256)
+    </select>
+</mapper>

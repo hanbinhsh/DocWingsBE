@@ -67,6 +67,4 @@ public class DWController {
         result.put("filetype",contentType);
         return result;
     }
-
-
 }

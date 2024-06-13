@@ -42,17 +42,20 @@ public class DWServerImpl implements DWServer {
         return result;
     }
 
+    @Override
     @Transactional(readOnly = true)
     public List<User> searchUser() {
         return dwmMapper.queryUsers();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public User getUser(Long id) {
         return dwmMapper.findUserById(id);
     }
 
     @Override
+    @Transactional(readOnly = true)
     public void insertUser(User user) {
         dwmMapper.insertUser(user);
     }

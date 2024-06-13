@@ -13,12 +13,12 @@ INSERT INTO `user` (`user_name`, `psw`, `email`, `group_id`, `is_admin`, `phone`
 ('reader1', 'reader123', 'reader1@example.com', 4, false, '2233445566'),
 ('user2', 'user2123', 'user2@example.com', 2, false, '3344556677');
 
-INSERT INTO `logs` (`user_id`, `act`, `log_time`) VALUES
-(1, '创建用户', '2024-06-01 10:00:00'),
-(2, '编辑文章', '2024-06-01 11:00:00'),
-(3, '发布文章', '2024-06-01 12:00:00'),
-(4, '查看文章', '2024-06-01 13:00:00'),
-(5, '评论文章', '2024-06-01 14:00:00');
+INSERT INTO `logs` (`user_id`, `act`, `log_time`, `importance`) VALUES
+(1, '创建用户', '2024-06-01 10:00:00', 1),
+(2, '编辑文章', '2024-06-01 11:00:00', 2),
+(3, '发布文章', '2024-06-01 12:00:00', 3),
+(4, '查看文章', '2024-06-01 13:00:00', 1),
+(5, '评论文章', '2024-06-01 14:00:00', 2);
 
 SET FOREIGN_KEY_CHECKS = 0;
 INSERT INTO `folders` (`folder_id`,`folder_name`, `parent_id`, `create_time`, `creater_id`, `tag`, `last_modify_time`, `is_deleted`, `last_modifier_id`) VALUES

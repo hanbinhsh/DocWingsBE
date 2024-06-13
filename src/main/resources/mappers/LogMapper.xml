@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.filemanager.docwingsbe.mapper.LogMapper">
+    <select id="getLogPage" resultType="com.filemanager.docwingsbe.entity.multy.LogPage">
+        SELECT
+            u.user_name,
+            ug.group_name,
+            u.email,
+            l.act,
+            l.importance,
+            l.log_time
+        FROM
+            logs l
+                JOIN
+            user u ON l.user_id = u.user_id
+                JOIN
+            usergroup ug ON u.group_id = ug.group_id
+    </select>
+</mapper>

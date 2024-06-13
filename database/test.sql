@@ -37,3 +37,14 @@ call update_node_status(2,false);
 SELECT * FROM docwingsdb.folders;
 
 SELECT * FROM `user` WHERE `user_name` = 'editor1' AND `psw` = SHA2('editor123', 256);
+
+SELECT
+	u.user_name,
+	ug.group_name,
+	u.email,
+	l.act,
+	l.importance,
+	l.log_time
+FROM logs l 
+JOIN user u ON l.user_id = u.user_id 
+JOIN usergroup ug ON u.group_id = ug.group_id;

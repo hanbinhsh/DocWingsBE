@@ -6,6 +6,7 @@ public class Logs {
   private long logId;
   private long userId;
   private String act;
+  private long importance;
   private java.sql.Timestamp logTime;
 
 
@@ -33,6 +34,15 @@ public class Logs {
 
   public void setAct(String act) {
     this.act = act;
+  }
+
+
+  public long getImportance() {
+    return importance;
+  }
+
+  public void setImportance(long importance) {
+    this.importance = importance;
   }
 
 

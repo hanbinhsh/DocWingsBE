@@ -27,7 +27,8 @@ DROP TABLE IF EXISTS `logs`;
 CREATE TABLE `logs`  (
   `log_id` int AUTO_INCREMENT PRIMARY KEY  		NOT NULL	COMMENT '日志ID',
   `user_id` int									NOT NULL	COMMENT '操作者ID',
-  `act` text												COMMENT '行为',
+  `act` text									NOT NULL	COMMENT '行为',
+  `importance` int								NOT NULL	COMMENT '重要性',
   `log_time` datetime				 			NOT NULL	COMMENT '时间',
   FOREIGN KEY (`user_id`) REFERENCES user(`user_id`)
 );

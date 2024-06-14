@@ -1,11 +1,9 @@
 package com.filemanager.docwingsbe.controller;
 
 import com.filemanager.docwingsbe.entity.Files;
-import com.filemanager.docwingsbe.entity.User;
+import com.filemanager.docwingsbe.entity.multy.FilesPage;
 import com.filemanager.docwingsbe.entity.multy.FolderPage;
-import com.filemanager.docwingsbe.servers.DWServer;
 import com.filemanager.docwingsbe.servers.FilesServer;
-import com.filemanager.docwingsbe.servers.impl.FilesServerImpl;
 import jakarta.annotation.Resource;
 import org.apache.commons.io.FileUtils;
 import org.springframework.http.MediaType;
@@ -38,6 +36,11 @@ public class FilesController {
 
     @RequestMapping("/findFodersByParentId")
     public List<FolderPage> findFodersByParentId(@RequestParam long parentId) {
-        return this.filesServer.findFodersByParentId(parentId);
+        return this.filesServer.findFoldersByParentId(parentId);
+    }
+
+    @RequestMapping("/findFilesByParentId")
+    public List<FilesPage> findFilesByParentId(@RequestParam long parentId) {
+        return this.filesServer.findFilesByParentId(parentId);
     }
 }

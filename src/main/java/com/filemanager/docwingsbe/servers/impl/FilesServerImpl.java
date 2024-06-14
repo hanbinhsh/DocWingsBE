@@ -1,6 +1,7 @@
 package com.filemanager.docwingsbe.servers.impl;
 
 import com.filemanager.docwingsbe.entity.Files;
+import com.filemanager.docwingsbe.entity.multy.FilesPage;
 import com.filemanager.docwingsbe.entity.multy.FolderPage;
 import com.filemanager.docwingsbe.mapper.FilesMapper;
 import com.filemanager.docwingsbe.servers.FilesServer;
@@ -24,7 +25,14 @@ public class FilesServerImpl implements FilesServer {
 
     @Override
     @Transactional(readOnly = true)
-    public List<FolderPage> findFodersByParentId(long parentId) {
+    public List<FolderPage> findFoldersByParentId(long parentId) {
         return filesMapper.findFodersByParentId(parentId);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<FilesPage> findFilesByParentId(long parentId) {
+        return filesMapper.findFilesByParentId(parentId);
+    }
+
 }

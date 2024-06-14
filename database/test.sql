@@ -58,4 +58,23 @@ SELECT
     f.last_modify_time
 FROM folders f
 JOIN user u1 ON f.creater_id = u1.user_id
-JOIN user u2 ON f.last_modifier_id = u2.user_id;
+JOIN user u2 ON f.last_modifier_id = u2.user_id
+WHERE f.parent_id = 0;
+
+SELECT 
+    f.file_name,
+    f.tag,
+    f.file_size,
+    f.file_type,
+    u1.user_name AS uploader_name,
+    f.upload_time,
+    u2.user_name AS last_modifier_name,
+    f.last_modify_time
+FROM
+    files f
+JOIN
+    user u1 ON f.uploader_id = u1.user_id
+JOIN
+    user u2 ON f.last_modifier_id = u2.user_id
+WHERE
+    f.parent_id = 0;

@@ -10,4 +10,5 @@ public interface FilesServer {
     Files findDiskFileById(long id);
     List<FolderPage> findFoldersByParentId(long parentId);
     List<FilesPage> findFilesByParentId(long parentId);
+    void insertFiles(List<Files> files);
 }

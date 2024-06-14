@@ -35,4 +35,10 @@ public class FilesServerImpl implements FilesServer {
         return filesMapper.findFilesByParentId(parentId);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public void insertFiles(List<Files> files) {
+        filesMapper.insertFiles(files);
+    }
+
 }

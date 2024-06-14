@@ -43,4 +43,9 @@ public class FilesController {
     public List<FilesPage> findFilesByParentId(@RequestParam long parentId) {
         return this.filesServer.findFilesByParentId(parentId);
     }
+
+    @RequestMapping("/insertFiles")
+    public void insertFiles(List<Files> files){
+        filesServer.insertFiles(files);
+    }
 }

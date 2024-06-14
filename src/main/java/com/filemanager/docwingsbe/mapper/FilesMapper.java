@@ -13,5 +13,5 @@ public interface FilesMapper {
     public Files findDiskFileById(@Param("id") Long id);
     public List<FolderPage> findFodersByParentId(@Param("parentId") Long parentId);
     public List<FilesPage> findFilesByParentId(@Param("parentId") Long parentId);
-    //public InsertFiles
+    public void insertFiles(@Param("files") List<Files> files);
 }

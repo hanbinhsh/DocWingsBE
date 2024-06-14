@@ -15,17 +15,17 @@ public class UserController {
     private UserServer userServer;
 
     @RequestMapping("/login")
-    public int login(@RequestBody Map<String, String> map) {
+    public User login(@RequestBody Map<String, String> map) {
         // 调用业务层接口的方法
         // 寻找用户
         User user = userServer.loginVerification(map.get("userName"),map.get("password"));
         if(user!=null){
             if(user.getIsAdmin()==1){
-                return 2;  // 管理员
+                return user;  // 管理员
             }else{
-                return 1;  // 普通用户
+                return user;  // 普通用户
             }
         }
-        return 0;
+        return null;
     }
 }

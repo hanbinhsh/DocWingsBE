@@ -47,4 +47,10 @@ public class FilesServerImpl implements FilesServer {
         return filesMapper.findFolderById(id);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public long countFFsByParentId(long parentId) {
+        return filesMapper.countFFsByParentId(parentId);
+    }
+
 }

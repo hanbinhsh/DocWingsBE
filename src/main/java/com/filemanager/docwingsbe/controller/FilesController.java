@@ -59,4 +59,9 @@ public class FilesController {
     public void insertFiles(List<Files> files){
         filesServer.insertFiles(files);
     }
+
+    @RequestMapping("/countFFsByParentId")
+    public long countFFsByParentId(@RequestParam long parentId){
+        return filesServer.countFFsByParentId(parentId);
+    }
 }

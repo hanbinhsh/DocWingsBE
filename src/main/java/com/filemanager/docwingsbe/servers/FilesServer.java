@@ -13,4 +13,5 @@ public interface FilesServer {
     List<FilesPage> findFilesByParentId(long parentId);
     void insertFiles(List<Files> files);
     Folders findFolderById(long id);
+    long countFFsByParentId(long parentId);
 }

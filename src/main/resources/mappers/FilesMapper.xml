@@ -54,4 +54,9 @@
     <select id="findFolderById" resultType="com.filemanager.docwingsbe.entity.Folders">
         select * from folders where folder_id = #{id}
     </select>
+    <select id="countFFsByParentId" resultType="java.lang.Long">
+        SELECT
+            (SELECT COUNT(*) FROM files WHERE parent_id = #{parentId}) +
+            (SELECT COUNT(*) FROM folders WHERE parent_id = #{parentId}) AS total_count;
+    </select>
 </mapper>

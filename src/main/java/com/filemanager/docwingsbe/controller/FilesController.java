@@ -1,6 +1,8 @@
 package com.filemanager.docwingsbe.controller;
 
 import com.filemanager.docwingsbe.entity.Files;
+import com.filemanager.docwingsbe.entity.User;
+import com.filemanager.docwingsbe.entity.multy.FolderPage;
 import com.filemanager.docwingsbe.servers.DWServer;
 import com.filemanager.docwingsbe.servers.FilesServer;
 import com.filemanager.docwingsbe.servers.impl.FilesServerImpl;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.List;
 
 @RestController
 public class FilesController {
@@ -31,5 +34,10 @@ public class FilesController {
         File dFile = new File(file.getPath());
         ResponseEntity<byte[]> responseEntity = builder.body(FileUtils.readFileToByteArray(dFile));
         return responseEntity;
+    }
+
+    @RequestMapping("/findFodersByParentId")
+    public List<FolderPage> findFodersByParentId(@RequestParam long parentId) {
+        return this.filesServer.findFodersByParentId(parentId);
     }
 }

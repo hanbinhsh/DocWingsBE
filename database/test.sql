@@ -48,3 +48,14 @@ SELECT
 FROM logs l 
 JOIN user u ON l.user_id = u.user_id 
 JOIN usergroup ug ON u.group_id = ug.group_id;
+
+SELECT 
+    f.folder_name,
+    f.create_time,
+    u1.user_name AS creator_name,
+    f.tag,
+    u2.user_name AS last_modifier_name,
+    f.last_modify_time
+FROM folders f
+JOIN user u1 ON f.creater_id = u1.user_id
+JOIN user u2 ON f.last_modifier_id = u2.user_id;

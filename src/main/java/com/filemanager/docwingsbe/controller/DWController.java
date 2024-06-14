@@ -30,7 +30,7 @@ public class DWController {
         return this.dwSever.searchInfo(map);
     }
 
-    @RequestMapping("/searchUser")
+    @RequestMapping("/allUser")
     public List<User> searchUser() {
         return this.dwSever.searchUser();
     }

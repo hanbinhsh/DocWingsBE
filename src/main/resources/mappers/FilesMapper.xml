@@ -6,4 +6,17 @@
     <select id="findDiskFileById" resultType="com.filemanager.docwingsbe.entity.Files">
         select * from files where file_id = #{id}
     </select>
+    <select id="findFodersByParentId" resultType="com.filemanager.docwingsbe.entity.multy.FolderPage">
+        SELECT
+            f.folder_name,
+            f.create_time,
+            u1.user_name AS creator_name,
+            f.tag,
+            u2.user_name AS last_modifier_name,
+            f.last_modify_time
+        FROM folders f
+                 JOIN user u1 ON f.creater_id = u1.user_id
+                 JOIN user u2 ON f.last_modifier_id = u2.user_id
+        WHERE f.parent_id = #{parentId} AND f.folder_id != 0
+    </select>
 </mapper>

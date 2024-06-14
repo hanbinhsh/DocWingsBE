@@ -3,12 +3,30 @@ package com.filemanager.docwingsbe.entity.multy;
 import java.sql.Timestamp;
 
 public class FolderPage {
+    private long folderId;
+    private long parentId;
     private String folderName;
     private java.sql.Timestamp createTime;
     private String creatorName;
     private String tag;
     private String lastModifierName;
     private java.sql.Timestamp lastModifyTime;
+
+    public long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(long parentId) {
+        this.parentId = parentId;
+    }
+
+    public long getFolderId() {
+        return folderId;
+    }
+
+    public void setFolderId(long folderId) {
+        this.folderId = folderId;
+    }
 
     public String getFolderName() {
         return folderName;

@@ -3,6 +3,7 @@ package com.filemanager.docwingsbe.entity.multy;
 import java.sql.Timestamp;
 
 public class FilesPage {
+    private long fileId;
     private String fileName;
     private String tag;
     private double fileSize;
@@ -10,6 +11,14 @@ public class FilesPage {
     private String lastModifierName;
     private java.sql.Timestamp lastModifyTime;
     private String uploaderName;
+
+    public long getFileId() {
+        return fileId;
+    }
+
+    public void setFileId(long fileId) {
+        this.fileId = fileId;
+    }
 
     public Timestamp getUploadTime() {
         return uploadTime;

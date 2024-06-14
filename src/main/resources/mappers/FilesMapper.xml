@@ -13,11 +13,13 @@
              #{item.is_deleted}, #{item.path})
         </foreach>
     </insert>
-    <select id="findDiskFileById" resultType="com.filemanager.docwingsbe.entity.Files">
+    <select id="findFileById" resultType="com.filemanager.docwingsbe.entity.Files">
         select * from files where file_id = #{id}
     </select>
-    <select id="findFodersByParentId" resultType="com.filemanager.docwingsbe.entity.multy.FolderPage">
+    <select id="findFoldersByParentId" resultType="com.filemanager.docwingsbe.entity.multy.FolderPage">
         SELECT
+            f.folder_id,
+            f.parent_id,
             f.folder_name,
             f.create_time,
             u1.user_name AS creator_name,
@@ -31,6 +33,7 @@
     </select>
     <select id="findFilesByParentId" resultType="com.filemanager.docwingsbe.entity.multy.FilesPage">
         SELECT
+            f.file_id,
             f.file_name,
             f.tag,
             f.file_size,
@@ -47,5 +50,8 @@
             user u2 ON f.last_modifier_id = u2.user_id
         WHERE
             f.parent_id = #{parentId};
+    </select>
+    <select id="findFolderById" resultType="com.filemanager.docwingsbe.entity.Folders">
+        select * from folders where folder_id = #{id}
     </select>
 </mapper>

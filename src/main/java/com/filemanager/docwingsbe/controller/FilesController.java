@@ -1,6 +1,7 @@
 package com.filemanager.docwingsbe.controller;
 
 import com.filemanager.docwingsbe.entity.Files;
+import com.filemanager.docwingsbe.entity.Folders;
 import com.filemanager.docwingsbe.entity.multy.FilesPage;
 import com.filemanager.docwingsbe.entity.multy.FolderPage;
 import com.filemanager.docwingsbe.servers.FilesServer;
@@ -22,7 +23,7 @@ public class FilesController {
 
     @RequestMapping("/downloadFile")
     public ResponseEntity<byte[]> downloadFile(long fileID) throws IOException {
-        Files file = filesServer.findDiskFileById(fileID);
+        Files file = filesServer.findFileById(fileID);
         ResponseEntity.BodyBuilder builder = ResponseEntity.ok();
         builder.contentType(MediaType.APPLICATION_OCTET_STREAM);  // 设置响应对象为二进制流
         String fileName = file.getPath();  // 设置下载的文件名
@@ -34,14 +35,24 @@ public class FilesController {
         return responseEntity;
     }
 
-    @RequestMapping("/findFodersByParentId")
-    public List<FolderPage> findFodersByParentId(@RequestParam long parentId) {
+    @RequestMapping("/findFoldersByParentId")
+    public List<FolderPage> findFoldersByParentId(@RequestParam long parentId) {
         return this.filesServer.findFoldersByParentId(parentId);
     }
 
     @RequestMapping("/findFilesByParentId")
     public List<FilesPage> findFilesByParentId(@RequestParam long parentId) {
         return this.filesServer.findFilesByParentId(parentId);
+    }
+
+    @RequestMapping("/findFileById")
+    public Files findFileById(@RequestParam long id) {
+        return this.filesServer.findFileById(id);
+    }
+
+    @RequestMapping("/findFolderById")
+    public Folders findFolderById(@RequestParam long id) {
+        return this.filesServer.findFolderById(id);
     }
 
     @RequestMapping("/insertFiles")

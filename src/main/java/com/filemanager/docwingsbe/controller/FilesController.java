@@ -31,15 +31,13 @@ public class FilesController {
     @CrossOrigin(origins = "*")  // 跨域
     public ResponseEntity<byte[]> downloadFile(@RequestParam long fileID) throws IOException {
         Files file = filesServer.findFileById(fileID);
-        ResponseEntity.BodyBuilder builder = ResponseEntity.ok();
-        builder.contentType(MediaType.APPLICATION_OCTET_STREAM);  // 设置响应对象为二进制流
-        String fileName = file.getFileName();  // 设置下载的文件名
-        fileName = URLEncoder.encode(fileName,"UTF-8");
+        ResponseEntity.BodyBuilder builder = ResponseEntity.ok();  // 设置响应对象为二进制流
+        builder.contentType(MediaType.APPLICATION_OCTET_STREAM);
+        String fileName = URLEncoder.encode(file.getFileName(),"UTF-8");  // 设置下载的文件名
         builder.header("Access-Control-Expose-Headers", "Content-Disposition");
         builder.header("Content-Disposition", "attachment;filename*=UTF-8''" + fileName);
         File dFile = new File(file.getPath());
-        ResponseEntity<byte[]> responseEntity = builder.body(FileUtils.readFileToByteArray(dFile));
-        return responseEntity;
+        return builder.body(FileUtils.readFileToByteArray(dFile));
     }
 
     @RequestMapping("/findFoldersByParentId")

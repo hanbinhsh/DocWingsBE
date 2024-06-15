@@ -99,8 +99,8 @@ DROP TABLE IF EXISTS `collections`;
 CREATE TABLE `collections`  (
   `col_id` int AUTO_INCREMENT PRIMARY KEY 		NOT NULL	COMMENT '收藏ID',
   `user_id` int 								NOT NULL	COMMENT '用户ID',
-  `file_id` int 								NOT NULL	COMMENT '文件ID',
-  `folder_id` int 								NOT NULL	COMMENT '文件夹ID',
+  `file_id` int 											COMMENT '文件ID',
+  `folder_id` int 											COMMENT '文件夹ID',
   `is_folder` boolean DEFAULT false 			NOT NULL	COMMENT '是否文件夹',
   FOREIGN KEY (`user_id`) REFERENCES user(`user_id`),
   FOREIGN KEY (`folder_id`) REFERENCES folders(`folder_id`),

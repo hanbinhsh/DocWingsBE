@@ -4,13 +4,13 @@
 
 <mapper namespace="com.filemanager.docwingsbe.mapper.FilesMapper">
     <insert id="insertFiles">
-        INSERT INTO files (id, file_name, file_size)
+        INSERT INTO files (file_name, parent_id, upload_time,file_size,file_type,uploader_id,last_modifier_id,tag,last_modify_time,is_deleted,path)
         VALUES
-        <foreach collection="list" item="item" separator=",">
-            (#{item.file_name}, #{item.parent_id}, #{item.upload_time},
-             #{item.file_size}, #{item.file_type}, #{item.uploader_id},
-             #{item.last_modifier_id}, #{item.tag}, #{item.last_modify_time},
-             #{item.is_deleted}, #{item.path})
+        <foreach collection="files" item="item" separator=",">
+            (#{item.fileName}, #{item.parentId}, #{item.uploadTime},
+             #{item.fileSize}, #{item.fileType}, #{item.uploaderId},
+             #{item.lastModifierId}, #{item.tag}, #{item.lastModifyTime},
+             #{item.isDeleted}, #{item.path})
         </foreach>
     </insert>
     <select id="findFileById" resultType="com.filemanager.docwingsbe.entity.Files">

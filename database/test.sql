@@ -78,3 +78,7 @@ JOIN
     user u2 ON f.last_modifier_id = u2.user_id
 WHERE
     f.parent_id = 0;
+    
+SELECT
+		(SELECT COUNT(*) FROM files WHERE parent_id = 0) +
+		(SELECT COUNT(*) FROM folders WHERE parent_id = 0) AS total_count;

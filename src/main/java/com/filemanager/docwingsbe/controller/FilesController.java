@@ -15,10 +15,11 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.net.URLEncoder;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+import java.util.*;
 
 @RestController
 public class FilesController {
@@ -71,13 +72,31 @@ public class FilesController {
 
     @PostMapping("/uploadOneFile")
     @CrossOrigin(origins = "*")  // 跨域
-    public Map<String, Object> uploadOneFile(@RequestParam("file") MultipartFile file) throws IOException {
+    public Map<String, Object> uploadOneFile(@RequestParam("file") MultipartFile file,
+                                             @RequestParam("userId") long userId,
+                                             @RequestParam("parentId") long parentId) throws IOException {
         String fileName = file.getOriginalFilename();  // 文件名
         String contentType = file.getContentType();  // 内容类型
         String name = file.getName();  // 表单域名
         System.out.println(name+" "+fileName+" "+contentType);
+        double size = file.getSize() / (1024.0 * 1024.0);  // MB大小
+        Timestamp timestamp = Timestamp.from(ZonedDateTime.now().toInstant());
         // 支持重复上传，uuid重新命名
         String randomFileName = UUID.randomUUID().toString();
+        // 数据库包装
+        Files dBFile = new Files();
+        dBFile.setFileName(fileName);
+        dBFile.setParentId(parentId);
+        dBFile.setUploadTime(timestamp);
+        dBFile.setFileSize(size);
+        dBFile.setFileType(contentType);
+        dBFile.setUploaderId(userId);
+        dBFile.setLastModifierId(userId);
+        //dBFile.setTag("");
+        dBFile.setLastModifyTime(timestamp);
+        //dBFile.setIsDeleted(0);
+        dBFile.setPath("randomFileName");
+        filesServer.insertFiles(List.of(dBFile));
         int suffixIndex = fileName.lastIndexOf(".");
         if(suffixIndex > 0){  // 有后缀名
             randomFileName = randomFileName + fileName.substring(suffixIndex);

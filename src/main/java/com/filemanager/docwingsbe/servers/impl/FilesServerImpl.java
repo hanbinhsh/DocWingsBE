@@ -36,7 +36,7 @@ public class FilesServerImpl implements FilesServer {
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public void insertFiles(List<Files> files) {
         filesMapper.insertFiles(files);
     }

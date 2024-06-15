@@ -16,8 +16,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.sql.Timestamp;
-import java.time.Instant;
-import java.time.LocalDateTime;
+import java.text.DecimalFormat;
 import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.Map;
@@ -80,7 +79,8 @@ public class FilesController {
         String contentType = file.getContentType();  // 内容类型
         String name = file.getName();  // 表单域名
         System.out.println(name+" "+fileName+" "+contentType);
-        double size = file.getSize() / (1024.0 * 1024.0);  // MB大小
+        DecimalFormat df = new DecimalFormat("#.##");
+        double size = Double.parseDouble(df.format(file.getSize() / (1024.0 * 1024.0)));  // 保留两位小数
         Timestamp timestamp = Timestamp.from(ZonedDateTime.now().toInstant());
         // 支持重复上传，uuid重新命名
         String randomFileName = UUID.randomUUID().toString();
@@ -119,10 +119,12 @@ public class FilesController {
         }
         filesServer.renameFile(Long.parseLong(map.get("fileId")), map.get("fileName"));
     }
+
     @RequestMapping("/renameFolder")
     public void renameFolder(@RequestBody Map<String, String> map) throws Exception {
         filesServer.renameFolder(Long.parseLong(map.get("folderId")), map.get("folderName"));
     }
+
     @RequestMapping("/deleteFile")
     public void deleteFile(@RequestBody long fileId) throws Exception {
         filesServer.deleteFile(fileId);

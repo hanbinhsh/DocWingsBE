@@ -20,6 +20,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.*;
+import java.util.Map;
 
 @RestController
 public class FilesController {
@@ -108,5 +109,22 @@ public class FilesController {
         result.put("filepath",realFilePath);
         result.put("filetype",contentType);
         return result;
+    }
+
+    @RequestMapping("/renameFile")
+    public void renameFile(@RequestBody Map<String, String> map) throws Exception {
+        Files file = filesServer.findFileById(Long.parseLong(map.get("fileId")));
+        if (file == null){
+            throw new Exception("File not found");
+        }
+        filesServer.renameFile(Long.parseLong(map.get("fileId")), map.get("fileName"));
+    }
+    @RequestMapping("/renameFolder")
+    public void renameFolder(@RequestBody Map<String, String> map) throws Exception {
+        filesServer.renameFolder(Long.parseLong(map.get("folderId")), map.get("folderName"));
+    }
+    @RequestMapping("/deleteFile")
+    public void deleteFile(@RequestBody long fileId) throws Exception {
+        filesServer.deleteFile(fileId);
     }
 }

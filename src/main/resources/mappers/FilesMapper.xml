@@ -13,6 +13,16 @@
              #{item.isDeleted}, #{item.path})
         </foreach>
     </insert>
+    <update id="renameFile">
+        UPDATE files
+        set file_name = #{fileName}
+        WHERE file_id = #{fileId}
+    </update>
+    <update id="renameFolder">
+        UPDATE folders
+        set folder_name = #{folderName}
+        WHERE folder_id = #{folderId}
+    </update>
     <select id="findFileById" resultType="com.filemanager.docwingsbe.entity.Files">
         select * from files where file_id = #{id}
     </select>

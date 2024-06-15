@@ -7,6 +7,8 @@ import com.filemanager.docwingsbe.entity.multy.FolderPage;
 import com.filemanager.docwingsbe.mapper.FilesMapper;
 import com.filemanager.docwingsbe.servers.FilesServer;
 import jakarta.annotation.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -51,6 +53,21 @@ public class FilesServerImpl implements FilesServer {
     @Transactional(readOnly = true)
     public long countFFsByParentId(long parentId) {
         return filesMapper.countFFsByParentId(parentId);
+    }
+
+    @Override
+    public void renameFile(long fileId, String fileName) {
+        filesMapper.renameFile(fileId, fileName);
+    }
+
+    @Override
+    public void renameFolder(long folderId, String folderName) {
+        filesMapper.renameFolder(folderId, folderName);
+    }
+
+    @Override
+    public void deleteFile(long fileId) {
+
     }
 
 }

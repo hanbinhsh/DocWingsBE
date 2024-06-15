@@ -7,6 +7,7 @@ import com.filemanager.docwingsbe.entity.multy.FolderPage;
 import com.filemanager.docwingsbe.servers.FilesServer;
 import jakarta.annotation.Resource;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,11 +28,12 @@ public class FilesController {
     private FilesServer filesServer;
 
     @RequestMapping("/downloadFile")
-    public ResponseEntity<byte[]> downloadFile(long fileID) throws IOException {
+    @CrossOrigin(origins = "*")  // 跨域
+    public ResponseEntity<byte[]> downloadFile(@RequestParam long fileID) throws IOException {
         Files file = filesServer.findFileById(fileID);
         ResponseEntity.BodyBuilder builder = ResponseEntity.ok();
         builder.contentType(MediaType.APPLICATION_OCTET_STREAM);  // 设置响应对象为二进制流
-        String fileName = file.getPath();  // 设置下载的文件名
+        String fileName = file.getFileName();  // 设置下载的文件名
         fileName = URLEncoder.encode(fileName,"UTF-8");
         builder.header("Access-Control-Expose-Headers", "Content-Disposition");
         builder.header("Content-Disposition", "attachment;filename*=UTF-8''" + fileName);
@@ -84,6 +86,12 @@ public class FilesController {
         Timestamp timestamp = Timestamp.from(ZonedDateTime.now().toInstant());
         // 支持重复上传，uuid重新命名
         String randomFileName = UUID.randomUUID().toString();
+        // 路径获取
+        int suffixIndex = fileName.lastIndexOf(".");
+        if(suffixIndex > 0){  // 有后缀名
+            randomFileName = randomFileName + fileName.substring(suffixIndex);
+        }
+        String realFilePath = "c:/DocWings/"+randomFileName;
         // 数据库包装
         Files dBFile = new Files();
         dBFile.setFileName(fileName);
@@ -96,13 +104,9 @@ public class FilesController {
         //dBFile.setTag("");
         dBFile.setLastModifyTime(timestamp);
         //dBFile.setIsDeleted(0);
-        dBFile.setPath("randomFileName");
+        dBFile.setPath(realFilePath);  // 数据库路径字段
         filesServer.insertFiles(List.of(dBFile));
-        int suffixIndex = fileName.lastIndexOf(".");
-        if(suffixIndex > 0){  // 有后缀名
-            randomFileName = randomFileName + fileName.substring(suffixIndex);
-        }
-        String realFilePath = "c:/DocWings/"+randomFileName;
+        // 文件操作
         file.transferTo(new File(realFilePath));  // 移动到目标文件
         Map<String, Object> result = new HashMap<>();
         result.put("filename",fileName);

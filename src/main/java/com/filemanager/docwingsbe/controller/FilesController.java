@@ -7,7 +7,6 @@ import com.filemanager.docwingsbe.entity.multy.FolderPage;
 import com.filemanager.docwingsbe.servers.FilesServer;
 import jakarta.annotation.Resource;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -60,25 +59,34 @@ public class FilesController {
         return this.filesServer.findFolderById(id);
     }
 
-    @RequestMapping("/insertFiles")
-    public void insertFiles(List<Files> files){
-        filesServer.insertFiles(files);
-    }
-
-    @RequestMapping("/insertFolders")
-    public void insertFolders(List<Folders> folders){
-        filesServer.insertFolders(folders);
-    }
-
     @RequestMapping("/insertOneFolder")
     @CrossOrigin(origins = "*")  // 跨域
-    public void insertFolders(@RequestBody Folders folders){
+    public Map<String, Object> insertFolders(@RequestBody Folders folders){
         Timestamp timestamp = Timestamp.from(ZonedDateTime.now().toInstant());
         folders.setCreateTime(timestamp);
         folders.setLastModifyTime(timestamp);
         folders.setIsDeleted(0);
         folders.setTag("");
         filesServer.insertFolders(List.of(folders));
+        Map<String, Object> result = new HashMap<>();
+        result.put("code", 201 );
+        result.put("msg", "创建成功并返回相应资源数据");
+        result.put("data",folders);
+        return result;
+    }
+
+    @RequestMapping("/changeFileRoteById")
+    @CrossOrigin(origins = "*")  // 跨域
+    public Map<String, Object> changeFileRoteById(@RequestParam long id, @RequestParam long parentId){
+        filesServer.changeFileRoteById(id, parentId);
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
+        result.put("code", 201 );
+        result.put("msg", "创建成功并返回相应资源数据");
+        data.put("id",id);
+        data.put("parentId",parentId);
+        result.put("data",data);
+        return result;
     }
 
     @RequestMapping("/countFFsByParentId")
@@ -122,7 +130,9 @@ public class FilesController {
         filesServer.insertFiles(List.of(dBFile));
         // 文件操作
         file.transferTo(new File(realFilePath));  // 移动到目标文件
+        // 返回信息
         Map<String, Object> result = new HashMap<>();
+        result.put("code",200);
         result.put("filename",fileName);
         result.put("filepath",realFilePath);
         result.put("filetype",contentType);

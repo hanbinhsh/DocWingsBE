@@ -32,6 +32,11 @@
         set folder_name = #{folderName}
         WHERE folder_id = #{folderId}
     </update>
+    <update id="changeFileRoteById">
+        UPDATE files
+            SET parent_id = #{parentId}
+            WHERE file_id = #{id}
+    </update>
     <select id="findFileById" resultType="com.filemanager.docwingsbe.entity.Files">
         select * from files where file_id = #{id}
     </select>

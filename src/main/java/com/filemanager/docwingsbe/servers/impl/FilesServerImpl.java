@@ -61,6 +61,11 @@ public class FilesServerImpl implements FilesServer {
     }
 
     @Override
+    public void changeFileRoteById(long id, long parentId) {
+        filesMapper.changeFileRoteById(id, parentId);
+    }
+
+    @Override
     public void renameFile(long fileId, String fileName) {
         filesMapper.renameFile(fileId, fileName);
     }

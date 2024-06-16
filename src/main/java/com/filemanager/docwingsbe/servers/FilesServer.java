@@ -15,6 +15,7 @@ public interface FilesServer {
     void insertFolders(List<Folders> folders);
     Folders findFolderById(long id);
     long countFFsByParentId(long parentId);
+    void changeFileRoteById(long id, long parentId);
 
     void renameFile(long fileId, String fileName);
     void renameFolder(long folderId, String folderName);

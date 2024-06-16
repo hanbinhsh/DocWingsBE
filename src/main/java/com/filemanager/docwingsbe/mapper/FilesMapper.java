@@ -16,6 +16,7 @@ public interface FilesMapper {
     public List<FolderPage> findFoldersByParentId(@Param("parentId") Long parentId);
     public List<FilesPage> findFilesByParentId(@Param("parentId") Long parentId);
     public void insertFiles(@Param("files") List<Files> files);
+    public void insertFolders(@Param("folders") List<Folders> folders);
     public long countFFsByParentId(@Param("parentId") Long parentId);
     public void renameFile(@Param("fileId") long fileId, @Param("fileName") String fileName);
     public void renameFolder(@Param("folderId") long folderId, @Param("folderName") String folderName);

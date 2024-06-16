@@ -8,9 +8,18 @@
         VALUES
         <foreach collection="files" item="item" separator=",">
             (#{item.fileName}, #{item.parentId}, #{item.uploadTime},
-             #{item.fileSize}, #{item.fileType}, #{item.uploaderId},
-             #{item.lastModifierId}, #{item.tag}, #{item.lastModifyTime},
-             #{item.isDeleted}, #{item.path})
+            #{item.fileSize}, #{item.fileType}, #{item.uploaderId},
+            #{item.lastModifierId}, #{item.tag}, #{item.lastModifyTime},
+            #{item.isDeleted}, #{item.path})
+        </foreach>
+    </insert>
+    <insert id="insertFolders">
+        INSERT INTO folders (folder_name, parent_id,create_time,creater_id,tag,is_deleted,last_modifier_id,last_modify_time)
+        VALUES
+        <foreach collection="folders" item="item" separator=",">
+            (#{item.folderName}, #{item.parentId},
+            #{item.createTime}, #{item.createrId}, #{item.tag},
+            #{item.isDeleted}, #{item.lastModifierId}, #{item.lastModifyTime})
         </foreach>
     </insert>
     <update id="renameFile">

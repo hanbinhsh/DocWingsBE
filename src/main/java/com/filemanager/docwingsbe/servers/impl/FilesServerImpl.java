@@ -44,6 +44,11 @@ public class FilesServerImpl implements FilesServer {
     }
 
     @Override
+    public void insertFolders(List<Folders> folders) {
+        filesMapper.insertFolders(folders);
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public Folders findFolderById(long id) {
         return filesMapper.findFolderById(id);

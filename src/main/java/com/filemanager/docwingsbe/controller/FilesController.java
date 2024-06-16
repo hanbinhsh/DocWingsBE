@@ -65,6 +65,22 @@ public class FilesController {
         filesServer.insertFiles(files);
     }
 
+    @RequestMapping("/insertFolders")
+    public void insertFolders(List<Folders> folders){
+        filesServer.insertFolders(folders);
+    }
+
+    @RequestMapping("/insertOneFolder")
+    @CrossOrigin(origins = "*")  // 跨域
+    public void insertFolders(@RequestBody Folders folders){
+        Timestamp timestamp = Timestamp.from(ZonedDateTime.now().toInstant());
+        folders.setCreateTime(timestamp);
+        folders.setLastModifyTime(timestamp);
+        folders.setIsDeleted(0);
+        folders.setTag("");
+        filesServer.insertFolders(List.of(folders));
+    }
+
     @RequestMapping("/countFFsByParentId")
     public long countFFsByParentId(@RequestParam long parentId){
         return filesServer.countFFsByParentId(parentId);

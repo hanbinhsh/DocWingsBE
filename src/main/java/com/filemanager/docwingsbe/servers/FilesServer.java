@@ -16,7 +16,7 @@ public interface FilesServer {
     Folders findFolderById(long id);
     long countFFsByParentId(long parentId);
     void changeFileRoteById(long id, long parentId);
-
+    List<Files> findImagesByParentId(long parentId);
     void renameFile(long fileId, String fileName);
     void renameFolder(long folderId, String folderName);
     void deleteFile(long fileId);

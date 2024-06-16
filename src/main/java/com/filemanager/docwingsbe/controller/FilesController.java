@@ -75,10 +75,24 @@ public class FilesController {
         return result;
     }
 
-    @RequestMapping("/changeFileRoteById")
+    @RequestMapping("/changeFileRouteById")
     @CrossOrigin(origins = "*")  // 跨域
-    public Map<String, Object> changeFileRoteById(@RequestParam long id, @RequestParam long parentId){
-        filesServer.changeFileRoteById(id, parentId);
+    public Map<String, Object> changeFileRouteById(@RequestParam long id, @RequestParam long parentId){
+        filesServer.changeFileRouteById(id, parentId);
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
+        result.put("code", 201 );
+        result.put("msg", "创建成功并返回相应资源数据");
+        data.put("id",id);
+        data.put("parentId",parentId);
+        result.put("data",data);
+        return result;
+    }
+
+    @RequestMapping("/changeFolderRouteById")
+    @CrossOrigin(origins = "*")  // 跨域
+    public Map<String, Object> changeFolderRouteById(@RequestParam long id, @RequestParam long parentId){
+        filesServer.changeFolderRouteById(id, parentId);
         Map<String, Object> data = new HashMap<>();
         Map<String, Object> result = new HashMap<>();
         result.put("code", 201 );
@@ -95,13 +109,19 @@ public class FilesController {
     }
 
     @RequestMapping("/findImagesByParentId")
-    public List<String> findImagesByParentId(@RequestParam long parentId){
+    public Map<String,Object> findImagesByParentId(@RequestParam long parentId){
         List<Files> images =  this.filesServer.findImagesByParentId(parentId);
         List<String> urls = new ArrayList<>();
         for (Files file : images) {
             urls.add("api/downloadFile?fileID="+file.getFileId());
         }
-        return urls;
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
+        result.put("code", 200 );
+        result.put("msg", "请求执行成功并返回相应数据");
+        data.put("imageList",urls);
+        result.put("data",data);
+        return result;
     }
 
     @PostMapping("/uploadOneFile")

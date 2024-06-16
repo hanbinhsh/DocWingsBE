@@ -61,8 +61,13 @@ public class FilesServerImpl implements FilesServer {
     }
 
     @Override
-    public void changeFileRoteById(long id, long parentId) {
-        filesMapper.changeFileRoteById(id, parentId);
+    public void changeFileRouteById(long id, long parentId) {
+        filesMapper.changeFileRouteById(id, parentId);
+    }
+
+    @Override
+    public void changeFolderRouteById(long id, long parentId) {
+        filesMapper.changeFolderRouteById(id, parentId);
     }
 
     @Override

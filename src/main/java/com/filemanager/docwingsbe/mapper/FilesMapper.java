@@ -19,7 +19,8 @@ public interface FilesMapper {
     public void insertFiles(@Param("files") List<Files> files);
     public void insertFolders(@Param("folders") List<Folders> folders);
     public long countFFsByParentId(@Param("parentId") Long parentId);
-    public void changeFileRoteById(@Param("id") Long fileId,@Param("parentId") Long parentId);
+    public void changeFileRouteById(@Param("id") Long fileId, @Param("parentId") Long parentId);
+    public void changeFolderRouteById(@Param("id") Long fileId, @Param("parentId") Long parentId);
     public void renameFile(@Param("fileId") long fileId, @Param("fileName") String fileName);
     public void renameFolder(@Param("folderId") long folderId, @Param("folderName") String folderName);
 }

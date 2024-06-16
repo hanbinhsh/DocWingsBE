@@ -66,6 +66,11 @@ public class FilesServerImpl implements FilesServer {
     }
 
     @Override
+    public List<Files> findImagesByParentId(long parentId) {
+        return filesMapper.findImagesByParentId(parentId);
+    }
+
+    @Override
     public void renameFile(long fileId, String fileName) {
         filesMapper.renameFile(fileId, fileName);
     }

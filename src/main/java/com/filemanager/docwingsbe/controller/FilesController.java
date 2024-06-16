@@ -94,6 +94,16 @@ public class FilesController {
         return filesServer.countFFsByParentId(parentId);
     }
 
+    @RequestMapping("/findImagesByParentId")
+    public List<String> findImagesByParentId(@RequestParam long parentId){
+        List<Files> images =  this.filesServer.findImagesByParentId(parentId);
+        List<String> urls = new ArrayList<>();
+        for (Files file : images) {
+            urls.add("api/downloadFile?fileID="+file.getFileId());
+        }
+        return urls;
+    }
+
     @PostMapping("/uploadOneFile")
     @CrossOrigin(origins = "*")  // 跨域
     public Map<String, Object> uploadOneFile(@RequestParam("file") MultipartFile file,

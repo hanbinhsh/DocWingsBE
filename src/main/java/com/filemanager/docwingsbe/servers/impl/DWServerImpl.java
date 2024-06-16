@@ -55,7 +55,7 @@ public class DWServerImpl implements DWServer {
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public void insertUser(User user) {
         dwmMapper.insertUser(user);
     }

@@ -83,4 +83,10 @@
             (SELECT COUNT(*) FROM files WHERE parent_id = #{parentId}) +
             (SELECT COUNT(*) FROM folders WHERE parent_id = #{parentId}) AS total_count;
     </select>
+    <select id="findImagesByParentId" resultType="com.filemanager.docwingsbe.entity.Files">
+        SELECT *
+        FROM files
+        WHERE parent_id = #{parentId}
+          AND file_type LIKE 'image/%';
+    </select>
 </mapper>

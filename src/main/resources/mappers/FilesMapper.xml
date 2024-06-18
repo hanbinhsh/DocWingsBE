@@ -162,18 +162,8 @@
         WHERE
             f.is_deleted = 1
     </select>
-    <select id="IsCollectionFile" resultType="com.filemanager.docwingsbe.entity.Collections">
+    <select id="findCollectionFFs" resultType="com.filemanager.docwingsbe.entity.Collections">
         select * from collections
-        where file_id=#{fileId}
-          and user_id=#{userId}
-    </select>
-    <select id="IsCollectionFolder" resultType="com.filemanager.docwingsbe.entity.Collections">
-        select * from collections
-        where folder_id=#{folderId}
-        and user_id=#{userId}
-    </select>
-    <select id="FindUserId" resultType="com.filemanager.docwingsbe.entity.User">
-        select * from user
-        where user_name=#{userName}
+        where user_id=#{userId}
     </select>
 </mapper>

@@ -1,5 +1,6 @@
 package com.filemanager.docwingsbe.controller;
 
+import com.filemanager.docwingsbe.entity.Collections;
 import com.filemanager.docwingsbe.entity.Files;
 import com.filemanager.docwingsbe.entity.Folders;
 import com.filemanager.docwingsbe.entity.multy.FilesPage;
@@ -221,17 +222,8 @@ public class FilesController {
     public void CollectionsDeleteFile(@RequestBody Map<String, String> map) throws Exception {
         filesServer.CollectionsDeleteFile(Long.parseLong(map.get("fileId")),Long.parseLong(map.get("userId")));
     }
-    @RequestMapping("/IsCollectionFile")
-    public boolean IsCollectionFile(@RequestBody Map<String, String> map) throws Exception {
-        return filesServer.IsCollectionFile(Long.parseLong(map.get("fileId")),Long.parseLong(map.get("userId")));
+    @RequestMapping("/findCollectionFFs")
+    public List<Collections> findCollectionFFs(@RequestParam long userId) throws Exception {
+        return filesServer.findCollectionFFs(userId);
     }
-    @RequestMapping("/IsCollectionFolder")
-    public boolean IsCollectionFolder(@RequestBody Map<String, String> map) throws Exception {
-        return filesServer.IsCollectionFolder(Long.parseLong(map.get("folderId")),Long.parseLong(map.get("userId")));
-    }
-    @RequestMapping("/FindUserId")
-    public long FindUserId(@RequestBody Map<String, String> map) throws Exception {
-        return filesServer.FindUserId(map.get("userName"));
-    }
-
 }

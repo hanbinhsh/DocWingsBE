@@ -34,8 +34,5 @@ public interface FilesMapper {
     public void CollectionsDeleteFolder(@Param("folderId") long folderId, @Param("userId") long userId);
     public void CollectionsInsertFile(@Param("fileId") long fileId, @Param("userId") long userId);
     public void CollectionsDeleteFile(@Param("fileId") long fileId, @Param("userId") long userId);
-    public Collections IsCollectionFolder(@Param("folderId") long folderId, @Param("userId") long userId);
-    public Collections IsCollectionFile(@Param("fileId") long fileId, @Param("userId") long userId);
-    public User FindUserId(@Param("userName") String userName);
-
+    public List<Collections> findCollectionFFs(@Param("userId") long userId);
 }

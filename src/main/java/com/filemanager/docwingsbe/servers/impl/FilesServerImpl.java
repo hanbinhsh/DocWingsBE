@@ -117,20 +117,7 @@ public class FilesServerImpl implements FilesServer {
     }
 
     @Override
-    public boolean IsCollectionFolder(long folderId, long userId){
-        Collections collections=filesMapper.IsCollectionFolder(folderId, userId);
-        return collections!=null;
-    }
-
-    @Override
-    public boolean IsCollectionFile(long fileId, long userId){
-        Collections collections = filesMapper.IsCollectionFile(fileId, userId);
-        return collections!=null;
-    }
-
-    @Override
-    public long FindUserId(String userName) {
-        User user= filesMapper.FindUserId(userName);
-        return user.getUserId();
+    public List<Collections> findCollectionFFs(long userId) {
+        return filesMapper.findCollectionFFs(userId);
     }
 }

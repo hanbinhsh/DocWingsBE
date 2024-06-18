@@ -205,6 +205,16 @@ public class FilesController {
         return this.filesServer.findFolderByDelete(Long.parseLong(map.get("status")));
     }
 
+    @RequestMapping("/deleteFile")
+    public void deleteFile(@RequestBody Map<String, String> map) {
+        filesServer.deleteFile(Long.parseLong(map.get("fileId")));
+    }
+
+    @RequestMapping("/deleteFolder")
+    public void deleteFolder(@RequestBody Map<String, String> map) {
+        filesServer.deleteFolder(Long.parseLong(map.get("folderId")));
+    }
+
     @RequestMapping("/CollectionsInsertFolder")
     public void CollectionsInsertFolder(@RequestBody Map<String, String> map) throws Exception {
         filesServer.CollectionsInsertFolder(Long.parseLong(map.get("folderId")),Long.parseLong(map.get("userId")));

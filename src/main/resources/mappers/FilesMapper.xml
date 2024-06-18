@@ -74,6 +74,16 @@
         where file_id=#{fileId}
           and user_id=#{userId}
     </delete>
+    <delete id="deleteFile">
+        delete from files where file_id = #{fileId}
+    </delete>
+    <delete id="deleteFolder">
+        {call
+            delete_node(
+                    #{folderId}
+            )
+        }
+    </delete>
     <select id="findFileById" resultType="com.filemanager.docwingsbe.entity.Files">
         select * from files where file_id = #{id}
     </select>

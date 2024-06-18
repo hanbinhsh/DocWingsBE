@@ -31,4 +31,6 @@ public interface FilesServer {
     void CollectionsInsertFile(long folderId, long userId);
     void CollectionsDeleteFile(long folderId, long userId);
     List<Collections> findCollectionFFs(long userId);
+    void deleteFile(long fileId);
+    void deleteFolder(long folderId);
 }

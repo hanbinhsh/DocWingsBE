@@ -120,4 +120,10 @@ public class FilesServerImpl implements FilesServer {
     public List<Collections> findCollectionFFs(long userId) {
         return filesMapper.findCollectionFFs(userId);
     }
+
+    @Override
+    public void deleteFile(long fileId) { filesMapper.deleteFile(fileId); }
+
+    @Override
+    public void deleteFolder(long folderId) { filesMapper.deleteFolder(folderId); }
 }

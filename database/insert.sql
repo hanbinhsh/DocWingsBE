@@ -20,12 +20,6 @@ INSERT INTO `logs` (`user_id`, `act`, `log_time`, `importance`) VALUES
 (4, '查看文章', '2024-06-01 13:00:00', 1),
 (5, '评论文章', '2024-06-01 14:00:00', 2);
 
-SET FOREIGN_KEY_CHECKS = 0;
-INSERT INTO `folders` (`folder_id`,`folder_name`, `parent_id`, `create_time`, `creater_id`, `tag`, `last_modify_time`, `is_deleted`, `last_modifier_id`) VALUES
-(0,'ROOT', 0, '2024-06-01 09:00:00', 1, 'system', '2024-06-01 09:00:00', false, 1);
-UPDATE `folders` SET `folder_id` = '0' WHERE (`folder_name` = 'ROOT') and folder_id>=0;
-SET FOREIGN_KEY_CHECKS = 1;
-
 INSERT INTO `folders` (`folder_name`, `parent_id`, `create_time`, `creater_id`, `tag`, `last_modify_time`, `is_deleted`, `last_modifier_id`) VALUES
 ('子文件夹1', 0, '2024-06-01 10:00:00', 2, '工作', '2024-06-01 10:00:00', false, 2),
 ('子文件夹2', 0, '2024-06-01 11:00:00', 3, '个人', '2024-06-01 11:00:00', false, 3),

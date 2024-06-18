@@ -196,7 +196,6 @@ public class FilesController {
 
     @RequestMapping("/findFileByDelete")
     public List<FilesPage> findFileByDelete(@RequestBody Map<String, String> map) {
-        System.out.println("11111");
         return this.filesServer.findFileByDelete(Long.parseLong(map.get("status")));
     }
 
@@ -233,5 +232,7 @@ public class FilesController {
     public long FindUserId(@RequestBody Map<String, String> map) throws Exception {
         return filesServer.FindUserId(map.get("userName"));
     }
+
+
 
 }

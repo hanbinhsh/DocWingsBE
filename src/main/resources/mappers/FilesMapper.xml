@@ -52,7 +52,7 @@
     </update>
     <update id="recycleBinFile">
         update files
-        set is_deleted = 1
+        set is_deleted = #{status}
         where file_id = #{fileId}
     </update>
     <update id="recycleBinFolder" statementType="CALLABLE">

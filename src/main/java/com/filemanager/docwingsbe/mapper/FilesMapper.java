@@ -23,4 +23,8 @@ public interface FilesMapper {
     public void changeFolderRouteById(@Param("id") Long fileId, @Param("parentId") Long parentId);
     public void renameFile(@Param("fileId") long fileId, @Param("fileName") String fileName);
     public void renameFolder(@Param("folderId") long folderId, @Param("folderName") String folderName);
+    public void recycleBinFile(@Param("fileId") long fileId, @Param("status") boolean status);
+    public void recycleBinFolder(@Param("folderId") long folderId, @Param("status") long status);
+    public List<FilesPage> findFileByDelete(@Param("status") long status);
+    public List<FolderPage> findFolderByDelete(@Param("status") long status);
 }

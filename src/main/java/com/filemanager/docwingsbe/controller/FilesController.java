@@ -179,12 +179,29 @@ public class FilesController {
     }
 
     @RequestMapping("/renameFolder")
-    public void renameFolder(@RequestBody Map<String, String> map) throws Exception {
+    public void renameFolder(@RequestBody Map<String, String> map) {
         filesServer.renameFolder(Long.parseLong(map.get("folderId")), map.get("folderName"));
     }
 
-    @RequestMapping("/deleteFile")
-    public void deleteFile(@RequestBody long fileId) throws Exception {
-        filesServer.deleteFile(fileId);
+    @RequestMapping("/recycleBinFile")
+    public void recycleBinFile(@RequestBody Map<String, String> map) {
+        filesServer.recycleBinFile(Long.parseLong(map.get("fileId")), Boolean.parseBoolean(map.get("status")));
     }
+
+    @RequestMapping("/recycleBinFolder")
+    public void recycleBinFolder(@RequestBody Map<String, String> map) {
+        filesServer.recycleBinFolder(Long.parseLong(map.get("folderId")), Long.parseLong(map.get("status")));
+    }
+
+    @RequestMapping("/findFileByDelete")
+    public List<FilesPage> findFileByDelete(@RequestBody Map<String, String> map) {
+        System.out.println("11111");
+        return this.filesServer.findFileByDelete(Long.parseLong(map.get("status")));
+    }
+
+    @RequestMapping("/findFolderByDelete")
+    public List<FolderPage> findFolderByDelete(@RequestBody Map<String, String> map) {
+        return this.filesServer.findFolderByDelete(Long.parseLong(map.get("status")));
+    }
+
 }

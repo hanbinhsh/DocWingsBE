@@ -20,5 +20,8 @@ public interface FilesServer {
     List<Files> findImagesByParentId(long parentId);
     void renameFile(long fileId, String fileName);
     void renameFolder(long folderId, String folderName);
-    void deleteFile(long fileId);
+    void recycleBinFile(long fileId, boolean status);
+    void recycleBinFolder(long folderId, long status);
+    List<FilesPage> findFileByDelete(long status);
+    List<FolderPage> findFolderByDelete(long status);
 }

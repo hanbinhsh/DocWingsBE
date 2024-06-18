@@ -7,6 +7,7 @@ import com.filemanager.docwingsbe.entity.multy.FolderPage;
 import com.filemanager.docwingsbe.servers.FilesServer;
 import jakarta.annotation.Resource;
 import org.apache.commons.io.FileUtils;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -202,6 +203,35 @@ public class FilesController {
     @RequestMapping("/findFolderByDelete")
     public List<FolderPage> findFolderByDelete(@RequestBody Map<String, String> map) {
         return this.filesServer.findFolderByDelete(Long.parseLong(map.get("status")));
+    }
+
+    @RequestMapping("/CollectionsInsertFolder")
+    public void CollectionsInsertFolder(@RequestBody Map<String, String> map) throws Exception {
+        filesServer.CollectionsInsertFolder(Long.parseLong(map.get("folderId")),Long.parseLong(map.get("userId")));
+    }
+    @RequestMapping("/CollectionsDeleteFolder")
+    public void CollectionsDeleteFolder(@RequestBody Map<String, String> map) throws Exception {
+        filesServer.CollectionsDeleteFolder(Long.parseLong(map.get("folderId")),Long.parseLong(map.get("userId")));
+    }
+    @RequestMapping("/CollectionsInsertFile")
+    public void CollectionsInsertFile(@RequestBody Map<String, String> map) throws Exception {
+        filesServer.CollectionsInsertFile(Long.parseLong(map.get("fileId")),Long.parseLong(map.get("userId")));
+    }
+    @RequestMapping("/CollectionsDeleteFile")
+    public void CollectionsDeleteFile(@RequestBody Map<String, String> map) throws Exception {
+        filesServer.CollectionsDeleteFile(Long.parseLong(map.get("fileId")),Long.parseLong(map.get("userId")));
+    }
+    @RequestMapping("/IsCollectionFile")
+    public boolean IsCollectionFile(@RequestBody Map<String, String> map) throws Exception {
+        return filesServer.IsCollectionFile(Long.parseLong(map.get("fileId")),Long.parseLong(map.get("userId")));
+    }
+    @RequestMapping("/IsCollectionFolder")
+    public boolean IsCollectionFolder(@RequestBody Map<String, String> map) throws Exception {
+        return filesServer.IsCollectionFolder(Long.parseLong(map.get("folderId")),Long.parseLong(map.get("userId")));
+    }
+    @RequestMapping("/FindUserId")
+    public long FindUserId(@RequestBody Map<String, String> map) throws Exception {
+        return filesServer.FindUserId(map.get("userName"));
     }
 
 }

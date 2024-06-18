@@ -24,4 +24,12 @@ public interface FilesServer {
     void recycleBinFolder(long folderId, long status);
     List<FilesPage> findFileByDelete(long status);
     List<FolderPage> findFolderByDelete(long status);
+
+    void CollectionsInsertFolder(long folderId, long userId);
+    void CollectionsDeleteFolder(long folderId, long userId);
+    void CollectionsInsertFile(long folderId, long userId);
+    void CollectionsDeleteFile(long folderId, long userId);
+    boolean IsCollectionFolder(long folderId, long userId);
+    boolean IsCollectionFile(long fileId, long userId);
+    long FindUserId(String username);
 }

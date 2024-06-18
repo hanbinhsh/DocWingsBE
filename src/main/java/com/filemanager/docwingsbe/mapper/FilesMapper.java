@@ -29,6 +29,7 @@ public interface FilesMapper {
     public void recycleBinFolder(@Param("folderId") long folderId, @Param("status") long status);
     public List<FilesPage> findFileByDelete(@Param("status") long status);
     public List<FolderPage> findFolderByDelete(@Param("status") long status);
+    public List<String> findPathsByFileName(String fileName);
 
     public void CollectionsInsertFolder(@Param("folderId") long folderId, @Param("userId") long userId);
     public void CollectionsDeleteFolder(@Param("folderId") long folderId, @Param("userId") long userId);

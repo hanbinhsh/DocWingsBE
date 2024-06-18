@@ -235,4 +235,10 @@ public class FilesController {
     public List<Collections> findCollectionFFs(@RequestParam long userId) throws Exception {
         return filesServer.findCollectionFFs(userId);
     }
+    @GetMapping("/searchFile")
+    public ResponseEntity<List<String>> searchFile(@RequestParam(value = "fileName", required = false) String fileName){
+        List<String> paths = filesServer.findPathsByFileName(fileName);
+        return ResponseEntity.ok(paths);
+    }
+
 }

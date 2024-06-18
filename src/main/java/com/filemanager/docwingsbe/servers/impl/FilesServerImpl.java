@@ -73,10 +73,6 @@ public class FilesServerImpl implements FilesServer {
         return filesMapper.findImagesByParentId(parentId);
     }
 
-    @Override
-    public List<Files> findImagesByParentId(long parentId) {
-        return filesMapper.findImagesByParentId(parentId);
-    }
 
     @Override
     public void renameFile(long fileId, String fileName) {
@@ -99,5 +95,8 @@ public class FilesServerImpl implements FilesServer {
 
     @Override
     public List<FolderPage> findFolderByDelete(long status) { return filesMapper.findFolderByDelete(status); }
+
+    @Override
+    public List<String> findPathsByFileName(String fileName){ return filesMapper.findPathsByFileName(fileName); }
 
 }

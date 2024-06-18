@@ -204,4 +204,10 @@ public class FilesController {
         return this.filesServer.findFolderByDelete(Long.parseLong(map.get("status")));
     }
 
+    @GetMapping("/searchFile")
+    public ResponseEntity<List<String>> searchFile(@RequestParam(value = "fileName", required = false) String fileName){
+        List<String> paths = filesServer.findPathsByFileName(fileName);
+        return ResponseEntity.ok(paths);
+    }
+
 }

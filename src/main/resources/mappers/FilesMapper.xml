@@ -144,4 +144,7 @@
         WHERE
             f.is_deleted = 1
     </select>
+    <select id="findPathsByFileName" resultType="java.lang.String">
+        select path from files where path like concat('%', #{fileName}, '%')
+    </select>
 </mapper>

@@ -22,6 +22,14 @@
             #{item.isDeleted}, #{item.lastModifierId}, #{item.lastModifyTime})
         </foreach>
     </insert>
+    <insert id="CollectionsInsertFolder">
+        insert into collections (folder_id,user_id,is_folder)
+        values (#{folderId},#{userId},1);
+    </insert>
+    <insert id="CollectionsInsertFile">
+        insert into collections (file_id,user_id)
+        values (#{fileId},#{userId});
+    </insert>
     <update id="renameFile">
         UPDATE files
         set file_name = #{fileName}
@@ -56,6 +64,16 @@
         }
     </update>
 
+    <delete id="CollectionsDeleteFolder">
+        delete from collections
+        where folder_id=#{folderId}
+        and user_id=#{userId}
+    </delete>
+    <delete id="CollectionsDeleteFile">
+        delete from collections
+        where file_id=#{fileId}
+          and user_id=#{userId}
+    </delete>
     <select id="findFileById" resultType="com.filemanager.docwingsbe.entity.Files">
         select * from files where file_id = #{id}
     </select>
@@ -143,6 +161,10 @@
                  JOIN user u2 ON f.last_modifier_id = u2.user_id
         WHERE
             f.is_deleted = 1
+    </select>
+    <select id="findCollectionFFs" resultType="com.filemanager.docwingsbe.entity.Collections">
+        select * from collections
+        where user_id=#{userId}
     </select>
     <select id="findPathsByFileName" resultType="java.lang.String">
         select path from files where path like concat('%', #{fileName}, '%')

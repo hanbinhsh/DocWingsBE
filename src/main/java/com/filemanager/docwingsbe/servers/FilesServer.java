@@ -1,5 +1,6 @@
 package com.filemanager.docwingsbe.servers;
 
+import com.filemanager.docwingsbe.entity.Collections;
 import com.filemanager.docwingsbe.entity.Files;
 import com.filemanager.docwingsbe.entity.Folders;
 import com.filemanager.docwingsbe.entity.multy.FilesPage;
@@ -26,4 +27,10 @@ public interface FilesServer {
     List<FolderPage> findFolderByDelete(long status);
     List<String> findPathsByFileName(String fileName);
 
+
+    void CollectionsInsertFolder(long folderId, long userId);
+    void CollectionsDeleteFolder(long folderId, long userId);
+    void CollectionsInsertFile(long folderId, long userId);
+    void CollectionsDeleteFile(long folderId, long userId);
+    List<Collections> findCollectionFFs(long userId);
 }

@@ -2,6 +2,8 @@ package com.filemanager.docwingsbe.mapper;
 
 import com.filemanager.docwingsbe.entity.Files;
 import com.filemanager.docwingsbe.entity.Folders;
+import com.filemanager.docwingsbe.entity.Collections;
+import com.filemanager.docwingsbe.entity.User;
 import com.filemanager.docwingsbe.entity.multy.FilesPage;
 import com.filemanager.docwingsbe.entity.multy.FolderPage;
 import org.apache.ibatis.annotations.Mapper;
@@ -28,4 +30,10 @@ public interface FilesMapper {
     public List<FilesPage> findFileByDelete(@Param("status") long status);
     public List<FolderPage> findFolderByDelete(@Param("status") long status);
     public List<String> findPathsByFileName(String fileName);
+
+    public void CollectionsInsertFolder(@Param("folderId") long folderId, @Param("userId") long userId);
+    public void CollectionsDeleteFolder(@Param("folderId") long folderId, @Param("userId") long userId);
+    public void CollectionsInsertFile(@Param("fileId") long fileId, @Param("userId") long userId);
+    public void CollectionsDeleteFile(@Param("fileId") long fileId, @Param("userId") long userId);
+    public List<Collections> findCollectionFFs(@Param("userId") long userId);
 }

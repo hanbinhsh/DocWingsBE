@@ -1,7 +1,9 @@
 package com.filemanager.docwingsbe.servers.impl;
 
+import com.filemanager.docwingsbe.entity.Collections;
 import com.filemanager.docwingsbe.entity.Files;
 import com.filemanager.docwingsbe.entity.Folders;
+import com.filemanager.docwingsbe.entity.User;
 import com.filemanager.docwingsbe.entity.multy.FilesPage;
 import com.filemanager.docwingsbe.entity.multy.FolderPage;
 import com.filemanager.docwingsbe.mapper.FilesMapper;
@@ -16,7 +18,6 @@ import java.util.List;
 public class FilesServerImpl implements FilesServer {
     @Resource
     private FilesMapper filesMapper;
-
     @Override
     @Transactional(readOnly = true)
     public Files findFileById(long id) {
@@ -99,4 +100,28 @@ public class FilesServerImpl implements FilesServer {
     @Override
     public List<String> findPathsByFileName(String fileName){ return filesMapper.findPathsByFileName(fileName); }
 
+    @Override
+    public void CollectionsInsertFolder(long folderId, long userId){
+        filesMapper.CollectionsInsertFolder(folderId, userId);
+    }
+
+    @Override
+    public void CollectionsDeleteFolder(long folderId, long userId){
+        filesMapper.CollectionsDeleteFolder(folderId, userId);
+    }
+
+    @Override
+    public void CollectionsInsertFile(long folderId, long userId){
+        filesMapper.CollectionsInsertFile(folderId, userId);
+    }
+
+    @Override
+    public void CollectionsDeleteFile(long folderId, long userId){
+        filesMapper.CollectionsDeleteFile(folderId, userId);
+    }
+
+    @Override
+    public List<Collections> findCollectionFFs(long userId) {
+        return filesMapper.findCollectionFFs(userId);
+    }
 }

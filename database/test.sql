@@ -82,3 +82,7 @@ WHERE
 SELECT
 		(SELECT COUNT(*) FROM files WHERE parent_id = 0) +
 		(SELECT COUNT(*) FROM folders WHERE parent_id = 0) AS total_count;
+        
+UPDATE files 
+SET parent_id = 1 
+WHERE file_id = 2

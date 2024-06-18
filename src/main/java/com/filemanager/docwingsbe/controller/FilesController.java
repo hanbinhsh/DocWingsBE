@@ -1,5 +1,6 @@
 package com.filemanager.docwingsbe.controller;
 
+import com.filemanager.docwingsbe.entity.Collections;
 import com.filemanager.docwingsbe.entity.Files;
 import com.filemanager.docwingsbe.entity.Folders;
 import com.filemanager.docwingsbe.entity.multy.FilesPage;
@@ -7,6 +8,7 @@ import com.filemanager.docwingsbe.entity.multy.FolderPage;
 import com.filemanager.docwingsbe.servers.FilesServer;
 import jakarta.annotation.Resource;
 import org.apache.commons.io.FileUtils;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -204,6 +206,26 @@ public class FilesController {
         return this.filesServer.findFolderByDelete(Long.parseLong(map.get("status")));
     }
 
+    @RequestMapping("/CollectionsInsertFolder")
+    public void CollectionsInsertFolder(@RequestBody Map<String, String> map) throws Exception {
+        filesServer.CollectionsInsertFolder(Long.parseLong(map.get("folderId")),Long.parseLong(map.get("userId")));
+    }
+    @RequestMapping("/CollectionsDeleteFolder")
+    public void CollectionsDeleteFolder(@RequestBody Map<String, String> map) throws Exception {
+        filesServer.CollectionsDeleteFolder(Long.parseLong(map.get("folderId")),Long.parseLong(map.get("userId")));
+    }
+    @RequestMapping("/CollectionsInsertFile")
+    public void CollectionsInsertFile(@RequestBody Map<String, String> map) throws Exception {
+        filesServer.CollectionsInsertFile(Long.parseLong(map.get("fileId")),Long.parseLong(map.get("userId")));
+    }
+    @RequestMapping("/CollectionsDeleteFile")
+    public void CollectionsDeleteFile(@RequestBody Map<String, String> map) throws Exception {
+        filesServer.CollectionsDeleteFile(Long.parseLong(map.get("fileId")),Long.parseLong(map.get("userId")));
+    }
+    @RequestMapping("/findCollectionFFs")
+    public List<Collections> findCollectionFFs(@RequestParam long userId) throws Exception {
+        return filesServer.findCollectionFFs(userId);
+    }
     @GetMapping("/searchFile")
     public ResponseEntity<List<String>> searchFile(@RequestParam(value = "fileName", required = false) String fileName){
         List<String> paths = filesServer.findPathsByFileName(fileName);

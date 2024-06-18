@@ -86,7 +86,7 @@ public class FilesServerImpl implements FilesServer {
     }
 
     @Override
-    public void recycleBinFile(long fileId, boolean status) { filesMapper.recycleBinFile(fileId, status);}
+    public void recycleBinFile(long fileId, long status) { filesMapper.recycleBinFile(fileId, status);}
 
     @Override
     public void recycleBinFolder(long folderId, long status) { filesMapper.recycleBinFolder(folderId, status); }

@@ -187,7 +187,7 @@ public class FilesController {
 
     @RequestMapping("/recycleBinFile")
     public void recycleBinFile(@RequestBody Map<String, String> map) {
-        filesServer.recycleBinFile(Long.parseLong(map.get("fileId")), Boolean.parseBoolean(map.get("status")));
+        filesServer.recycleBinFile(Long.parseLong(map.get("fileId")), Long.parseLong(map.get("status")));
     }
 
     @RequestMapping("/recycleBinFolder")

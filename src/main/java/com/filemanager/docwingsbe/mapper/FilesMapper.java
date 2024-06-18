@@ -3,7 +3,6 @@ package com.filemanager.docwingsbe.mapper;
 import com.filemanager.docwingsbe.entity.Files;
 import com.filemanager.docwingsbe.entity.Folders;
 import com.filemanager.docwingsbe.entity.Collections;
-import com.filemanager.docwingsbe.entity.User;
 import com.filemanager.docwingsbe.entity.multy.FilesPage;
 import com.filemanager.docwingsbe.entity.multy.FolderPage;
 import org.apache.ibatis.annotations.Mapper;
@@ -25,7 +24,7 @@ public interface FilesMapper {
     public void changeFolderRouteById(@Param("id") Long fileId, @Param("parentId") Long parentId);
     public void renameFile(@Param("fileId") long fileId, @Param("fileName") String fileName);
     public void renameFolder(@Param("folderId") long folderId, @Param("folderName") String folderName);
-    public void recycleBinFile(@Param("fileId") long fileId, @Param("status") boolean status);
+    public void recycleBinFile(@Param("fileId") long fileId, @Param("status") long status);
     public void recycleBinFolder(@Param("folderId") long folderId, @Param("status") long status);
     public List<FilesPage> findFileByDelete(@Param("status") long status);
     public List<FolderPage> findFolderByDelete(@Param("status") long status);

@@ -7,8 +7,6 @@ import com.filemanager.docwingsbe.entity.multy.FolderPage;
 import com.filemanager.docwingsbe.mapper.FilesMapper;
 import com.filemanager.docwingsbe.servers.FilesServer;
 import jakarta.annotation.Resource;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,8 +59,18 @@ public class FilesServerImpl implements FilesServer {
     }
 
     @Override
-    public void changeFileRoteById(long id, long parentId) {
-        filesMapper.changeFileRoteById(id, parentId);
+    public void changeFileRouteById(long id, long parentId) {
+        filesMapper.changeFileRouteById(id, parentId);
+    }
+
+    @Override
+    public void changeFolderRouteById(long id, long parentId) {
+        filesMapper.changeFolderRouteById(id, parentId);
+    }
+
+    @Override
+    public List<Files> findImagesByParentId(long parentId) {
+        return filesMapper.findImagesByParentId(parentId);
     }
 
     @Override
@@ -81,8 +89,15 @@ public class FilesServerImpl implements FilesServer {
     }
 
     @Override
-    public void deleteFile(long fileId) {
+    public void recycleBinFile(long fileId, boolean status) { filesMapper.recycleBinFile(fileId, status);}
 
-    }
+    @Override
+    public void recycleBinFolder(long folderId, long status) { filesMapper.recycleBinFolder(folderId, status); }
+
+    @Override
+    public List<FilesPage> findFileByDelete(long status) { return filesMapper.findFileByDelete(status); }
+
+    @Override
+    public List<FolderPage> findFolderByDelete(long status) { return filesMapper.findFolderByDelete(status); }
 
 }

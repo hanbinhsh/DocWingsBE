@@ -168,6 +168,8 @@ BEGIN
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
     -- 删除文件夹中的文件
     DELETE FROM files WHERE parent_id = node_id;
+    DELETE FROM collections
+    WHERE file_id IN (SELECT file_id FROM files WHERE parent_id = node_id);
     -- 递归删除文件夹
     OPEN cur;
     read_loop: LOOP
@@ -179,6 +181,7 @@ BEGIN
     END LOOP;
     CLOSE cur;
     -- 删除文件夹
+    DELETE FROM collections WHERE folder_id = node_id;
     DELETE FROM folders WHERE folder_id = node_id;
 END //
 DELIMITER ;

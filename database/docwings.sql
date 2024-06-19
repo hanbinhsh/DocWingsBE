@@ -129,6 +129,7 @@ $$
 DELIMITER ;
 
 -- 文件夹放入取出回收站
+SET global max_sp_recursion_depth = 32;
 SET @@max_sp_recursion_depth = 32;
 DELIMITER //
 DROP PROCEDURE IF EXISTS update_node_status //

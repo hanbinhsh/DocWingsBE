@@ -125,6 +125,22 @@ public class FilesController {
         return result;
     }
 
+    @RequestMapping("/findImagesByCollection")
+    public Map<String,Object> findImagesByCollection(@RequestParam long userId){
+        List<Files> images =  this.filesServer.findImagesByCollection(userId);
+        List<String> urls = new ArrayList<>();
+        for (Files file : images) {
+            urls.add("api/downloadFile?fileID="+file.getFileId());
+        }
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
+        result.put("code", 200 );
+        result.put("msg", "请求执行成功并返回相应数据");
+        data.put("imageList",urls);
+        result.put("data",data);
+        return result;
+    }
+
     @RequestMapping("/findAudioByParentId")
     public Map<String,Object> findAudioByParentId(@RequestParam long parentId){
         List<Files> audio =  this.filesServer.findAudioByParentId(parentId);
@@ -137,6 +153,25 @@ public class FilesController {
         result.put("code", 200 );
         result.put("msg", "请求执行成功并返回相应数据");
         data.put("audioList",urls);
+        result.put("data",data);
+        return result;
+    }
+
+    @RequestMapping("/queryCapacity")
+    public Map<String,Object> queryCapacity(){
+        //  TODO 加入分类统计
+        DecimalFormat df = new DecimalFormat("#.##");
+        final int MAX_CAPACITY = 32;  // 最大容量
+        double files = filesServer.countFileSize()/1024.0;
+        double trashFiles = filesServer.countTrashFileSize()/1024.0;
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
+        result.put("code", 200 );
+        result.put("msg", "请求执行成功并返回相应数据");
+        data.put("filesCapacity",df.format(files));
+        data.put("trashFilesCapacity",df.format(trashFiles));
+        data.put("maxCapacity",df.format(MAX_CAPACITY));
+        data.put("leftCapacity",df.format(MAX_CAPACITY-trashFiles-files));
         result.put("data",data);
         return result;
     }

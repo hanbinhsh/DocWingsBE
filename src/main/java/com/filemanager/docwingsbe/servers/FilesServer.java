@@ -20,6 +20,7 @@ public interface FilesServer {
     void changeFileRouteById(long id, long parentId);
     void changeFolderRouteById(long id, long parentId);
     List<Files> findImagesByParentId(long parentId);
+    List<Files> findImagesByCollection(Long userId);
     List<Files> findAudioByParentId(long parentId);
     List<String> findTags();
     List<FolderPage> findFoldersByTag(String tag);
@@ -29,6 +30,8 @@ public interface FilesServer {
     List<FilesPage> findAudioFiles();
     List<FilesPage> findVideoFiles();
     List<FilesPage> findOtherFiles();
+    double countFileSize();
+    double countTrashFileSize();
 
     void renameFile(long fileId, String fileName);
     void renameFolder(long folderId, String folderName);

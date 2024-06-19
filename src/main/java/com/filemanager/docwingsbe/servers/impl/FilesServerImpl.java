@@ -74,6 +74,11 @@ public class FilesServerImpl implements FilesServer {
     }
 
     @Override
+    public List<Files> findImagesByCollection(Long userId) {
+        return filesMapper.findImagesByCollection(userId);
+    }
+
+    @Override
     public List<String> findTags() {
         return filesMapper.findTags();
     }
@@ -111,6 +116,16 @@ public class FilesServerImpl implements FilesServer {
     @Override
     public List<FilesPage> findOtherFiles() {
         return filesMapper.findOtherFiles();
+    }
+
+    @Override
+    public double countFileSize() {
+        return filesMapper.countFileSize();
+    }
+
+    @Override
+    public double countTrashFileSize() {
+        return filesMapper.countTrashFileSize();
     }
 
     @Override

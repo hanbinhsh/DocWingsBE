@@ -63,6 +63,12 @@
             )
         }
     </update>
+    <update id="updateParentFolderByFolderId">
+        update folders
+        set is_deleted = 0
+        where folder_id = #{folderId}
+    </update>
+
     <delete id="CollectionsDeleteFolder">
         delete from collections
         where folder_id=#{folderId}
@@ -181,6 +187,45 @@
     <select id="findPathsByFileName" resultType="java.lang.String">
         select path from files where path like concat('%', #{fileName}, '%')
     </select>
+    <select id="findFilesByParentIdUserId" resultType="com.filemanager.docwingsbe.entity.multy.FilesPage">
+        SELECT
+            f.file_id,
+            f.file_name,
+            f.tag,
+            f.file_size,
+            f.file_type,
+            u1.user_name AS uploader_name,
+            f.upload_time,
+            u2.user_name AS last_modifier_name,
+            f.last_modify_time
+        FROM
+            files f
+                JOIN
+            user u1 ON f.uploader_id = u1.user_id
+                JOIN
+            user u2 ON f.last_modifier_id = u2.user_id
+                JOIN
+            collections on collections.file_id=f.file_id
+        WHERE
+             f.is_deleted != 1 AND collections.user_id=#{userId};
+    </select>
+    <select id="findFoldersByParentIdUserId" resultType="com.filemanager.docwingsbe.entity.multy.FolderPage">
+        SELECT
+            f.folder_id,
+            f.parent_id,
+            f.folder_name,
+            f.create_time,
+            u1.user_name AS creator_name,
+            f.tag,
+            u2.user_name AS last_modifier_name,
+            f.last_modify_time
+        FROM folders f
+                 JOIN user u1 ON f.creater_id = u1.user_id
+                 JOIN user u2 ON f.last_modifier_id = u2.user_id
+                JOIN collections on collections.folder_id=f.folder_id
+        WHERE f.parent_id = #{parentId} AND f.folder_id != 0  AND f.is_deleted != 1 AND collections.user_id=#{userId}
+    </select>
+
     <select id="findPathByParentId" resultType="java.lang.String">
         select path from files where parent_id = #{parentId}
     </select>
@@ -265,5 +310,11 @@
                                 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
                                 'application/vnd.openxmlformats-officedocument.presentationml.presentation'
             );
+    </select>
+    <select id="findParentFolderByFileId" resultType="java.lang.Long">
+        select parent_id from files where file_id = #{fileId}
+    </select>
+    <select id="findParentFolderByFolderId" resultType="java.lang.Long">
+        select parent_id from folders where folder_id = #{folderId}
     </select>
 </mapper>

@@ -32,12 +32,11 @@ public interface FilesServer {
     void renameFile(long fileId, String fileName);
     void renameFolder(long folderId, String folderName);
     void recycleBinFile(long fileId, long status);
+    void recycleParentFolder(long folderId);
     void recycleBinFolder(long folderId, long status);
     List<FilesPage> findFileByDelete(long status);
     List<FolderPage> findFolderByDelete(long status);
     List<String> findPathsByFileName(String fileName);
-
-
     void CollectionsInsertFolder(long folderId, long userId);
     void CollectionsDeleteFolder(long folderId, long userId);
     void CollectionsInsertFile(long folderId, long userId);
@@ -45,5 +44,7 @@ public interface FilesServer {
     List<Collections> findCollectionFFs(long userId);
     void deleteFile(long fileId);
     void deleteFolder(long folderId);
+    List<FolderPage> findFoldersByParentIdUserId(long parentId,long userId);
+    List<FilesPage> findFilesByParentIdUserId(long parentId,long userId);
     void deleteNode(long nodeId);
 }

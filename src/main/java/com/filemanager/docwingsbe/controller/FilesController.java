@@ -231,13 +231,11 @@ public class FilesController {
 
     @RequestMapping("/recycleBinFile")
     public void recycleBinFile(@RequestBody Map<String, String> map) {
-        // TODO 删除硬盘上的文件
         filesServer.recycleBinFile(Long.parseLong(map.get("fileId")), Long.parseLong(map.get("status")));
     }
 
     @RequestMapping("/recycleBinFolder")
     public void recycleBinFolder(@RequestBody Map<String, String> map) {
-        // TODO 删除硬盘上的文件
         filesServer.recycleBinFolder(Long.parseLong(map.get("folderId")), Long.parseLong(map.get("status")));
     }
 
@@ -253,10 +251,7 @@ public class FilesController {
 
     @RequestMapping("/deleteFile")
     public void deleteFile(@RequestBody Map<String, String> map) {
-        Files dbFile = filesServer.findFileById(Long.parseLong(map.get("fileId")));
         filesServer.deleteFile(Long.parseLong(map.get("fileId")));
-        File file = new File(dbFile.getPath());
-        boolean status = file.delete();
     }
 
     @RequestMapping("/deleteFolder")
@@ -288,5 +283,14 @@ public class FilesController {
     public ResponseEntity<List<String>> searchFile(@RequestParam(value = "fileName", required = false) String fileName){
         List<String> paths = filesServer.findPathsByFileName(fileName);
         return ResponseEntity.ok(paths);
+    }
+    @RequestMapping("/findFoldersByParentIdUserId")
+    public List<FolderPage> findFoldersByParentIdUserId(@RequestBody Map<String, String> map) {
+        return filesServer.findFoldersByParentIdUserId(Long.parseLong(map.get("parentId")),Long.parseLong(map.get("userId")));
+    }
+
+    @RequestMapping("/findFilesByParentIdUserId")
+    public List<FilesPage> findFilesByParentIdUserId(@RequestBody Map<String, String> map) {
+        return filesServer.findFilesByParentIdUserId(Long.parseLong(map.get("parentId")),Long.parseLong(map.get("userId")));
     }
 }

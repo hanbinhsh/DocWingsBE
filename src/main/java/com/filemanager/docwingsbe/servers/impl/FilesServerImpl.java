@@ -149,7 +149,20 @@ public class FilesServerImpl implements FilesServer {
         filesMapper.deleteFile(fileId);
     }
 
+
+
+
     @Override
+    @Transactional(readOnly = true)
+    public List<FolderPage> findFoldersByParentIdUserId(long parentId,long userId) {
+        return filesMapper.findFoldersByParentIdUserId(parentId,userId);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<FilesPage> findFilesByParentIdUserId(long parentId,long userId) {
+        return filesMapper.findFilesByParentIdUserId(parentId,userId);
+    }
     public void deleteFolder(long folderId) {
         deleteNode(folderId);
         filesMapper.deleteFolder(folderId);

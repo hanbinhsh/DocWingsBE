@@ -14,9 +14,7 @@ public interface DWMapper {
     // 根据部门编号查询指定的员工信息
     @Select("select * from folders where parent_id = #{parent_id}")
     List<Map<String, Object>> select(Map<String, Object> map);
-
     public List<User> queryUsers();
     public User findUserById(@Param("id") Long id);
     public void insertUser(@Param("user") User user);
-
 }

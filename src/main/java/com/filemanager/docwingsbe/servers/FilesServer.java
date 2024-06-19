@@ -20,6 +20,7 @@ public interface FilesServer {
     void changeFileRouteById(long id, long parentId);
     void changeFolderRouteById(long id, long parentId);
     List<Files> findImagesByParentId(long parentId);
+    List<Files> findAudioByParentId(long parentId);
     List<String> findTags();
     List<FolderPage> findFoldersByTag(String tag);
     List<FilesPage> findFilesByTag(String tag);

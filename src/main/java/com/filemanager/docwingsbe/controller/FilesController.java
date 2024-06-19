@@ -8,7 +8,6 @@ import com.filemanager.docwingsbe.entity.multy.FolderPage;
 import com.filemanager.docwingsbe.servers.FilesServer;
 import jakarta.annotation.Resource;
 import org.apache.commons.io.FileUtils;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -122,6 +121,22 @@ public class FilesController {
         result.put("code", 200 );
         result.put("msg", "请求执行成功并返回相应数据");
         data.put("imageList",urls);
+        result.put("data",data);
+        return result;
+    }
+
+    @RequestMapping("/findAudioByParentId")
+    public Map<String,Object> findAudioByParentId(@RequestParam long parentId){
+        List<Files> audio =  this.filesServer.findAudioByParentId(parentId);
+        List<String> urls = new ArrayList<>();
+        for (Files file : audio) {
+            urls.add("api/downloadFile?fileID="+file.getFileId());
+        }
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
+        result.put("code", 200 );
+        result.put("msg", "请求执行成功并返回相应数据");
+        data.put("audioList",urls);
         result.put("data",data);
         return result;
     }
@@ -251,7 +266,10 @@ public class FilesController {
 
     @RequestMapping("/deleteFile")
     public void deleteFile(@RequestBody Map<String, String> map) {
+        Files dbFile = filesServer.findFileById(Long.parseLong(map.get("fileId")));
         filesServer.deleteFile(Long.parseLong(map.get("fileId")));
+        File file = new File(dbFile.getPath());
+        boolean status = file.delete();
     }
 
     @RequestMapping("/deleteFolder")

@@ -113,6 +113,11 @@ public class FilesServerImpl implements FilesServer {
         return filesMapper.findOtherFiles();
     }
 
+    @Override
+    public List<Files> findAudioByParentId(long parentId) {
+        return filesMapper.findAudioByParentId(parentId);
+    }
+
 
     @Override
     public void renameFile(long fileId, String fileName) {

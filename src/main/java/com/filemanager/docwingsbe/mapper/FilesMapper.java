@@ -17,6 +17,7 @@ public interface FilesMapper {
     public List<FolderPage> findFoldersByParentId(@Param("parentId") Long parentId);
     public List<FilesPage> findFilesByParentId(@Param("parentId") Long parentId);
     public List<Files> findImagesByParentId(@Param("parentId") Long parentId);
+    public List<Files> findAudioByParentId(@Param("parentId") long parentId);
     public void insertFiles(@Param("files") List<Files> files);
     public void insertFolders(@Param("folders") List<Folders> folders);
     public long countFFsByParentId(@Param("parentId") Long parentId);

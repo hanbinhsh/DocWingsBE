@@ -17,4 +17,16 @@ public class UserServerImpl implements UserServer {
     public User loginVerification(String userName, String password) {
         return userMapper.loginVerification(userName, password);
     }
+
+    @Override
+    @Transactional
+    public void insertUser(User user) {
+        userMapper.insertUser(user);
+    }
+
+    @Override
+    @Transactional
+    public boolean selectUserByUserName(String userName) {
+        return userMapper.selectUserByUserName(userName) != null;
+    }
 }

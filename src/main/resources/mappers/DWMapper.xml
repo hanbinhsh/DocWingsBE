@@ -10,8 +10,4 @@
     <select id="findUserById" resultType="com.filemanager.docwingsbe.entity.User" parameterType="Long">
         select * from user where user_id = #{id}
     </select>
-    <insert id="insertUser" parameterType="User" keyProperty="userId" useGeneratedKeys="true">
-        insert into user(user_name,psw,email,group_id,is_admin,phone) values
-            (#{user.userName},#{user.psw},#{user.email},#{user.groupId},#{user.isAdmin},#{user.phone})
-    </insert>
 </mapper>

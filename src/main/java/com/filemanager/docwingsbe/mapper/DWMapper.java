@@ -17,6 +17,5 @@ public interface DWMapper {
 
     public List<User> queryUsers();
     public User findUserById(@Param("id") Long id);
-    public void insertUser(@Param("user") User user);
 
 }

@@ -11,5 +11,4 @@ public interface DWServer {
     Map<String, Object> searchInfo(Map<String, Object> map);
     List<User> searchUser();
     User getUser(Long id);
-    void insertUser(User user);
 }

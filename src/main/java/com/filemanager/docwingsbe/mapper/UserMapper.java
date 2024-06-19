@@ -8,4 +8,6 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface UserMapper {
     public User loginVerification(@Param("userName") String userName, @Param("password") String password);
+    public String selectUserByUserName(@Param("userName") String userName);
+    public void insertUser(@Param("user") User user);
 }

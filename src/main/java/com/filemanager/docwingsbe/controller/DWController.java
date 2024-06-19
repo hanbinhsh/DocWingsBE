@@ -41,11 +41,4 @@ public class DWController {
     public User findUserByID(@RequestParam Long id) {
         return this.dwSever.getUser(id);
     }
-
-    @PostMapping(value = "/registerUser")
-    @CrossOrigin(origins = "*")
-    public ResponseEntity<String> registerUser(@RequestBody User user) {
-        this.dwSever.insertUser(user);
-        return ResponseEntity.ok("Success"); // 此处应封装数据
-    }
 }

@@ -63,6 +63,11 @@
             )
         }
     </update>
+    <update id="updateParentFolderByFolderId">
+        update folders
+        set is_deleted = 0
+        where folder_id = #{folderId}
+    </update>
 
     <delete id="CollectionsDeleteFolder">
         delete from collections
@@ -187,6 +192,12 @@
     </select>
     <select id="findFolderDeleteByParentId" resultType="com.filemanager.docwingsbe.entity.Folders">
         select * from folders where parent_id = #{parentId}
+    </select>
+    <select id="findParentFolderByFileId" resultType="java.lang.Long">
+        select parent_id from files where file_id = #{fileId}
+    </select>
+    <select id="findParentFolderByFolderId" resultType="java.lang.Long">
+        select parent_id from folders where folder_id = #{folderId}
     </select>
 
 

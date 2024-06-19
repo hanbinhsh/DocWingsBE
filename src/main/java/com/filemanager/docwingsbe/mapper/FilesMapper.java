@@ -40,5 +40,8 @@ public interface FilesMapper {
     public void deleteFolder(@Param("folderId") long folderId);
     public List<String> findPathByParentId(@Param("parentId") long parentId);
     public List<Folders> findFolderDeleteByParentId(@Param("parentId") long parentId);
+    public long findParentFolderByFileId(@Param("fileId") long fileId);
+    public long findParentFolderByFolderId(@Param("folderId") long folderId);
+    public void updateParentFolderByFolderId(@Param("folderId") long folderId);
 
 }

@@ -85,10 +85,29 @@ public class FilesServerImpl implements FilesServer {
     }
 
     @Override
-    public void recycleBinFile(long fileId, long status) { filesMapper.recycleBinFile(fileId, status);}
+    public void recycleBinFile(long fileId, long status) {
+        filesMapper.recycleBinFile(fileId, status);
+        if(status==0){
+            recycleParentFolder(filesMapper.findParentFolderByFileId(fileId));
+        }
+    }
 
     @Override
-    public void recycleBinFolder(long folderId, long status) { filesMapper.recycleBinFolder(folderId, status); }
+    public void recycleParentFolder(long folderId) {
+        filesMapper.updateParentFolderByFolderId(folderId);
+        folderId = filesMapper.findParentFolderByFolderId(folderId);
+        if(folderId != 0){
+            recycleParentFolder(folderId);
+        }
+    }
+
+    @Override
+    public void recycleBinFolder(long folderId, long status) {
+        filesMapper.recycleBinFolder(folderId, status);
+        if(status==0){
+            recycleParentFolder(filesMapper.findParentFolderByFolderId(folderId));
+        }
+    }
 
     @Override
     public List<FilesPage> findFileByDelete(long status) { return filesMapper.findFileByDelete(status); }
@@ -147,4 +166,6 @@ public class FilesServerImpl implements FilesServer {
             deleteNode(f.getFolderId());
         }
     }
+
+
 }

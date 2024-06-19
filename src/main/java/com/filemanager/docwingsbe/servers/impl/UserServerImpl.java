@@ -17,4 +17,14 @@ public class UserServerImpl implements UserServer {
     public User loginVerification(String userName, String password) {
         return userMapper.loginVerification(userName, password);
     }
+
+    @Override
+    public void UserDelete(long userId){
+        userMapper.UserDelete(userId);
+    }
+
+    @Override
+    public void UserCollectionDelete(long userId){
+        userMapper.UserCollectionDelete(userId);
+    }
 }

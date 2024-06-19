@@ -32,4 +32,14 @@ public class UserController {
             return "注册成功";
         }
     }
+
+    @RequestMapping("/UserDelete")
+    public void UserDelete(@RequestBody Map<String, String> map) {
+        userServer.UserDelete(Long.parseLong(map.get("userId")));
+    }
+
+    @RequestMapping("/UserCollectionDelete")
+    public void UserCollectionDelete(@RequestBody Map<String, String> map) {
+        userServer.UserCollectionDelete(Long.parseLong(map.get("userId")));
+    }
 }

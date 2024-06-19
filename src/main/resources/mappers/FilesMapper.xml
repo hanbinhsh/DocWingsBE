@@ -63,7 +63,6 @@
             )
         }
     </update>
-
     <delete id="CollectionsDeleteFolder">
         delete from collections
         where folder_id=#{folderId}
@@ -83,6 +82,9 @@
                     #{folderId}
             )
         }
+    </delete>
+    <delete id="deleteCollectionsFile">
+        delete from collections where file_id = #{fileId}
     </delete>
     <select id="findFileById" resultType="com.filemanager.docwingsbe.entity.Files">
         select * from files where file_id = #{id}
@@ -179,4 +181,12 @@
     <select id="findPathsByFileName" resultType="java.lang.String">
         select path from files where path like concat('%', #{fileName}, '%')
     </select>
+    <select id="findPathByParentId" resultType="java.lang.String">
+        select path from files where parent_id = #{parentId}
+    </select>
+    <select id="findFolderDeleteByParentId" resultType="com.filemanager.docwingsbe.entity.Folders">
+        select * from folders where parent_id = #{parentId}
+    </select>
+
+
 </mapper>

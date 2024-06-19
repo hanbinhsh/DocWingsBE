@@ -3,7 +3,6 @@ package com.filemanager.docwingsbe.servers.impl;
 import com.filemanager.docwingsbe.entity.Collections;
 import com.filemanager.docwingsbe.entity.Files;
 import com.filemanager.docwingsbe.entity.Folders;
-import com.filemanager.docwingsbe.entity.User;
 import com.filemanager.docwingsbe.entity.multy.FilesPage;
 import com.filemanager.docwingsbe.entity.multy.FolderPage;
 import com.filemanager.docwingsbe.mapper.FilesMapper;
@@ -11,7 +10,7 @@ import com.filemanager.docwingsbe.servers.FilesServer;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
+import java.io.File;
 import java.util.List;
 
 @Service
@@ -126,8 +125,26 @@ public class FilesServerImpl implements FilesServer {
     }
 
     @Override
-    public void deleteFile(long fileId) { filesMapper.deleteFile(fileId); }
+    public void deleteFile(long fileId) {
+        filesMapper.deleteCollectionsFile(fileId);
+        filesMapper.deleteFile(fileId);
+    }
 
     @Override
-    public void deleteFolder(long folderId) { filesMapper.deleteFolder(folderId); }
+    public void deleteFolder(long folderId) {
+        deleteNode(folderId);
+        filesMapper.deleteFolder(folderId);
+    }
+    @Override
+    public void deleteNode(long nodeId){
+        List<Folders> childFolders = filesMapper.findFolderDeleteByParentId(nodeId);
+        List<String> path = filesMapper.findPathByParentId(nodeId);
+        for (String s : path) {
+            File file = new File(s);
+            boolean status = file.delete();
+        }
+        for (Folders f : childFolders) {
+            deleteNode(f.getFolderId());
+        }
+    }
 }

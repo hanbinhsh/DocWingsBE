@@ -29,4 +29,14 @@ public class UserServerImpl implements UserServer {
     public boolean selectUserByUserName(String userName) {
         return userMapper.selectUserByUserName(userName) != null;
     }
+
+    @Override
+    public void UserDelete(long userId){
+        userMapper.UserDelete(userId);
+    }
+
+    @Override
+    public void UserCollectionDelete(long userId){
+        userMapper.UserCollectionDelete(userId);
+    }
 }

@@ -84,6 +84,9 @@
             )
         }
     </delete>
+    <delete id="deleteCollectionsFile">
+        delete from collections where file_id = #{fileId}
+    </delete>
     <select id="findFileById" resultType="com.filemanager.docwingsbe.entity.Files">
         select * from files where file_id = #{id}
     </select>

@@ -3,7 +3,6 @@ package com.filemanager.docwingsbe.servers.impl;
 import com.filemanager.docwingsbe.entity.Collections;
 import com.filemanager.docwingsbe.entity.Files;
 import com.filemanager.docwingsbe.entity.Folders;
-import com.filemanager.docwingsbe.entity.User;
 import com.filemanager.docwingsbe.entity.multy.FilesPage;
 import com.filemanager.docwingsbe.entity.multy.FolderPage;
 import com.filemanager.docwingsbe.mapper.FilesMapper;
@@ -126,12 +125,14 @@ public class FilesServerImpl implements FilesServer {
     }
 
     @Override
-    public void deleteFile(long fileId) { filesMapper.deleteFile(fileId); }
+    public void deleteFile(long fileId) {
+        filesMapper.deleteCollectionsFile(fileId);
+        filesMapper.deleteFile(fileId);
+    }
 
     @Override
     public void deleteFolder(long folderId) {
         deleteNode(folderId);
-
         filesMapper.deleteFolder(folderId);
     }
     @Override

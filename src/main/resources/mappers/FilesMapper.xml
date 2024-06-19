@@ -179,4 +179,12 @@
     <select id="findPathsByFileName" resultType="java.lang.String">
         select path from files where path like concat('%', #{fileName}, '%')
     </select>
+    <select id="findPathByParentId" resultType="java.lang.String">
+        select path from files where parent_id = #{parentId}
+    </select>
+    <select id="findFolderDeleteByParentId" resultType="com.filemanager.docwingsbe.entity.Folders">
+        select * from folders where parent_id = #{parentId}
+    </select>
+
+
 </mapper>

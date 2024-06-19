@@ -5,6 +5,7 @@ import com.filemanager.docwingsbe.entity.Files;
 import com.filemanager.docwingsbe.entity.Folders;
 import com.filemanager.docwingsbe.entity.multy.FilesPage;
 import com.filemanager.docwingsbe.entity.multy.FolderPage;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -19,6 +20,15 @@ public interface FilesServer {
     void changeFileRouteById(long id, long parentId);
     void changeFolderRouteById(long id, long parentId);
     List<Files> findImagesByParentId(long parentId);
+    List<String> findTags();
+    List<FolderPage> findFoldersByTag(String tag);
+    List<FilesPage> findFilesByTag(String tag);
+    List<FilesPage> findDocumentFiles();
+    List<FilesPage> findImageFiles();
+    List<FilesPage> findAudioFiles();
+    List<FilesPage> findVideoFiles();
+    List<FilesPage> findOtherFiles();
+
     void renameFile(long fileId, String fileName);
     void renameFolder(long folderId, String folderName);
     void recycleBinFile(long fileId, long status);

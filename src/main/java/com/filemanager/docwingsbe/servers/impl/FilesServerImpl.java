@@ -73,6 +73,46 @@ public class FilesServerImpl implements FilesServer {
         return filesMapper.findImagesByParentId(parentId);
     }
 
+    @Override
+    public List<String> findTags() {
+        return filesMapper.findTags();
+    }
+
+    @Override
+    public List<FolderPage> findFoldersByTag(String tag) {
+        return filesMapper.findFoldersByTag(tag);
+    }
+
+    @Override
+    public List<FilesPage> findFilesByTag(String tag) {
+        return filesMapper.findFilesByTag(tag);
+    }
+
+    @Override
+    public List<FilesPage> findDocumentFiles() {
+        return filesMapper.findDocumentFiles();
+    }
+
+    @Override
+    public List<FilesPage> findImageFiles() {
+        return filesMapper.findImageFiles();
+    }
+
+    @Override
+    public List<FilesPage> findAudioFiles() {
+        return filesMapper.findAudioFiles();
+    }
+
+    @Override
+    public List<FilesPage> findVideoFiles() {
+        return filesMapper.findVideoFiles();
+    }
+
+    @Override
+    public List<FilesPage> findOtherFiles() {
+        return filesMapper.findOtherFiles();
+    }
+
 
     @Override
     public void renameFile(long fileId, String fileName) {

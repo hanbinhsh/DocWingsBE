@@ -187,6 +187,83 @@
     <select id="findFolderDeleteByParentId" resultType="com.filemanager.docwingsbe.entity.Folders">
         select * from folders where parent_id = #{parentId}
     </select>
-
-
+    <select id="findTags" resultType="java.lang.String">
+        SELECT tag FROM folders WHERE tag IS NOT NULL AND tag != '' AND is_deleted = 0
+        UNION
+        SELECT tag FROM files WHERE tag IS NOT NULL AND tag != '' AND is_deleted = 0;
+    </select>
+    <select id="findFilesByTag" resultType="com.filemanager.docwingsbe.entity.multy.FilesPage">
+        SELECT
+            f.file_id,
+            f.file_name,
+            f.tag,
+            f.file_size,
+            f.file_type,
+            u1.user_name AS uploader_name,
+            f.upload_time,
+            u2.user_name AS last_modifier_name,
+            f.last_modify_time
+        FROM
+            files f
+                JOIN
+            user u1 ON f.uploader_id = u1.user_id
+                JOIN
+            user u2 ON f.last_modifier_id = u2.user_id
+        WHERE
+            f.tag = #{tag} AND f.is_deleted != 1;
+    </select>
+    <select id="findFoldersByTag" resultType="com.filemanager.docwingsbe.entity.multy.FolderPage">
+        SELECT
+            f.folder_id,
+            f.parent_id,
+            f.folder_name,
+            f.create_time,
+            u1.user_name AS creator_name,
+            f.tag,
+            u2.user_name AS last_modifier_name,
+            f.last_modify_time
+        FROM folders f
+                 JOIN user u1 ON f.creater_id = u1.user_id
+                 JOIN user u2 ON f.last_modifier_id = u2.user_id
+        WHERE f.tag = #{tag} AND f.folder_id != 0  AND f.is_deleted != 1
+    </select>
+    <select id="findDocumentFiles" resultType="com.filemanager.docwingsbe.entity.multy.FilesPage">
+        SELECT * FROM files
+        WHERE is_deleted = 0
+          AND (
+            file_type = 'application/pdf'
+                OR file_type = 'application/msword'
+                OR file_type = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                OR file_type = 'application/vnd.ms-excel'
+                OR file_type = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                OR file_type = 'application/vnd.ms-powerpoint'
+                OR file_type = 'application/vnd.openxmlformats-officedocument.presentationml.presentation'
+                OR file_type = 'text/plain'
+                OR file_type = 'text/html'
+            );
+    </select>
+    <select id="findImageFiles" resultType="com.filemanager.docwingsbe.entity.multy.FilesPage">
+        SELECT * FROM files
+        WHERE is_deleted = 0 AND file_type LIKE 'image/%';
+    </select>
+    <select id="findAudioFiles" resultType="com.filemanager.docwingsbe.entity.multy.FilesPage">
+        SELECT * FROM files
+        WHERE is_deleted = 0 AND file_type LIKE 'audio/%';
+    </select>
+    <select id="findVideoFiles" resultType="com.filemanager.docwingsbe.entity.multy.FilesPage">
+        SELECT * FROM files
+        WHERE is_deleted = 0 AND file_type LIKE 'video/%';
+    </select>
+    <select id="findOtherFiles" resultType="com.filemanager.docwingsbe.entity.multy.FilesPage">
+        SELECT * FROM files
+        WHERE is_deleted = 0
+          AND file_type NOT LIKE 'image/%' AND file_type NOT LIKE 'audio/%' AND file_type NOT LIKE 'video/%'
+          AND file_type NOT IN (
+                                'application/pdf','application/msword','text/plain','text/html',
+                                'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                                'application/vnd.ms-excel','application/vnd.ms-powerpoint',
+                                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                                'application/vnd.openxmlformats-officedocument.presentationml.presentation'
+            );
+    </select>
 </mapper>

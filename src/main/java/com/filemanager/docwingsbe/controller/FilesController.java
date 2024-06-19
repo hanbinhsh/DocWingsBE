@@ -126,6 +126,50 @@ public class FilesController {
         return result;
     }
 
+    @RequestMapping("/findTags")
+    public List<String> findTags(){
+        return filesServer.findTags();
+    }
+
+    @RequestMapping("/findFFsByTag")
+    public Map<String,Object> findFFsByTag(@RequestParam String tag){
+        List<FilesPage> filesPage = filesServer.findFilesByTag(tag);
+        List<FolderPage> folderPage = filesServer.findFoldersByTag(tag);
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
+        result.put("code", 200 );
+        result.put("msg", "请求执行成功并返回相应数据");
+        data.put("folders",folderPage);
+        data.put("files",filesPage);
+        result.put("data",data);
+        return result;
+    }
+
+    @RequestMapping("/findFilesByCategory")
+    public Map<String,Object> findFilesByCategory(@RequestParam int category) {
+        List<FilesPage> filesPage = switch (category) {
+            case 0 ->  // 图片
+                    filesServer.findImageFiles();
+            case 1 ->  // 文档
+                    filesServer.findDocumentFiles();
+            case 2 ->  // 音频
+                    filesServer.findAudioFiles();
+            case 3 ->  // 视频
+                    filesServer.findVideoFiles();
+            case 4 ->  // 其他
+                    filesServer.findOtherFiles();
+            default -> null;
+        };
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
+        result.put("code", 200 );
+        result.put("msg", "请求执行成功并返回相应数据");
+        data.put("files",filesPage);
+        result.put("data",data);
+        return result;
+
+    }
+
     @PostMapping("/uploadOneFile")
     @CrossOrigin(origins = "*")  // 跨域
     public Map<String, Object> uploadOneFile(@RequestParam("file") MultipartFile file,

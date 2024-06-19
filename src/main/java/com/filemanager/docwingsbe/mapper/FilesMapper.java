@@ -22,6 +22,15 @@ public interface FilesMapper {
     public long countFFsByParentId(@Param("parentId") Long parentId);
     public void changeFileRouteById(@Param("id") Long fileId, @Param("parentId") Long parentId);
     public void changeFolderRouteById(@Param("id") Long fileId, @Param("parentId") Long parentId);
+    public List<String> findTags();
+    public List<FolderPage> findFoldersByTag(@Param("tag") String tag);
+    public List<FilesPage> findFilesByTag(@Param("tag") String tag);
+    public List<FilesPage> findDocumentFiles();
+    public List<FilesPage> findImageFiles();
+    public List<FilesPage> findAudioFiles();
+    public List<FilesPage> findVideoFiles();
+    public List<FilesPage> findOtherFiles();
+
     public void renameFile(@Param("fileId") long fileId, @Param("fileName") String fileName);
     public void renameFolder(@Param("folderId") long folderId, @Param("folderName") String folderName);
     public void recycleBinFile(@Param("fileId") long fileId, @Param("status") long status);

@@ -21,27 +21,27 @@ public class UserController {
     }
 
     @RequestMapping("/UserDelete")
-    public void UserDelete(@RequestBody Map<String, String> map) {
+    public void UserDelete(@RequestBody Map<String, String> map) {//FINISHED
         userServer.UserDelete(Long.parseLong(map.get("userId")));
     }
 
     @RequestMapping("/UserCollectionDelete")
-    public void UserCollectionDelete(@RequestBody Map<String, String> map) {
+    public void UserCollectionDelete(@RequestBody Map<String, String> map) {//FINISHED
         userServer.UserCollectionDelete(Long.parseLong(map.get("userId")));
     }
 
     @RequestMapping("/UpdatePassword")
-    public void UpdatePassword(@RequestBody Map<String, String> map) {
+    public void UpdatePassword(@RequestBody Map<String, String> map) {//FINISHED
         userServer.UpdatePassword(Long.parseLong(map.get("userId")),map.get("newPassword"));
     }
 
     @RequestMapping("/UpdatePhone")
-    public void UpdatePhone(@RequestBody Map<String, String> map) {
+    public void UpdatePhone(@RequestBody Map<String, String> map) {//FINISHED
         userServer.UpdatePhone(Long.parseLong(map.get("userId")),map.get("newPhone"));
     }
 
     @RequestMapping("/UpdateEmail")
-    public void UpdateEmail(@RequestBody Map<String, String> map) {
+    public void UpdateEmail(@RequestBody Map<String, String> map) {//FINISHED
         userServer.UpdateEmail(Long.parseLong(map.get("userId")),map.get("newEmail"));
     }
 }

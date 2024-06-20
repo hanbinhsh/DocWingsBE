@@ -1,6 +1,8 @@
 package com.filemanager.docwingsbe.entity;
 
 
+import java.sql.Timestamp;
+
 public class Shares {
 
   private long shareId;
@@ -9,9 +11,17 @@ public class Shares {
   private long sharerId;
   private long auth;
   private java.sql.Timestamp shareTime;
+  private java.sql.Timestamp dueTime;
   private long accepterId;
   private long isFolder;
 
+  public Timestamp getDueTime() {
+    return dueTime;
+  }
+
+  public void setDueTime(Timestamp dueTime) {
+    this.dueTime = dueTime;
+  }
 
   public long getShareId() {
     return shareId;

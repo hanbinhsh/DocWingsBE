@@ -138,6 +138,11 @@
             (SELECT COUNT(*) FROM files WHERE parent_id = #{parentId}) +
             (SELECT COUNT(*) FROM folders WHERE parent_id = #{parentId}) AS total_count;
     </select>
+
+    <select id="countFFsByParentIdUserId" resultType="java.lang.Long">
+            SELECT COUNT(*) FROM collections WHERE  user_id = #{userId} ;
+    </select>
+
     <select id="findImagesByParentId" resultType="com.filemanager.docwingsbe.entity.Files">
         SELECT *
         FROM files

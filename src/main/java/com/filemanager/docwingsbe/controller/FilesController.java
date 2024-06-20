@@ -109,6 +109,11 @@ public class FilesController {
         return filesServer.countFFsByParentId(parentId);
     }
 
+    @RequestMapping("/countFFsByParentIdUserId")
+    public long countFFsByParentIdUserId( @RequestBody Map<String, String> map){
+        return filesServer.countFFsByParentIdUserId(Long.parseLong(map.get("userId")));
+    }
+
     @RequestMapping("/findImagesByParentId")
     public Map<String,Object> findImagesByParentId(@RequestParam long parentId){  // FINISHED
         List<Files> images =  this.filesServer.findImagesByParentId(parentId);

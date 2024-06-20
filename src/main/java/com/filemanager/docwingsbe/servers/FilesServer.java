@@ -17,6 +17,7 @@ public interface FilesServer {
     void insertFolders(List<Folders> folders);
     Folders findFolderById(long id);
     long countFFsByParentId(long parentId);
+    long countFFsByParentIdUserId(long userId);
     void changeFileRouteById(long id, long parentId);
     void changeFolderRouteById(long id, long parentId);
     List<Files> findImagesByParentId(long parentId);

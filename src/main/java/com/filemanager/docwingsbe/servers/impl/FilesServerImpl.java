@@ -59,6 +59,12 @@ public class FilesServerImpl implements FilesServer {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public long countFFsByParentIdUserId(long userId) {
+        return filesMapper.countFFsByParentIdUserId(userId);
+    }
+
+    @Override
     public void changeFileRouteById(long id, long parentId) {
         filesMapper.changeFileRouteById(id, parentId);
     }

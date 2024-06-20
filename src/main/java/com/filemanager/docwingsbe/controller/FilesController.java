@@ -318,19 +318,19 @@ public class FilesController {
     }
 
     @RequestMapping("/CollectionsInsertFolder")
-    public void CollectionsInsertFolder(@RequestBody Map<String, String> map) throws Exception {
+    public void CollectionsInsertFolder(@RequestBody Map<String, String> map) throws Exception {//FINISHED
         filesServer.CollectionsInsertFolder(Long.parseLong(map.get("folderId")),Long.parseLong(map.get("userId")));
     }
     @RequestMapping("/CollectionsDeleteFolder")
-    public void CollectionsDeleteFolder(@RequestBody Map<String, String> map) throws Exception {
+    public void CollectionsDeleteFolder(@RequestBody Map<String, String> map) throws Exception {//FINISHED
         filesServer.CollectionsDeleteFolder(Long.parseLong(map.get("folderId")),Long.parseLong(map.get("userId")));
     }
     @RequestMapping("/CollectionsInsertFile")
-    public void CollectionsInsertFile(@RequestBody Map<String, String> map) throws Exception {
+    public void CollectionsInsertFile(@RequestBody Map<String, String> map) throws Exception {//FINISHED
         filesServer.CollectionsInsertFile(Long.parseLong(map.get("fileId")),Long.parseLong(map.get("userId")));
     }
     @RequestMapping("/CollectionsDeleteFile")
-    public void CollectionsDeleteFile(@RequestBody Map<String, String> map) throws Exception {
+    public void CollectionsDeleteFile(@RequestBody Map<String, String> map) throws Exception {//FINISHED
         filesServer.CollectionsDeleteFile(Long.parseLong(map.get("fileId")),Long.parseLong(map.get("userId")));
     }
     @RequestMapping("/findCollectionFFs")

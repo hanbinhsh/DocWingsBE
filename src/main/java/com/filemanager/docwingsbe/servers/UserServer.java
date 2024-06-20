@@ -6,4 +6,7 @@ public interface UserServer {
     public User loginVerification(String userName, String password);
     public void UserDelete(long userId);
     public void UserCollectionDelete(long userId);
+    public void UpdatePassword(long userId, String newPassword);
+    public void UpdateEmail(long userId, String newEmail);
+    public void UpdatePhone(long userId, String newPhone);
 }

@@ -149,12 +149,6 @@
         WHERE parent_id = #{parentId}
           AND file_type LIKE 'image/%' AND is_deleted = 0;
     </select>
-    <select id="findAudioByParentId" resultType="com.filemanager.docwingsbe.entity.Files">
-        SELECT *
-        FROM files
-        WHERE parent_id = #{parentId}
-          AND file_type LIKE 'audio/%' AND is_deleted = 0;
-    </select>
     <select id="findFileByDelete" resultType="com.filemanager.docwingsbe.entity.multy.FilesPage">
         SELECT
             f.file_id,
@@ -345,4 +339,5 @@
           AND c.user_id = #{userId}
           AND f.file_type LIKE 'image/%';
     </select>
+
 </mapper>

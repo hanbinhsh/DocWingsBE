@@ -48,7 +48,7 @@ public interface FilesServer {
     List<Collections> findCollectionFFs(long userId);
     void deleteFile(long fileId);
     void deleteFolder(long folderId);
-    List<FolderPage> findFoldersByParentIdUserId(long parentId,long userId);
-    List<FilesPage> findFilesByParentIdUserId(long parentId,long userId);
+    List<FolderPage> findCollectionFoldersByUserId(long userId);
+    List<FilesPage> findCollectionFilesByUserId(long userId);
     void deleteNode(long nodeId);
 }

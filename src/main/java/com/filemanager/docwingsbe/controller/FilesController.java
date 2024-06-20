@@ -60,7 +60,7 @@ public class FilesController {
         return this.filesServer.findFolderById(id);
     }
 
-    @RequestMapping("/insertOneFolder")
+    @RequestMapping("/insertOneFolder")  // FINISHED
     @CrossOrigin(origins = "*")  // 跨域
     public Map<String, Object> insertFolders(@RequestBody Folders folders){
         Timestamp timestamp = Timestamp.from(ZonedDateTime.now().toInstant());
@@ -78,7 +78,7 @@ public class FilesController {
 
     @RequestMapping("/changeFileRouteById")
     @CrossOrigin(origins = "*")  // 跨域
-    public Map<String, Object> changeFileRouteById(@RequestParam long id, @RequestParam long parentId){
+    public Map<String, Object> changeFileRouteById(@RequestParam long id, @RequestParam long parentId){  // FINISHED
         filesServer.changeFileRouteById(id, parentId);
         Map<String, Object> data = new HashMap<>();
         Map<String, Object> result = new HashMap<>();
@@ -92,7 +92,7 @@ public class FilesController {
 
     @RequestMapping("/changeFolderRouteById")
     @CrossOrigin(origins = "*")  // 跨域
-    public Map<String, Object> changeFolderRouteById(@RequestParam long id, @RequestParam long parentId){
+    public Map<String, Object> changeFolderRouteById(@RequestParam long id, @RequestParam long parentId){  // FINISHED
         filesServer.changeFolderRouteById(id, parentId);
         Map<String, Object> data = new HashMap<>();
         Map<String, Object> result = new HashMap<>();
@@ -110,7 +110,7 @@ public class FilesController {
     }
 
     @RequestMapping("/findImagesByParentId")
-    public Map<String,Object> findImagesByParentId(@RequestParam long parentId){
+    public Map<String,Object> findImagesByParentId(@RequestParam long parentId){  // FINISHED
         List<Files> images =  this.filesServer.findImagesByParentId(parentId);
         List<String> urls = new ArrayList<>();
         for (Files file : images) {
@@ -126,7 +126,7 @@ public class FilesController {
     }
 
     @RequestMapping("/findImagesByCollection")
-    public Map<String,Object> findImagesByCollection(@RequestParam long userId){
+    public Map<String,Object> findImagesByCollection(@RequestParam long userId){  // FINISHED
         List<Files> images =  this.filesServer.findImagesByCollection(userId);
         List<String> urls = new ArrayList<>();
         for (Files file : images) {
@@ -182,7 +182,7 @@ public class FilesController {
     }
 
     @RequestMapping("/findFFsByTag")
-    public Map<String,Object> findFFsByTag(@RequestParam String tag){
+    public Map<String,Object> findFFsByTag(@RequestParam String tag){  // FINISHED
         List<FilesPage> filesPage = filesServer.findFilesByTag(tag);
         List<FolderPage> folderPage = filesServer.findFoldersByTag(tag);
         Map<String, Object> data = new HashMap<>();
@@ -196,7 +196,7 @@ public class FilesController {
     }
 
     @RequestMapping("/findFilesByCategory")
-    public Map<String,Object> findFilesByCategory(@RequestParam int category) {
+    public Map<String,Object> findFilesByCategory(@RequestParam int category) {  // FINISHED
         List<FilesPage> filesPage = switch (category) {
             case 0 ->  // 图片
                     filesServer.findImageFiles();
@@ -266,7 +266,7 @@ public class FilesController {
     }
 
     @RequestMapping("/renameFile")
-    public void renameFile(@RequestBody Map<String, String> map) throws Exception {
+    public void renameFile(@RequestBody Map<String, String> map) throws Exception {  // FINISHED
         Files file = filesServer.findFileById(Long.parseLong(map.get("fileId")));
         if (file == null){
             throw new Exception("File not found");
@@ -275,7 +275,7 @@ public class FilesController {
     }
 
     @RequestMapping("/renameFolder")
-    public void renameFolder(@RequestBody Map<String, String> map) {
+    public void renameFolder(@RequestBody Map<String, String> map) {  // FINISHED
         filesServer.renameFolder(Long.parseLong(map.get("folderId")), map.get("folderName"));
     }
 
@@ -337,13 +337,17 @@ public class FilesController {
         List<String> paths = filesServer.findPathsByFileName(fileName);
         return ResponseEntity.ok(paths);
     }
-    @RequestMapping("/findFoldersByParentIdUserId")
-    public List<FolderPage> findFoldersByParentIdUserId(@RequestBody Map<String, String> map) {
-        return filesServer.findFoldersByParentIdUserId(Long.parseLong(map.get("parentId")),Long.parseLong(map.get("userId")));
-    }
-
-    @RequestMapping("/findFilesByParentIdUserId")
-    public List<FilesPage> findFilesByParentIdUserId(@RequestBody Map<String, String> map) {
-        return filesServer.findFilesByParentIdUserId(Long.parseLong(map.get("parentId")),Long.parseLong(map.get("userId")));
+    @RequestMapping("/findCollectionFFsByUserId")
+    public Map<String,Object> findCollectionFFsByUserId(@RequestParam long userId) {  // FINISHED
+        List<FilesPage> filesPage = filesServer.findCollectionFilesByUserId(userId);
+        List<FolderPage> folderPage = filesServer.findCollectionFoldersByUserId(userId);
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
+        result.put("code", 200 );
+        result.put("msg", "请求执行成功并返回相应数据");
+        data.put("files",filesPage);
+        data.put("folders",folderPage);
+        result.put("data",data);
+        return result;
     }
 }

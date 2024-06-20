@@ -16,7 +16,7 @@ public class LogController {
     private LogServer logServer;
 
     @RequestMapping("/allLog")
-    public Map<String, Object> searchUser() {
+    public Map<String, Object> searchUser() {  // FINISHED
         Map<String, Object> result = new HashMap<>();
         Map<String, Object> data = new HashMap<>();
         data.put("logPage", this.logServer.getLogPage());

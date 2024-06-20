@@ -51,8 +51,8 @@ public interface FilesMapper {
     public void deleteCollectionsFile(@Param("fileId") long fileId);
     public void deleteFile(@Param("fileId") long fileId);
     public void deleteFolder(@Param("folderId") long folderId);
-    public List<FolderPage> findFoldersByParentIdUserId(@Param("parentId") Long parentId,@Param("userId") Long userId);
-    public List<FilesPage> findFilesByParentIdUserId(@Param("parentId") Long parentId,@Param("userId") Long userId);
+    public List<FolderPage> findCollectionFoldersByUserId(@Param("userId") Long userId);
+    public List<FilesPage> findCollectionFilesByUserId(@Param("userId") Long userId);
 
     public List<String> findPathByParentId(@Param("parentId") long parentId);
     public List<Folders> findFolderDeleteByParentId(@Param("parentId") long parentId);

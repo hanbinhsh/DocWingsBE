@@ -214,14 +214,14 @@ public class FilesServerImpl implements FilesServer {
 
     @Override
     @Transactional(readOnly = true)
-    public List<FolderPage> findFoldersByParentIdUserId(long parentId,long userId) {
-        return filesMapper.findFoldersByParentIdUserId(parentId,userId);
+    public List<FolderPage> findCollectionFoldersByUserId(long userId) {
+        return filesMapper.findCollectionFoldersByUserId(userId);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<FilesPage> findFilesByParentIdUserId(long parentId,long userId) {
-        return filesMapper.findFilesByParentIdUserId(parentId,userId);
+    public List<FilesPage> findCollectionFilesByUserId(long userId) {
+        return filesMapper.findCollectionFilesByUserId(userId);
     }
     public void deleteFolder(long folderId) {
         deleteNode(folderId);

@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-public class LogController {
+public class    LogController {
     @Resource
     private LogServer logServer;
 

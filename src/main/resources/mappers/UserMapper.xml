@@ -3,6 +3,21 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.filemanager.docwingsbe.mapper.UserMapper">
+    <update id="UpdatePassword">
+        update user
+        set psw=SHA2(#{newPassword},256)
+        where user_id=#{userId}
+    </update>
+    <update id="UpdateEmail">
+        update user
+        set email=#{newEmail}
+        where user_id=#{userId}
+    </update>
+    <update id="UpdatePhone">
+        update user
+        set phone=#{newPhone}
+        where user_id=#{userId}
+    </update>
     <delete id="UserDelete">
         delete from user
         where user_id=#{userId}

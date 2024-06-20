@@ -27,4 +27,19 @@ public class UserServerImpl implements UserServer {
     public void UserCollectionDelete(long userId){
         userMapper.UserCollectionDelete(userId);
     }
+
+    @Override
+    public void UpdatePassword(long userId,String newPassword){
+        userMapper.UpdatePassword(userId,newPassword);
+    }
+
+    @Override
+    public void UpdateEmail(long userId,String newEmail){
+        userMapper.UpdateEmail(userId,newEmail);
+    }
+
+    @Override
+    public void UpdatePhone(long userId,String newPhone){
+        userMapper.UpdatePhone(userId,newPhone);
+    }
 }

@@ -59,6 +59,12 @@ public class FilesServerImpl implements FilesServer {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public long countFFsByParentIdUserId(long userId) {
+        return filesMapper.countFFsByParentIdUserId(userId);
+    }
+
+    @Override
     public void changeFileRouteById(long id, long parentId) {
         filesMapper.changeFileRouteById(id, parentId);
     }
@@ -73,6 +79,66 @@ public class FilesServerImpl implements FilesServer {
         return filesMapper.findImagesByParentId(parentId);
     }
 
+    @Override
+    public List<Files> findImagesByCollection(Long userId) {
+        return filesMapper.findImagesByCollection(userId);
+    }
+
+    @Override
+    public List<String> findTags() {
+        return filesMapper.findTags();
+    }
+
+    @Override
+    public List<FolderPage> findFoldersByTag(String tag) {
+        return filesMapper.findFoldersByTag(tag);
+    }
+
+    @Override
+    public List<FilesPage> findFilesByTag(String tag) {
+        return filesMapper.findFilesByTag(tag);
+    }
+
+    @Override
+    public List<FilesPage> findDocumentFiles() {
+        return filesMapper.findDocumentFiles();
+    }
+
+    @Override
+    public List<FilesPage> findImageFiles() {
+        return filesMapper.findImageFiles();
+    }
+
+    @Override
+    public List<FilesPage> findAudioFiles() {
+        return filesMapper.findAudioFiles();
+    }
+
+    @Override
+    public List<FilesPage> findVideoFiles() {
+        return filesMapper.findVideoFiles();
+    }
+
+    @Override
+    public List<FilesPage> findOtherFiles() {
+        return filesMapper.findOtherFiles();
+    }
+
+    @Override
+    public double countFileSize() {
+        return filesMapper.countFileSize();
+    }
+
+    @Override
+    public double countTrashFileSize() {
+        return filesMapper.countTrashFileSize();
+    }
+
+    @Override
+    public List<Files> findAudioByParentId(long parentId) {
+        return filesMapper.findAudioByParentId(parentId);
+    }
+
 
     @Override
     public void renameFile(long fileId, String fileName) {
@@ -85,10 +151,29 @@ public class FilesServerImpl implements FilesServer {
     }
 
     @Override
-    public void recycleBinFile(long fileId, long status) { filesMapper.recycleBinFile(fileId, status);}
+    public void recycleBinFile(long fileId, long status) {
+        filesMapper.recycleBinFile(fileId, status);
+        if(status==0){
+            recycleParentFolder(filesMapper.findParentFolderByFileId(fileId));
+        }
+    }
 
     @Override
-    public void recycleBinFolder(long folderId, long status) { filesMapper.recycleBinFolder(folderId, status); }
+    public void recycleParentFolder(long folderId) {
+        filesMapper.updateParentFolderByFolderId(folderId);
+        folderId = filesMapper.findParentFolderByFolderId(folderId);
+        if(folderId != 0){
+            recycleParentFolder(folderId);
+        }
+    }
+
+    @Override
+    public void recycleBinFolder(long folderId, long status) {
+        filesMapper.recycleBinFolder(folderId, status);
+        if(status==0){
+            recycleParentFolder(filesMapper.findParentFolderByFolderId(folderId));
+        }
+    }
 
     @Override
     public List<FilesPage> findFileByDelete(long status) { return filesMapper.findFileByDelete(status); }
@@ -130,7 +215,20 @@ public class FilesServerImpl implements FilesServer {
         filesMapper.deleteFile(fileId);
     }
 
+
+
+
     @Override
+    @Transactional(readOnly = true)
+    public List<FolderPage> findCollectionFoldersByUserId(long userId) {
+        return filesMapper.findCollectionFoldersByUserId(userId);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<FilesPage> findCollectionFilesByUserId(long userId) {
+        return filesMapper.findCollectionFilesByUserId(userId);
+    }
     public void deleteFolder(long folderId) {
         deleteNode(folderId);
         filesMapper.deleteFolder(folderId);
@@ -147,4 +245,6 @@ public class FilesServerImpl implements FilesServer {
             deleteNode(f.getFolderId());
         }
     }
+
+
 }

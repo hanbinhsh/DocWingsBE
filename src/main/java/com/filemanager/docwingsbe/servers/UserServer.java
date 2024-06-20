@@ -8,4 +8,7 @@ public interface UserServer {
     boolean selectUserByUserName(String userName);
     public void UserDelete(long userId);
     public void UserCollectionDelete(long userId);
+    public void UpdatePassword(long userId, String newPassword);
+    public void UpdateEmail(long userId, String newEmail);
+    public void UpdatePhone(long userId, String newPhone);
 }

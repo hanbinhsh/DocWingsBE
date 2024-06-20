@@ -11,12 +11,12 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-public class LogController {
+public class    LogController {
     @Resource
     private LogServer logServer;
 
     @RequestMapping("/allLog")
-    public Map<String, Object> searchUser() {
+    public Map<String, Object> searchUser() {  // FINISHED
         Map<String, Object> result = new HashMap<>();
         Map<String, Object> data = new HashMap<>();
         data.put("logPage", this.logServer.getLogPage());

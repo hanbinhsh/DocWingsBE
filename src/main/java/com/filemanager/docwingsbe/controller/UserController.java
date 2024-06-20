@@ -42,4 +42,19 @@ public class UserController {
     public void UserCollectionDelete(@RequestBody Map<String, String> map) {
         userServer.UserCollectionDelete(Long.parseLong(map.get("userId")));
     }
+
+    @RequestMapping("/UpdatePassword")
+    public void UpdatePassword(@RequestBody Map<String, String> map) {
+        userServer.UpdatePassword(Long.parseLong(map.get("userId")),map.get("newPassword"));
+    }
+
+    @RequestMapping("/UpdatePhone")
+    public void UpdatePhone(@RequestBody Map<String, String> map) {
+        userServer.UpdatePhone(Long.parseLong(map.get("userId")),map.get("newPhone"));
+    }
+
+    @RequestMapping("/UpdateEmail")
+    public void UpdateEmail(@RequestBody Map<String, String> map) {
+        userServer.UpdateEmail(Long.parseLong(map.get("userId")),map.get("newEmail"));
+    }
 }

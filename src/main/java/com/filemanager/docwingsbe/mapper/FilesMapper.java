@@ -17,11 +17,27 @@ public interface FilesMapper {
     public List<FolderPage> findFoldersByParentId(@Param("parentId") Long parentId);
     public List<FilesPage> findFilesByParentId(@Param("parentId") Long parentId);
     public List<Files> findImagesByParentId(@Param("parentId") Long parentId);
+    public List<Files> findImagesByCollection(@Param("userId") Long userId);
+    public List<Files> findAudioByParentId(@Param("parentId") long parentId);
     public void insertFiles(@Param("files") List<Files> files);
     public void insertFolders(@Param("folders") List<Folders> folders);
     public long countFFsByParentId(@Param("parentId") Long parentId);
+
+    public long countFFsByParentIdUserId(@Param("userId") Long userId);
+
     public void changeFileRouteById(@Param("id") Long fileId, @Param("parentId") Long parentId);
     public void changeFolderRouteById(@Param("id") Long fileId, @Param("parentId") Long parentId);
+    public List<String> findTags();
+    public List<FolderPage> findFoldersByTag(@Param("tag") String tag);
+    public List<FilesPage> findFilesByTag(@Param("tag") String tag);
+    public List<FilesPage> findDocumentFiles();
+    public List<FilesPage> findImageFiles();
+    public List<FilesPage> findAudioFiles();
+    public List<FilesPage> findVideoFiles();
+    public List<FilesPage> findOtherFiles();
+    public double countFileSize();
+    public double countTrashFileSize();
+
     public void renameFile(@Param("fileId") long fileId, @Param("fileName") String fileName);
     public void renameFolder(@Param("folderId") long folderId, @Param("folderName") String folderName);
     public void recycleBinFile(@Param("fileId") long fileId, @Param("status") long status);
@@ -38,7 +54,13 @@ public interface FilesMapper {
     public void deleteCollectionsFile(@Param("fileId") long fileId);
     public void deleteFile(@Param("fileId") long fileId);
     public void deleteFolder(@Param("folderId") long folderId);
+    public List<FolderPage> findCollectionFoldersByUserId(@Param("userId") Long userId);
+    public List<FilesPage> findCollectionFilesByUserId(@Param("userId") Long userId);
+
     public List<String> findPathByParentId(@Param("parentId") long parentId);
     public List<Folders> findFolderDeleteByParentId(@Param("parentId") long parentId);
+    public long findParentFolderByFileId(@Param("fileId") long fileId);
+    public long findParentFolderByFolderId(@Param("folderId") long folderId);
+    public void updateParentFolderByFolderId(@Param("folderId") long folderId);
 
 }

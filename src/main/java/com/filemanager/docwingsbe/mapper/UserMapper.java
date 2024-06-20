@@ -12,4 +12,7 @@ public interface UserMapper {
     public void insertUser(@Param("user") User user);
     public void UserDelete(@Param("userId") long userId);
     public void UserCollectionDelete(@Param("userId") long userId);
+    public void UpdatePassword(@Param("userId") long userId, @Param("newPassword") String newPassword);
+    public void UpdateEmail(@Param("userId") long userId, @Param("newEmail") String newEmail);
+    public void UpdatePhone(@Param("userId") long userId, @Param("newPhone") String newPhone);
 }

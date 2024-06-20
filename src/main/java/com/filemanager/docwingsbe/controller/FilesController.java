@@ -8,7 +8,6 @@ import com.filemanager.docwingsbe.entity.multy.FolderPage;
 import com.filemanager.docwingsbe.servers.FilesServer;
 import jakarta.annotation.Resource;
 import org.apache.commons.io.FileUtils;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -61,7 +60,7 @@ public class FilesController {
         return this.filesServer.findFolderById(id);
     }
 
-    @RequestMapping("/insertOneFolder")
+    @RequestMapping("/insertOneFolder")  // FINISHED
     @CrossOrigin(origins = "*")  // 跨域
     public Map<String, Object> insertFolders(@RequestBody Folders folders){
         Timestamp timestamp = Timestamp.from(ZonedDateTime.now().toInstant());
@@ -79,7 +78,7 @@ public class FilesController {
 
     @RequestMapping("/changeFileRouteById")
     @CrossOrigin(origins = "*")  // 跨域
-    public Map<String, Object> changeFileRouteById(@RequestParam long id, @RequestParam long parentId){
+    public Map<String, Object> changeFileRouteById(@RequestParam long id, @RequestParam long parentId){  // FINISHED
         filesServer.changeFileRouteById(id, parentId);
         Map<String, Object> data = new HashMap<>();
         Map<String, Object> result = new HashMap<>();
@@ -93,7 +92,7 @@ public class FilesController {
 
     @RequestMapping("/changeFolderRouteById")
     @CrossOrigin(origins = "*")  // 跨域
-    public Map<String, Object> changeFolderRouteById(@RequestParam long id, @RequestParam long parentId){
+    public Map<String, Object> changeFolderRouteById(@RequestParam long id, @RequestParam long parentId){  // FINISHED
         filesServer.changeFolderRouteById(id, parentId);
         Map<String, Object> data = new HashMap<>();
         Map<String, Object> result = new HashMap<>();
@@ -110,8 +109,13 @@ public class FilesController {
         return filesServer.countFFsByParentId(parentId);
     }
 
+    @RequestMapping("/countFFsByParentIdUserId")
+    public long countFFsByParentIdUserId( @RequestBody Map<String, String> map){
+        return filesServer.countFFsByParentIdUserId(Long.parseLong(map.get("userId")));
+    }
+
     @RequestMapping("/findImagesByParentId")
-    public Map<String,Object> findImagesByParentId(@RequestParam long parentId){
+    public Map<String,Object> findImagesByParentId(@RequestParam long parentId){  // FINISHED
         List<Files> images =  this.filesServer.findImagesByParentId(parentId);
         List<String> urls = new ArrayList<>();
         for (Files file : images) {
@@ -124,6 +128,101 @@ public class FilesController {
         data.put("imageList",urls);
         result.put("data",data);
         return result;
+    }
+
+    @RequestMapping("/findImagesByCollection")
+    public Map<String,Object> findImagesByCollection(@RequestParam long userId){  // FINISHED
+        List<Files> images =  this.filesServer.findImagesByCollection(userId);
+        List<String> urls = new ArrayList<>();
+        for (Files file : images) {
+            urls.add("api/downloadFile?fileID="+file.getFileId());
+        }
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
+        result.put("code", 200 );
+        result.put("msg", "请求执行成功并返回相应数据");
+        data.put("imageList",urls);
+        result.put("data",data);
+        return result;
+    }
+
+    @RequestMapping("/findAudioByParentId")
+    public Map<String,Object> findAudioByParentId(@RequestParam long parentId){
+        List<Files> audio =  this.filesServer.findAudioByParentId(parentId);
+        List<String> urls = new ArrayList<>();
+        for (Files file : audio) {
+            urls.add("api/downloadFile?fileID="+file.getFileId());
+        }
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
+        result.put("code", 200 );
+        result.put("msg", "请求执行成功并返回相应数据");
+        data.put("audioList",urls);
+        result.put("data",data);
+        return result;
+    }
+
+    @RequestMapping("/queryCapacity")
+    public Map<String,Object> queryCapacity(){
+        //  TODO 加入分类统计
+        DecimalFormat df = new DecimalFormat("#.##");
+        final int MAX_CAPACITY = 32;  // 最大容量
+        double files = filesServer.countFileSize()/1024.0;
+        double trashFiles = filesServer.countTrashFileSize()/1024.0;
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
+        result.put("code", 200 );
+        result.put("msg", "请求执行成功并返回相应数据");
+        data.put("filesCapacity",df.format(files));
+        data.put("trashFilesCapacity",df.format(trashFiles));
+        data.put("maxCapacity",df.format(MAX_CAPACITY));
+        data.put("leftCapacity",df.format(MAX_CAPACITY-trashFiles-files));
+        result.put("data",data);
+        return result;
+    }
+
+    @RequestMapping("/findTags")
+    public List<String> findTags(){
+        return filesServer.findTags();
+    }
+
+    @RequestMapping("/findFFsByTag")
+    public Map<String,Object> findFFsByTag(@RequestParam String tag){  // FINISHED
+        List<FilesPage> filesPage = filesServer.findFilesByTag(tag);
+        List<FolderPage> folderPage = filesServer.findFoldersByTag(tag);
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
+        result.put("code", 200 );
+        result.put("msg", "请求执行成功并返回相应数据");
+        data.put("folders",folderPage);
+        data.put("files",filesPage);
+        result.put("data",data);
+        return result;
+    }
+
+    @RequestMapping("/findFilesByCategory")
+    public Map<String,Object> findFilesByCategory(@RequestParam int category) {  // FINISHED
+        List<FilesPage> filesPage = switch (category) {
+            case 0 ->  // 图片
+                    filesServer.findImageFiles();
+            case 1 ->  // 文档
+                    filesServer.findDocumentFiles();
+            case 2 ->  // 音频
+                    filesServer.findAudioFiles();
+            case 3 ->  // 视频
+                    filesServer.findVideoFiles();
+            case 4 ->  // 其他
+                    filesServer.findOtherFiles();
+            default -> null;
+        };
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
+        result.put("code", 200 );
+        result.put("msg", "请求执行成功并返回相应数据");
+        data.put("files",filesPage);
+        result.put("data",data);
+        return result;
+
     }
 
     @PostMapping("/uploadOneFile")
@@ -172,7 +271,7 @@ public class FilesController {
     }
 
     @RequestMapping("/renameFile")
-    public void renameFile(@RequestBody Map<String, String> map) throws Exception {
+    public void renameFile(@RequestBody Map<String, String> map) throws Exception {  // FINISHED
         Files file = filesServer.findFileById(Long.parseLong(map.get("fileId")));
         if (file == null){
             throw new Exception("File not found");
@@ -181,19 +280,17 @@ public class FilesController {
     }
 
     @RequestMapping("/renameFolder")
-    public void renameFolder(@RequestBody Map<String, String> map) {
+    public void renameFolder(@RequestBody Map<String, String> map) {  // FINISHED
         filesServer.renameFolder(Long.parseLong(map.get("folderId")), map.get("folderName"));
     }
 
     @RequestMapping("/recycleBinFile")
     public void recycleBinFile(@RequestBody Map<String, String> map) {
-        // TODO 删除硬盘上的文件
         filesServer.recycleBinFile(Long.parseLong(map.get("fileId")), Long.parseLong(map.get("status")));
     }
 
     @RequestMapping("/recycleBinFolder")
     public void recycleBinFolder(@RequestBody Map<String, String> map) {
-        // TODO 删除硬盘上的文件
         filesServer.recycleBinFolder(Long.parseLong(map.get("folderId")), Long.parseLong(map.get("status")));
     }
 
@@ -244,5 +341,18 @@ public class FilesController {
     public ResponseEntity<List<String>> searchFile(@RequestParam(value = "fileName", required = false) String fileName){
         List<String> paths = filesServer.findPathsByFileName(fileName);
         return ResponseEntity.ok(paths);
+    }
+    @RequestMapping("/findCollectionFFsByUserId")
+    public Map<String,Object> findCollectionFFsByUserId(@RequestParam long userId) {  // FINISHED
+        List<FilesPage> filesPage = filesServer.findCollectionFilesByUserId(userId);
+        List<FolderPage> folderPage = filesServer.findCollectionFoldersByUserId(userId);
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
+        result.put("code", 200 );
+        result.put("msg", "请求执行成功并返回相应数据");
+        data.put("files",filesPage);
+        data.put("folders",folderPage);
+        result.put("data",data);
+        return result;
     }
 }

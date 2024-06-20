@@ -5,6 +5,7 @@ import com.filemanager.docwingsbe.entity.Files;
 import com.filemanager.docwingsbe.entity.Folders;
 import com.filemanager.docwingsbe.entity.multy.FilesPage;
 import com.filemanager.docwingsbe.entity.multy.FolderPage;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -16,18 +17,31 @@ public interface FilesServer {
     void insertFolders(List<Folders> folders);
     Folders findFolderById(long id);
     long countFFsByParentId(long parentId);
+    long countFFsByParentIdUserId(long userId);
     void changeFileRouteById(long id, long parentId);
     void changeFolderRouteById(long id, long parentId);
     List<Files> findImagesByParentId(long parentId);
+    List<Files> findImagesByCollection(Long userId);
+    List<Files> findAudioByParentId(long parentId);
+    List<String> findTags();
+    List<FolderPage> findFoldersByTag(String tag);
+    List<FilesPage> findFilesByTag(String tag);
+    List<FilesPage> findDocumentFiles();
+    List<FilesPage> findImageFiles();
+    List<FilesPage> findAudioFiles();
+    List<FilesPage> findVideoFiles();
+    List<FilesPage> findOtherFiles();
+    double countFileSize();
+    double countTrashFileSize();
+
     void renameFile(long fileId, String fileName);
     void renameFolder(long folderId, String folderName);
     void recycleBinFile(long fileId, long status);
+    void recycleParentFolder(long folderId);
     void recycleBinFolder(long folderId, long status);
     List<FilesPage> findFileByDelete(long status);
     List<FolderPage> findFolderByDelete(long status);
     List<String> findPathsByFileName(String fileName);
-
-
     void CollectionsInsertFolder(long folderId, long userId);
     void CollectionsDeleteFolder(long folderId, long userId);
     void CollectionsInsertFile(long folderId, long userId);
@@ -35,5 +49,7 @@ public interface FilesServer {
     List<Collections> findCollectionFFs(long userId);
     void deleteFile(long fileId);
     void deleteFolder(long folderId);
+    List<FolderPage> findCollectionFoldersByUserId(long userId);
+    List<FilesPage> findCollectionFilesByUserId(long userId);
     void deleteNode(long nodeId);
 }

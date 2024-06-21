@@ -35,6 +35,8 @@ public interface FilesServer {
 
     void renameFile(long fileId, String fileName);
     void renameFolder(long folderId, String folderName);
+    void renameFileTag(long fileId, String tag);
+    void renameFolderTag(long folderId, String tag);
     void recycleBinFile(long fileId, long status);
     void recycleParentFolder(long folderId);
     void recycleBinFolder(long folderId, long status);

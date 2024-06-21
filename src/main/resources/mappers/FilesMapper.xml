@@ -40,6 +40,16 @@
         set folder_name = #{folderName}
         WHERE folder_id = #{folderId}
     </update>
+    <update id="renameFileTag">
+        UPDATE files
+        set tag = #{tag}
+        WHERE file_id = #{fileId}
+    </update>
+    <update id="renameFolderTag">
+        UPDATE folders
+        set tag = #{tag}
+        WHERE folder_id = #{folderId}
+    </update>
     <update id="changeFileRouteById">
         UPDATE files
             SET parent_id = #{parentId}

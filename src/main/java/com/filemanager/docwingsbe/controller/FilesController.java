@@ -256,17 +256,23 @@ public class FilesController {
     }
 
     @RequestMapping("/renameFile")
-    public void renameFile(@RequestBody Map<String, String> map) throws Exception {  // FINISHED
-        Files file = filesServer.findFileById(Long.parseLong(map.get("fileId")));
-        if (file == null){
-            throw new Exception("File not found");
-        }
+    public void renameFile(@RequestBody Map<String, String> map)  {  // FINISHED
         filesServer.renameFile(Long.parseLong(map.get("fileId")), map.get("fileName"));
     }
 
     @RequestMapping("/renameFolder")
     public void renameFolder(@RequestBody Map<String, String> map) {  // FINISHED
         filesServer.renameFolder(Long.parseLong(map.get("folderId")), map.get("folderName"));
+    }
+
+    @RequestMapping("/renameFileTag")
+    public void renameFileTag(@RequestBody Map<String, String> map) {  // FINISHED
+        filesServer.renameFileTag(Long.parseLong(map.get("fileId")), map.get("tag"));
+    }
+
+    @RequestMapping("/renameFolderTag")
+    public void renameFolderTag(@RequestBody Map<String, String> map) {  // FINISHED
+        filesServer.renameFolderTag(Long.parseLong(map.get("folderId")), map.get("tag"));
     }
 
     @RequestMapping("/recycleBinFile")

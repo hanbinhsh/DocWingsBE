@@ -146,6 +146,16 @@ public class FilesServerImpl implements FilesServer {
     }
 
     @Override
+    public void renameFileTag(long fileId, String tag) {
+        filesMapper.renameFileTag(fileId, tag);
+    }
+
+    @Override
+    public void renameFolderTag(long folderId, String tag) {
+        filesMapper.renameFolderTag(folderId, tag);
+    }
+
+    @Override
     public void recycleBinFile(long fileId, long status) {
         filesMapper.recycleBinFile(fileId, status);
         if(status==0){

@@ -30,9 +30,6 @@ public interface FilesServer {
     List<FilesPage> findAudioFiles();
     List<FilesPage> findVideoFiles();
     List<FilesPage> findOtherFiles();
-    double countFileSize();
-    double countTrashFileSize();
-
     void renameFile(long fileId, String fileName);
     void renameFolder(long folderId, String folderName);
     void recycleBinFile(long fileId, long status);
@@ -51,4 +48,12 @@ public interface FilesServer {
     List<FolderPage> findCollectionFoldersByUserId(long userId);
     List<FilesPage> findCollectionFilesByUserId(long userId);
     void deleteNode(long nodeId);
+
+    // 空间计算
+    double countFileSize();
+    double countTrashFileSize();
+    double countImageSize();
+    double countDocumentSize();
+    double countVideoSize();
+    double countAudioSize();
 }

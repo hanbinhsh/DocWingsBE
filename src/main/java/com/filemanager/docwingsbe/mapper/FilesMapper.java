@@ -27,14 +27,6 @@ public interface FilesMapper {
     public List<String> findTags();
     public List<FolderPage> findFoldersByTag(@Param("tag") String tag);
     public List<FilesPage> findFilesByTag(@Param("tag") String tag);
-    public List<FilesPage> findDocumentFiles();
-    public List<FilesPage> findImageFiles();
-    public List<FilesPage> findAudioFiles();
-    public List<FilesPage> findVideoFiles();
-    public List<FilesPage> findOtherFiles();
-    public double countFileSize();
-    public double countTrashFileSize();
-
     public void renameFile(@Param("fileId") long fileId, @Param("fileName") String fileName);
     public void renameFolder(@Param("folderId") long folderId, @Param("folderName") String folderName);
     public void recycleBinFile(@Param("fileId") long fileId, @Param("status") long status);
@@ -42,7 +34,6 @@ public interface FilesMapper {
     public List<FilesPage> findFileByDelete(@Param("status") long status);
     public List<FolderPage> findFolderByDelete(@Param("status") long status);
     public List<String> findPathsByFileName(String fileName);
-
     public void CollectionsInsertFolder(@Param("folderId") long folderId, @Param("userId") long userId);
     public void CollectionsDeleteFolder(@Param("folderId") long folderId, @Param("userId") long userId);
     public void CollectionsInsertFile(@Param("fileId") long fileId, @Param("userId") long userId);
@@ -53,11 +44,23 @@ public interface FilesMapper {
     public void deleteFolder(@Param("folderId") long folderId);
     public List<FolderPage> findCollectionFoldersByUserId(@Param("userId") Long userId);
     public List<FilesPage> findCollectionFilesByUserId(@Param("userId") Long userId);
-
     public List<String> findPathByParentId(@Param("parentId") long parentId);
     public List<Folders> findFolderDeleteByParentId(@Param("parentId") long parentId);
     public long findParentFolderByFileId(@Param("fileId") long fileId);
     public long findParentFolderByFolderId(@Param("folderId") long folderId);
     public void updateParentFolderByFolderId(@Param("folderId") long folderId);
 
+    // 空间计算
+    public double countFileSize();
+    public double countTrashFileSize();
+    public double countImageSize();
+    public double countDocumentSize();
+    public double countVideoSize();
+    public double countAudioSize();
+    // 类别寻找
+    public List<FilesPage> findDocumentFiles();
+    public List<FilesPage> findImageFiles();
+    public List<FilesPage> findAudioFiles();
+    public List<FilesPage> findVideoFiles();
+    public List<FilesPage> findOtherFiles();
 }

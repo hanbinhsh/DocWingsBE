@@ -1,6 +1,7 @@
 package com.filemanager.docwingsbe.entity.multy;
 
 import java.sql.Timestamp;
+import java.text.DecimalFormat;
 
 public class SharePage {
     private long shareId;
@@ -26,7 +27,8 @@ public class SharePage {
         lastTime = new java.sql.Timestamp(dueTime.getTime()-System.currentTimeMillis());
     }
     private void generateLastRatio(){
-        lastRatio = (double) (dueTime.getTime() - System.currentTimeMillis()) /(dueTime.getTime()-shareTime.getTime());
+        DecimalFormat df = new DecimalFormat("#.##");
+        lastRatio = Double.parseDouble(df.format((double) (dueTime.getTime() - System.currentTimeMillis()) /(dueTime.getTime()-shareTime.getTime())));
     }
     public void generateThings(){
         if(accepterName == null){

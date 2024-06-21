@@ -15,7 +15,13 @@ public class ShareServerImpl implements ShareServer {
     @Resource
     private ShareMapper shareMapper;
 
+    @Override
     public List<SharePage> getSharesByUserId(@Param("userId") long userId){
         return shareMapper.getSharesByUserId(userId);
+    }
+
+    @Override
+    public int countSharesByUserId(long userId) {
+        return shareMapper.countSharesByUserId(userId);
     }
 }

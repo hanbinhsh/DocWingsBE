@@ -215,9 +215,6 @@ public class FilesServerImpl implements FilesServer {
         filesMapper.deleteFile(fileId);
     }
 
-
-
-
     @Override
     @Transactional(readOnly = true)
     public List<FolderPage> findCollectionFoldersByUserId(long userId) {

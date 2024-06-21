@@ -72,13 +72,13 @@ CREATE TABLE `files`  (
 DROP TABLE IF EXISTS `shares`;
 CREATE TABLE `shares`  (
   `share_id` int  AUTO_INCREMENT PRIMARY KEY  	NOT NULL	COMMENT '分享ID',
-  `file_id` int  								NOT NULL	COMMENT '文件ID',
-  `folder_id` int  								NOT NULL	COMMENT '文件夹ID',
+  `file_id` int  											COMMENT '文件ID',
+  `folder_id` int  											COMMENT '文件夹ID',
   `sharer_id` int							 	NOT NULL	COMMENT '分享者ID',
   `auth` tinyint DEFAULT 0						NOT NULL	COMMENT '权限',     -- 其中auth包含了是否公分享
   `share_time` datetime	 			 			NOT NULL	COMMENT '共享日期',
   `due_time` datetime	 			 						COMMENT '到期日期',
-  `accepter_id` int	default 0								COMMENT '接受者ID',
+  `accepter_id` int											COMMENT '接受者ID',
   `is_folder` boolean DEFAULT false				NOT NULL	COMMENT '是否是文件夹',
   FOREIGN KEY (`sharer_id`) REFERENCES user(`user_id`),
   FOREIGN KEY (`file_id`) REFERENCES files(`file_id`),

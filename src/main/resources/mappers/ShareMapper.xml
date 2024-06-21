@@ -21,9 +21,9 @@
             s.is_folder AS 'isFolder'
         FROM
             shares s
-                JOIN
+                LEFT JOIN
             files f ON s.file_id = f.file_id
-                JOIN
+                LEFT JOIN
             folders fo ON s.folder_id = fo.folder_id
                 JOIN
             user us_sharer ON s.sharer_id = us_sharer.user_id
@@ -31,6 +31,8 @@
             user us_accepter ON s.accepter_id = us_accepter.user_id
         WHERE
             s.sharer_id = #{userId};
-
+    </select>
+    <select id="countSharesByUserId" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM shares WHERE  sharer_id = #{userId} ;
     </select>
 </mapper>

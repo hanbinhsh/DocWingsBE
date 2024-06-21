@@ -51,6 +51,20 @@ public class FilesController {
         return this.filesServer.findFilesByParentId(parentId);
     }
 
+    @RequestMapping("/findFFsByParentId")
+    public Map<String, Object> findFFsByParentId(@RequestParam long parentId) {  // FINISHED
+        List<FilesPage> files = this.filesServer.findFilesByParentId(parentId);
+        List<FolderPage> folders = this.filesServer.findFoldersByParentId(parentId);
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
+        result.put("code", 201 );
+        result.put("msg", "创建成功并返回相应资源数据");
+        data.put("files",files);
+        data.put("folders",folders);
+        result.put("data",data);
+        return result;
+    }
+
     @RequestMapping("/findFileById")
     public Files findFileById(@RequestParam long id) {
         return this.filesServer.findFileById(id);

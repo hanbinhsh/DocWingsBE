@@ -166,6 +166,33 @@ public class FilesController {
         return result;
     }
 
+    @RequestMapping("/queryCategoryCapacity")
+    public Map<String,Object> queryCategoryCapacity(){
+        DecimalFormat df = new DecimalFormat("#.##");
+        final int MAX_CAPACITY = 32;  // 最大容量
+        double files = filesServer.countFileSize()/1024.0;
+        double trashFiles = filesServer.countTrashFileSize()/1024.0;
+        double imageFiles = filesServer.countImageSize()/1024.0;
+        double documentFiles = filesServer.countDocumentSize()/1024.0;
+        double videoFiles = filesServer.countVideoSize()/1024.0;
+        double audioFiles = filesServer.countAudioSize()/1024.0;
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
+        result.put("code", 200 );
+        result.put("msg", "请求执行成功并返回相应数据");
+        data.put("filesCapacity",df.format(files));
+        data.put("trashFilesCapacity",df.format(trashFiles));
+        data.put("maxCapacity",df.format(MAX_CAPACITY));
+        data.put("leftCapacity",df.format(MAX_CAPACITY-trashFiles-files));
+        data.put("imageCapacity",df.format(imageFiles));
+        data.put("documentCapacity",df.format(documentFiles));
+        data.put("videoCapacity",df.format(videoFiles));
+        data.put("audioCapacity",df.format(audioFiles));
+        data.put("otherCapacity",df.format(files - imageFiles - documentFiles - videoFiles - audioFiles));
+        result.put("data",data);
+        return result;
+    }
+
     @RequestMapping("/findTags")
     public List<String> findTags(){
         return filesServer.findTags();
@@ -207,7 +234,6 @@ public class FilesController {
         data.put("files",filesPage);
         result.put("data",data);
         return result;
-
     }
 
     @PostMapping("/uploadOneFile")

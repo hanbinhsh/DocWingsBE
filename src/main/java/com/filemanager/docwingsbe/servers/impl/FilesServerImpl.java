@@ -141,6 +141,26 @@ public class FilesServerImpl implements FilesServer {
     }
 
     @Override
+    public double countImageSize() {
+        return filesMapper.countImageSize();
+    }
+
+    @Override
+    public double countDocumentSize() {
+        return filesMapper.countDocumentSize();
+    }
+
+    @Override
+    public double countVideoSize() {
+        return filesMapper.countVideoSize();
+    }
+
+    @Override
+    public double countAudioSize() {
+        return filesMapper.countAudioSize();
+    }
+
+    @Override
     public void renameFolder(long folderId, String folderName) {
         filesMapper.renameFolder(folderId, folderName);
     }

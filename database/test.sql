@@ -87,9 +87,12 @@ UPDATE files
 SET parent_id = 1 
 WHERE file_id = 2;
 
-ALTER TABLE `files` MODIFY COLUMN `uploader_id` int COMMENT '上传者ID';
-ALTER TABLE `files` MODIFY COLUMN `last_modifier_id` int COMMENT '上次修改者ID';
-ALTER TABLE `folders` MODIFY COLUMN `creater_id` int COMMENT '创建者ID';
-ALTER TABLE `folders` MODIFY COLUMN `last_modifier_id` int COMMENT '上次修改者ID';
+ALTER TABLE `files` MODIFY COLUMN `uploader_id` int NOT NULL COMMENT '上传者ID';
+ALTER TABLE `files` MODIFY COLUMN `last_modifier_id` int NOT NULL COMMENT '上次修改者ID';
+ALTER TABLE `folders` MODIFY COLUMN `creater_id` int NOT NULL COMMENT '创建者ID';
+ALTER TABLE `folders` MODIFY COLUMN `last_modifier_id` int NOT NULL COMMENT '上次修改者ID';
 ALTER TABLE `shares` ADD COLUMN `due_time` datetime COMMENT '到期日期';
 ALTER TABLE `user` MODIFY COLUMN `phone` varchar(32) UNIQUE	NOT NULL COMMENT '电话号码';
+
+INSERT INTO `shares` (`file_id`, `folder_id`, `sharer_id`, `auth`, `share_time`, `due_time`, `accepter_id`, `is_folder`) VALUES
+(1, 2, 7, 1, '2024-06-02 09:00:00', '2024-06-22 09:00:00', 2, false);

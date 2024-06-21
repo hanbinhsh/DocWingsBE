@@ -147,6 +147,22 @@ public class FilesController {
         return result;
     }
 
+    @RequestMapping("/findImages")
+    public Map<String,Object> findImages(){  // FINISHED
+        List<FilesPage> images =  this.filesServer.findImageFiles();
+        List<String> urls = new ArrayList<>();
+        for (FilesPage file : images) {
+            urls.add("api/downloadFile?fileID="+file.getFileId());
+        }
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
+        result.put("code", 200 );
+        result.put("msg", "请求执行成功并返回相应数据");
+        data.put("imageList",urls);
+        result.put("data",data);
+        return result;
+    }
+
     @RequestMapping("/queryCapacity")
     public Map<String,Object> queryCapacity(){
         //  TODO 加入分类统计

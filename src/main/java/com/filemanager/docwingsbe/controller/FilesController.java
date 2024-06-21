@@ -36,6 +36,7 @@ public class FilesController {
         String fileName = URLEncoder.encode(file.getFileName(),"UTF-8");  // 设置下载的文件名
         builder.header("Access-Control-Expose-Headers", "Content-Disposition");
         builder.header("Content-Disposition", "attachment;filename*=UTF-8''" + fileName);
+        builder.header("Accept-Ranges", "bytes");
         File dFile = new File(file.getPath());
         return builder.body(FileUtils.readFileToByteArray(dFile));
     }

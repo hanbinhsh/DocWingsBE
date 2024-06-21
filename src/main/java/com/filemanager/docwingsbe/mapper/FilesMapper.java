@@ -21,9 +21,7 @@ public interface FilesMapper {
     public void insertFiles(@Param("files") List<Files> files);
     public void insertFolders(@Param("folders") List<Folders> folders);
     public long countFFsByParentId(@Param("parentId") Long parentId);
-
     public long countFFsByParentIdUserId(@Param("userId") Long userId);
-
     public void changeFileRouteById(@Param("id") Long fileId, @Param("parentId") Long parentId);
     public void changeFolderRouteById(@Param("id") Long fileId, @Param("parentId") Long parentId);
     public List<String> findTags();

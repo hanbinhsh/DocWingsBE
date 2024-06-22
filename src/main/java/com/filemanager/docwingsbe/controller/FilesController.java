@@ -36,6 +36,7 @@ public class FilesController {
         String fileName = URLEncoder.encode(file.getFileName(),"UTF-8");  // 设置下载的文件名
         builder.header("Access-Control-Expose-Headers", "Content-Disposition");
         builder.header("Content-Disposition", "attachment;filename*=UTF-8''" + fileName);
+        builder.header("Accept-Ranges", "bytes");
         File dFile = new File(file.getPath());
         return builder.body(FileUtils.readFileToByteArray(dFile));
     }
@@ -48,6 +49,20 @@ public class FilesController {
     @RequestMapping("/findFilesByParentId")
     public List<FilesPage> findFilesByParentId(@RequestParam long parentId) {
         return this.filesServer.findFilesByParentId(parentId);
+    }
+
+    @RequestMapping("/findFFsByParentId")
+    public Map<String, Object> findFFsByParentId(@RequestParam long parentId) {  // FINISHED
+        List<FilesPage> files = this.filesServer.findFilesByParentId(parentId);
+        List<FolderPage> folders = this.filesServer.findFoldersByParentId(parentId);
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
+        result.put("code", 201 );
+        result.put("msg", "创建成功并返回相应资源数据");
+        data.put("files",files);
+        data.put("folders",folders);
+        result.put("data",data);
+        return result;
     }
 
     @RequestMapping("/findFileById")
@@ -146,18 +161,18 @@ public class FilesController {
         return result;
     }
 
-    @RequestMapping("/findAudioByParentId")
-    public Map<String,Object> findAudioByParentId(@RequestParam long parentId){
-        List<Files> audio =  this.filesServer.findAudioByParentId(parentId);
+    @RequestMapping("/findImages")
+    public Map<String,Object> findImages(){  // FINISHED
+        List<FilesPage> images =  this.filesServer.findImageFiles();
         List<String> urls = new ArrayList<>();
-        for (Files file : audio) {
+        for (FilesPage file : images) {
             urls.add("api/downloadFile?fileID="+file.getFileId());
         }
         Map<String, Object> data = new HashMap<>();
         Map<String, Object> result = new HashMap<>();
         result.put("code", 200 );
         result.put("msg", "请求执行成功并返回相应数据");
-        data.put("audioList",urls);
+        data.put("imageList",urls);
         result.put("data",data);
         return result;
     }
@@ -177,6 +192,33 @@ public class FilesController {
         data.put("trashFilesCapacity",df.format(trashFiles));
         data.put("maxCapacity",df.format(MAX_CAPACITY));
         data.put("leftCapacity",df.format(MAX_CAPACITY-trashFiles-files));
+        result.put("data",data);
+        return result;
+    }
+
+    @RequestMapping("/queryCategoryCapacity")
+    public Map<String,Object> queryCategoryCapacity(){
+        DecimalFormat df = new DecimalFormat("#.##");
+        final int MAX_CAPACITY = 32;  // 最大容量
+        double files = filesServer.countFileSize()/1024.0;
+        double trashFiles = filesServer.countTrashFileSize()/1024.0;
+        double imageFiles = filesServer.countImageSize()/1024.0;
+        double documentFiles = filesServer.countDocumentSize()/1024.0;
+        double videoFiles = filesServer.countVideoSize()/1024.0;
+        double audioFiles = filesServer.countAudioSize()/1024.0;
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
+        result.put("code", 200 );
+        result.put("msg", "请求执行成功并返回相应数据");
+        data.put("filesCapacity",df.format(files));
+        data.put("trashFilesCapacity",df.format(trashFiles));
+        data.put("maxCapacity",df.format(MAX_CAPACITY));
+        data.put("leftCapacity",df.format(MAX_CAPACITY-trashFiles-files));
+        data.put("imageCapacity",df.format(imageFiles));
+        data.put("documentCapacity",df.format(documentFiles));
+        data.put("videoCapacity",df.format(videoFiles));
+        data.put("audioCapacity",df.format(audioFiles));
+        data.put("otherCapacity",df.format(files - imageFiles - documentFiles - videoFiles - audioFiles));
         result.put("data",data);
         return result;
     }
@@ -222,7 +264,6 @@ public class FilesController {
         data.put("files",filesPage);
         result.put("data",data);
         return result;
-
     }
 
     @PostMapping("/uploadOneFile")
@@ -271,17 +312,23 @@ public class FilesController {
     }
 
     @RequestMapping("/renameFile")
-    public void renameFile(@RequestBody Map<String, String> map) throws Exception {  // FINISHED
-        Files file = filesServer.findFileById(Long.parseLong(map.get("fileId")));
-        if (file == null){
-            throw new Exception("File not found");
-        }
+    public void renameFile(@RequestBody Map<String, String> map)  {  // FINISHED
         filesServer.renameFile(Long.parseLong(map.get("fileId")), map.get("fileName"));
     }
 
     @RequestMapping("/renameFolder")
     public void renameFolder(@RequestBody Map<String, String> map) {  // FINISHED
         filesServer.renameFolder(Long.parseLong(map.get("folderId")), map.get("folderName"));
+    }
+
+    @RequestMapping("/renameFileTag")
+    public void renameFileTag(@RequestBody Map<String, String> map) {  // FINISHED
+        filesServer.renameFileTag(Long.parseLong(map.get("fileId")), map.get("tag"));
+    }
+
+    @RequestMapping("/renameFolderTag")
+    public void renameFolderTag(@RequestBody Map<String, String> map) {  // FINISHED
+        filesServer.renameFolderTag(Long.parseLong(map.get("folderId")), map.get("tag"));
     }
 
     @RequestMapping("/recycleBinFile")
@@ -318,19 +365,19 @@ public class FilesController {
     }
 
     @RequestMapping("/CollectionsInsertFolder")
-    public void CollectionsInsertFolder(@RequestBody Map<String, String> map) throws Exception {
+    public void CollectionsInsertFolder(@RequestBody Map<String, String> map) throws Exception {//FINISHED
         filesServer.CollectionsInsertFolder(Long.parseLong(map.get("folderId")),Long.parseLong(map.get("userId")));
     }
     @RequestMapping("/CollectionsDeleteFolder")
-    public void CollectionsDeleteFolder(@RequestBody Map<String, String> map) throws Exception {
+    public void CollectionsDeleteFolder(@RequestBody Map<String, String> map) throws Exception {//FINISHED
         filesServer.CollectionsDeleteFolder(Long.parseLong(map.get("folderId")),Long.parseLong(map.get("userId")));
     }
     @RequestMapping("/CollectionsInsertFile")
-    public void CollectionsInsertFile(@RequestBody Map<String, String> map) throws Exception {
+    public void CollectionsInsertFile(@RequestBody Map<String, String> map) throws Exception {//FINISHED
         filesServer.CollectionsInsertFile(Long.parseLong(map.get("fileId")),Long.parseLong(map.get("userId")));
     }
     @RequestMapping("/CollectionsDeleteFile")
-    public void CollectionsDeleteFile(@RequestBody Map<String, String> map) throws Exception {
+    public void CollectionsDeleteFile(@RequestBody Map<String, String> map) throws Exception {//FINISHED
         filesServer.CollectionsDeleteFile(Long.parseLong(map.get("fileId")),Long.parseLong(map.get("userId")));
     }
     @RequestMapping("/findCollectionFFs")

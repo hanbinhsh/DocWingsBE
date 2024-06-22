@@ -1,6 +1,8 @@
 package com.filemanager.docwingsbe.entity;
 
 
+import java.time.Instant;
+
 public class User {
 
   private long userId;
@@ -11,6 +13,21 @@ public class User {
   private long isAdmin;
   private String phone;
 
+  private int failedAttempts;
+  private boolean accountLocked;
+  private Instant lockTime;
+
+  public int getFailedAttempts() {return failedAttempts;}
+
+  public void setFailedAttempts(int failedAttempts) {this.failedAttempts = failedAttempts;}
+
+  public boolean isAccountLocked() {return accountLocked;}
+
+  public void setAccountLocked(boolean accountLocked) {this.accountLocked = accountLocked;}
+
+  public Instant getLockTime() {return lockTime;}
+
+  public void setLockTime(Instant lockTime) {this.lockTime = lockTime;}
 
   public long getUserId() {
     return userId;

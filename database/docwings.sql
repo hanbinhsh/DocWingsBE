@@ -20,6 +20,9 @@ CREATE TABLE `user`  (
   `group_id` int DEFAULT 0						NOT NULL	COMMENT '用户组ID',
   `is_admin` boolean DEFAULT false	 			NOT NULL	COMMENT '是否是管理员',
   `phone` varchar(32) UNIQUE				 	NOT NULL	COMMENT '电话号码',
+  `failed_attempts` INT DEFAULT 0                            COMMENT '登录失败次数',
+  `account_locked` BOOLEAN DEFAULT FALSE                    COMMENT '是否冻结',
+  `lock_time` TIMESTAMP NULL                                COMMENT '冻结时间',
   FOREIGN KEY (`group_id`) REFERENCES usergroup(`group_id`)
 );
 
@@ -39,10 +42,10 @@ CREATE TABLE `folders`  (
   `folder_name` varchar(100) 					NOT NULL	COMMENT '文件夹名',
   `parent_id` int 								NOT NULL	COMMENT '父文件夹ID',
   `create_time` datetime 						NOT NULL	COMMENT '创建日期',
-  `creater_id` int											COMMENT '创建者ID',
+  `creater_id` int								NOT NULL	COMMENT '创建者ID',
   `tag` varchar(100)										COMMENT '标记',
   `is_deleted` boolean DEFAULT false 			NOT NULL	COMMENT '已删除',
-  `last_modifier_id` int									COMMENT '上次修改者ID',
+  `last_modifier_id` int						NOT NULL	COMMENT '上次修改者ID',
   `last_modify_time` datetime					NOT NULL	COMMENT '上次修改时间',
   FOREIGN KEY (`parent_id`) REFERENCES folders(`folder_id`),
   FOREIGN KEY (`creater_id`) REFERENCES user(`user_id`),
@@ -57,8 +60,8 @@ CREATE TABLE `files`  (
   `upload_time` datetime 						NOT NULL	COMMENT '上传时间',
   `file_size` double		 					NOT NULL	COMMENT '文件大小',
   `file_type` varchar(100) 						NOT NULL	COMMENT '文件类型',
-  `uploader_id` int											COMMENT '上传者ID',
-  `last_modifier_id` int									COMMENT '上次修改者ID',
+  `uploader_id` int								NOT NULL	COMMENT '上传者ID',
+  `last_modifier_id` int						NOT NULL	COMMENT '上次修改者ID',
   `tag` varchar(100)										COMMENT '标记',
   `last_modify_time` datetime					NOT NULL	COMMENT '上次修改时间',
   `is_deleted` boolean DEFAULT false 			NOT NULL	COMMENT '已删除',
@@ -72,13 +75,13 @@ CREATE TABLE `files`  (
 DROP TABLE IF EXISTS `shares`;
 CREATE TABLE `shares`  (
   `share_id` int  AUTO_INCREMENT PRIMARY KEY  	NOT NULL	COMMENT '分享ID',
-  `file_id` int  								NOT NULL	COMMENT '文件ID',
-  `folder_id` int  								NOT NULL	COMMENT '文件夹ID',
+  `file_id` int  											COMMENT '文件ID',
+  `folder_id` int  											COMMENT '文件夹ID',
   `sharer_id` int							 	NOT NULL	COMMENT '分享者ID',
   `auth` tinyint DEFAULT 0						NOT NULL	COMMENT '权限',     -- 其中auth包含了是否公分享
   `share_time` datetime	 			 			NOT NULL	COMMENT '共享日期',
   `due_time` datetime	 			 						COMMENT '到期日期',
-  `accepter_id` int	default 0								COMMENT '接受者ID',
+  `accepter_id` int											COMMENT '接受者ID',
   `is_folder` boolean DEFAULT false				NOT NULL	COMMENT '是否是文件夹',
   FOREIGN KEY (`sharer_id`) REFERENCES user(`user_id`),
   FOREIGN KEY (`file_id`) REFERENCES files(`file_id`),

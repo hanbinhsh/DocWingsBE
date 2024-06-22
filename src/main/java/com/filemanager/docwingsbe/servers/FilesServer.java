@@ -22,7 +22,6 @@ public interface FilesServer {
     void changeFolderRouteById(long id, long parentId);
     List<Files> findImagesByParentId(long parentId);
     List<Files> findImagesByCollection(Long userId);
-    List<Files> findAudioByParentId(long parentId);
     List<String> findTags();
     List<FolderPage> findFoldersByTag(String tag);
     List<FilesPage> findFilesByTag(String tag);
@@ -31,11 +30,10 @@ public interface FilesServer {
     List<FilesPage> findAudioFiles();
     List<FilesPage> findVideoFiles();
     List<FilesPage> findOtherFiles();
-    double countFileSize();
-    double countTrashFileSize();
-
     void renameFile(long fileId, String fileName);
     void renameFolder(long folderId, String folderName);
+    void renameFileTag(long fileId, String tag);
+    void renameFolderTag(long folderId, String tag);
     void recycleBinFile(long fileId, long status);
     void recycleParentFolder(long folderId);
     void recycleBinFolder(long folderId, long status);
@@ -52,4 +50,12 @@ public interface FilesServer {
     List<FolderPage> findCollectionFoldersByUserId(long userId);
     List<FilesPage> findCollectionFilesByUserId(long userId);
     void deleteNode(long nodeId);
+
+    // 空间计算
+    double countFileSize();
+    double countTrashFileSize();
+    double countImageSize();
+    double countDocumentSize();
+    double countVideoSize();
+    double countAudioSize();
 }

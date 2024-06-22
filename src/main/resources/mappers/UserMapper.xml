@@ -18,6 +18,21 @@
         set phone=#{newPhone}
         where user_id=#{userId}
     </update>
+    <update id="UpdateByAccountLockedTrueAndLockTimeBefore">
+        UPDATE user
+        SET account_locked = FALSE,
+        lock_time = NULL,
+        failed_attempts = 0
+        WHERE account_locked = TRUE
+        AND TIMESTAMPDIFF(HOUR, lock_time, NOW()) > 2;
+    </update>
+    <update id="SaveUser">
+        UPDATE user
+        SET lock_time = NOW(),
+        account_locked = #{accountLocked},
+        failed_attempts = #{failedLoginAttempts}
+        where user_id = #{userId}
+    </update>
     <delete id="UserDelete">
         delete from user
         where user_id=#{userId}
@@ -29,11 +44,9 @@
     <select id="loginVerification" resultType="com.filemanager.docwingsbe.entity.User">
         SELECT * FROM docwingsdb.user WHERE user_name = #{userName} AND psw = SHA2(#{password},256)
     </select>
-    <select id="selectUserByUserName" resultType="java.lang.String">
-        select user_name from docwingsdb.user where user_name = #{userName}
+    <select id="findUserByName" resultType="com.filemanager.docwingsbe.entity.User">
+        SELECT * FROM user
+        WHERE user_name = #{userName};
     </select>
-    <insert id="insertUser" parameterType="User" keyProperty="userId" useGeneratedKeys="true">
-        insert into user(user_name,psw,email,group_id,is_admin,phone) values
-            (#{user.userName},#{user.psw},#{user.email},#{user.groupId},#{user.isAdmin},#{user.phone})
-    </insert>
+
 </mapper>

@@ -40,6 +40,16 @@
         set folder_name = #{folderName}
         WHERE folder_id = #{folderId}
     </update>
+    <update id="renameFileTag">
+        UPDATE files
+        set tag = #{tag}
+        WHERE file_id = #{fileId}
+    </update>
+    <update id="renameFolderTag">
+        UPDATE folders
+        set tag = #{tag}
+        WHERE folder_id = #{folderId}
+    </update>
     <update id="changeFileRouteById">
         UPDATE files
             SET parent_id = #{parentId}
@@ -148,12 +158,6 @@
         FROM files
         WHERE parent_id = #{parentId}
           AND file_type LIKE 'image/%' AND is_deleted = 0;
-    </select>
-    <select id="findAudioByParentId" resultType="com.filemanager.docwingsbe.entity.Files">
-        SELECT *
-        FROM files
-        WHERE parent_id = #{parentId}
-          AND file_type LIKE 'audio/%' AND is_deleted = 0;
     </select>
     <select id="findFileByDelete" resultType="com.filemanager.docwingsbe.entity.multy.FilesPage">
         SELECT
@@ -328,12 +332,12 @@
         select parent_id from folders where folder_id = #{folderId}
     </select>
     <select id="countFileSize" resultType="java.lang.Double">
-        SELECT SUM(file_size) AS total_file_size_bytes
+        SELECT IFNULL(SUM(file_size), 0) AS total_file_size_bytes
         FROM files
         WHERE is_deleted = 0;
     </select>
     <select id="countTrashFileSize" resultType="java.lang.Double">
-        SELECT SUM(file_size) AS total_file_size_bytes
+        SELECT IFNULL(SUM(file_size), 0) AS total_file_size_bytes
         FROM files
         WHERE is_deleted = 1;
     </select>
@@ -343,6 +347,34 @@
                  JOIN collections c ON f.file_id = c.file_id
         WHERE f.is_deleted = 0
           AND c.user_id = #{userId}
-          AND f.file_type LIKE 'image/%';
+          AND f.file_type LIKE 'image/%'
     </select>
+    <select id="countImageSize" resultType="java.lang.Double">
+        SELECT IFNULL(SUM(file_size), 0) AS total_file_size_bytes FROM files
+        WHERE is_deleted = 0 AND file_type LIKE 'image/%'
+    </select>
+    <select id="countDocumentSize" resultType="java.lang.Double">
+        SELECT IFNULL(SUM(file_size), 0) AS total_file_size_bytes FROM files
+        WHERE is_deleted = 0
+          AND (
+            file_type = 'application/pdf'
+                OR file_type = 'application/msword'
+                OR file_type = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+                OR file_type = 'application/vnd.ms-excel'
+                OR file_type = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                OR file_type = 'application/vnd.ms-powerpoint'
+                OR file_type = 'application/vnd.openxmlformats-officedocument.presentationml.presentation'
+                OR file_type = 'text/plain'
+                OR file_type = 'text/html'
+            )
+    </select>
+    <select id="countVideoSize" resultType="java.lang.Double">
+        SELECT IFNULL(SUM(file_size), 0) AS total_file_size_bytes FROM files
+        WHERE is_deleted = 0 AND file_type LIKE 'video/%'
+    </select>
+    <select id="countAudioSize" resultType="java.lang.Double">
+        SELECT IFNULL(SUM(file_size), 0) AS total_file_size_bytes FROM files
+        WHERE is_deleted = 0 AND file_type LIKE 'audio/%'
+    </select>
+
 </mapper>

@@ -134,11 +134,6 @@ public class FilesServerImpl implements FilesServer {
         return filesMapper.countTrashFileSize();
     }
 
-    @Override
-    public List<Files> findAudioByParentId(long parentId) {
-        return filesMapper.findAudioByParentId(parentId);
-    }
-
 
     @Override
     public void renameFile(long fileId, String fileName) {
@@ -146,8 +141,38 @@ public class FilesServerImpl implements FilesServer {
     }
 
     @Override
+    public double countImageSize() {
+        return filesMapper.countImageSize();
+    }
+
+    @Override
+    public double countDocumentSize() {
+        return filesMapper.countDocumentSize();
+    }
+
+    @Override
+    public double countVideoSize() {
+        return filesMapper.countVideoSize();
+    }
+
+    @Override
+    public double countAudioSize() {
+        return filesMapper.countAudioSize();
+    }
+
+    @Override
     public void renameFolder(long folderId, String folderName) {
         filesMapper.renameFolder(folderId, folderName);
+    }
+
+    @Override
+    public void renameFileTag(long fileId, String tag) {
+        filesMapper.renameFileTag(fileId, tag);
+    }
+
+    @Override
+    public void renameFolderTag(long folderId, String tag) {
+        filesMapper.renameFolderTag(folderId, tag);
     }
 
     @Override
@@ -214,9 +239,6 @@ public class FilesServerImpl implements FilesServer {
         filesMapper.deleteCollectionsFile(fileId);
         filesMapper.deleteFile(fileId);
     }
-
-
-
 
     @Override
     @Transactional(readOnly = true)

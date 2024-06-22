@@ -17,7 +17,7 @@ public class SharePage {
     private long accepterId;
     private String accepterName;
     private long isFolder;
-
+    private String fileType;
     // 仅后端
     private long validate;
     private java.sql.Timestamp lastTime;
@@ -47,6 +47,15 @@ public class SharePage {
         generateLastRatio();
     }
     // getter&setter
+
+    public String getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
+    }
+
     public Timestamp getLastTime() {
         return lastTime;
     }

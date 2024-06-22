@@ -11,4 +11,5 @@ import java.util.List;
 public interface ShareMapper {
     public List<SharePage> getSharesByUserId(@Param("userId") long userId);
     public int countSharesByUserId(@Param("userId") long userId);
+    public void insertShare(@Param("share") Shares share);
 }

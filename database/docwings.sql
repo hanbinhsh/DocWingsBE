@@ -136,6 +136,7 @@ DELIMITER ;
 
 INSERT INTO `user` (`user_name`, `psw`, `email`, `group_id`, `is_admin`, `phone`) VALUES ('admin', 'admin', '', 1, true, '');
 INSERT INTO `user` (`user_name`, `psw`, `email`, `group_id`, `is_admin`, `phone`) VALUES ('已注销账户', '', '-1', -1, true, '-1');
+UPDATE `user` SET `user_id` = '-1' WHERE (`user_name` = '已注销账户');
 
 -- 文件夹放入取出回收站
 SET global max_sp_recursion_depth = 32;

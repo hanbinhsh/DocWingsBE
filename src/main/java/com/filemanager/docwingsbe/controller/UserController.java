@@ -5,9 +5,11 @@ import com.filemanager.docwingsbe.servers.UserServer;
 import jakarta.annotation.Resource;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.Instant;
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -63,5 +65,22 @@ public class UserController {
     @RequestMapping("/UpdateEmail")
     public void UpdateEmail(@RequestBody Map<String, String> map) {//FINISHED
         userServer.UpdateEmail(Long.parseLong(map.get("userId")),map.get("newEmail"));
+    }
+
+    @RequestMapping("/queryIfExistsUserByUserName")
+    public Map<String,Object> queryIfExistsUserByUserName(@RequestParam String userName) {  //FINISHED
+        Map<String, Object> data = new HashMap<>();
+        User user = userServer.findUserByName(userName);
+        if(user!=null){
+            data.put("state",1);
+            data.put("userId",user.getUserId());
+        }else{
+            data.put("state",0);
+        }
+        Map<String, Object> result = new HashMap<>();
+        result.put("code", 200 );
+        result.put("msg", "请求执行成功并返回相应数据");
+        result.put("data",data);
+        return result;
     }
 }

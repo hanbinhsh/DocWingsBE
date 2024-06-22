@@ -3,6 +3,7 @@ package com.filemanager.docwingsbe.controller;
 import com.filemanager.docwingsbe.entity.Shares;
 import com.filemanager.docwingsbe.entity.multy.SharePage;
 import com.filemanager.docwingsbe.servers.ShareServer;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,6 +32,20 @@ public class ShareController {
         result.put("code", 200);
         result.put("msg", "请求执行成功并返回相应数据");
         result.put("data", data);
+        return result;
+    }
+
+    @RequestMapping("/insertShare")
+    public Map<String, Object> insertShare(@RequestBody List<Shares> shares) {
+
+        int count = shares.size();
+        for (Shares share : shares) {
+            shareServer.insertShare(share);
+        }
+        Map<String, Object> result = new HashMap<>();
+        result.put("code", 201 );
+        result.put("msg", "创建成功并返回相应资源数据");
+        result.put("count",count);
         return result;
     }
 }

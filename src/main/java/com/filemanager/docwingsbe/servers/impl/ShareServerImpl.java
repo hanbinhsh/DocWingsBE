@@ -24,4 +24,9 @@ public class ShareServerImpl implements ShareServer {
     public int countSharesByUserId(long userId) {
         return shareMapper.countSharesByUserId(userId);
     }
+
+    @Override
+    public void insertShare(Shares share) {
+        shareMapper.insertShare(share);
+    }
 }

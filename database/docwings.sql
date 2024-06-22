@@ -212,3 +212,21 @@ BEGIN
     WHERE uploader_id = OLD.user_id OR last_modifier_id = OLD.user_id;
 END$$
 DELIMITER ;
+
+-- 用户删除前将含有其id项设为-1
+DELIMITER $$
+DROP TRIGGER IF EXISTS BeforeUserLogout $$
+CREATE TRIGGER BeforeUserLogout
+    BEFORE DELETE ON user
+    FOR EACH ROW
+BEGIN
+    UPDATE folders
+    SET creater_id = CASE WHEN creater_id = OLD.user_id THEN -1 ELSE creater_id END,
+        last_modifier_id = CASE WHEN last_modifier_id = OLD.user_id THEN -1 ELSE last_modifier_id END
+    WHERE creater_id = OLD.user_id OR last_modifier_id = OLD.user_id;
+    UPDATE files
+    SET uploader_id = CASE WHEN uploader_id = OLD.user_id THEN -1 ELSE uploader_id END,
+        last_modifier_id = CASE WHEN last_modifier_id = OLD.user_id THEN -1 ELSE last_modifier_id END
+    WHERE uploader_id = OLD.user_id OR last_modifier_id = OLD.user_id;
+END$$
+DELIMITER ;

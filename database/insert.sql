@@ -46,3 +46,27 @@ INSERT INTO `groupauth` (`group_id`, `folder_id`, `auth`) VALUES
 (3, 3, 3),
 (4, 4, 1),
 (2, 5, 5);
+
+ALTER TABLE `files` MODIFY COLUMN `uploader_id` int COMMENT '上传者ID';
+ALTER TABLE `files` MODIFY COLUMN `last_modifier_id` int COMMENT '上次修改者ID';
+ALTER TABLE `folders` MODIFY COLUMN `creater_id` int COMMENT '创建者ID';
+ALTER TABLE `folders` MODIFY COLUMN `last_modifier_id` int COMMENT '上次修改者ID';
+ALTER TABLE `shares` ADD COLUMN `due_time` datetime COMMENT '到期日期';
+
+ALTER TABLE `user` MODIFY COLUMN `phone` varchar(32) UNIQUE	NOT NULL COMMENT '电话号码';
+INSERT INTO `usergroup` (`group_id`,`group_name`, `auth`) VALUES ('-1','已注销账户', -1);
+INSERT INTO `user` (`user_name`, `psw`, `email`, `group_id`, `is_admin`, `phone`) VALUES ('已注销账户', '', '', -1, true, '');
+
+ALTER TABLE `files` MODIFY COLUMN `uploader_id` int NOT NULL COMMENT '上传者ID';
+ALTER TABLE `files` MODIFY COLUMN `last_modifier_id` int NOT NULL COMMENT '上次修改者ID';
+ALTER TABLE `folders` MODIFY COLUMN `creater_id` int NOT NULL COMMENT '创建者ID';
+ALTER TABLE `folders` MODIFY COLUMN `last_modifier_id` int NOT NULL COMMENT '上次修改者ID';
+
+ALTER TABLE `shares` MODIFY COLUMN  `file_id` int COMMENT '文件ID';
+ALTER TABLE `shares` MODIFY COLUMN  `folder_id` int COMMENT '文件夹ID';
+ALTER TABLE `shares` MODIFY COLUMN  `accepter_id` int COMMENT '接受者ID';
+
+ALTER TABLE `user`
+ADD COLUMN `failed_attempts` INT DEFAULT 0 COMMENT '登录失败次数',
+ADD COLUMN `account_locked` BOOLEAN DEFAULT FALSE COMMENT '是否冻结',
+ADD COLUMN `lock_time` TIMESTAMP NULL COMMENT '冻结时间';

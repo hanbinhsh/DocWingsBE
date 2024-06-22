@@ -376,5 +376,6 @@
         SELECT IFNULL(SUM(file_size), 0) AS total_file_size_bytes FROM files
         WHERE is_deleted = 0 AND file_type LIKE 'audio/%'
     </select>
+    <select id="findDocxByParentId" resultType="com.filemanager.docwingsbe.entity.Files"></select>
 
 </mapper>

@@ -3,6 +3,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.filemanager.docwingsbe.mapper.UserMapper">
+    <insert id="insertUser">
+        insert into user (user_name, psw, email, group_id, is_admin, phone)
+        values(#{user.userName}, #{user.psw}, #{user.email}, #{user.groupId}, #{user.isAdmin}, #{user.phone})
+    </insert>
     <update id="UpdatePassword">
         update user
         set psw=SHA2(#{newPassword},256)
@@ -47,6 +51,9 @@
     <select id="findUserByName" resultType="com.filemanager.docwingsbe.entity.User">
         SELECT * FROM user
         WHERE user_name = #{userName};
+    </select>
+    <select id="selectUserByUserName" resultType="java.lang.String">
+        select user_name from user where user_name = #{userName}
     </select>
 
 </mapper>

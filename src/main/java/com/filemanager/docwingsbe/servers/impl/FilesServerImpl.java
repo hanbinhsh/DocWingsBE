@@ -134,6 +134,10 @@ public class FilesServerImpl implements FilesServer {
         return filesMapper.countTrashFileSize();
     }
 
+    @Override
+    public List<Files> findDocxByParentId(long parentId) {
+        return filesMapper.findDocxByParentId(parentId);
+    }
 
     @Override
     public void renameFile(long fileId, String fileName) {

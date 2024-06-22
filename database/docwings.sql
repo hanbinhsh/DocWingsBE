@@ -119,8 +119,6 @@ INSERT INTO `folders` (`folder_id`,`folder_name`, `parent_id`, `create_time`, `c
 UPDATE `folders` SET `folder_id` = '0' WHERE (`folder_name` = 'ROOT') and folder_id>=0;
 INSERT INTO `usergroup` (`group_id`,`group_name`, `auth`) VALUES ('1','管理员', 10);
 INSERT INTO `usergroup` (`group_id`,`group_name`, `auth`) VALUES ('-1','已注销账户', -1);
-INSERT INTO `user` (`user_name`, `psw`, `email`, `group_id`, `is_admin`, `phone`) VALUES ('admin', 'admin', '', 1, true, '');
-INSERT INTO `user` (`user_name`, `psw`, `email`, `group_id`, `is_admin`, `phone`) VALUES ('已注销账户', '', '', -1, true, '');
 SET FOREIGN_KEY_CHECKS = 1;
 
 -- TRIGGER --
@@ -135,6 +133,9 @@ BEGIN
 END;
 $$
 DELIMITER ;
+
+INSERT INTO `user` (`user_name`, `psw`, `email`, `group_id`, `is_admin`, `phone`) VALUES ('admin', 'admin', '', 1, true, '');
+INSERT INTO `user` (`user_name`, `psw`, `email`, `group_id`, `is_admin`, `phone`) VALUES ('已注销账户', '', '-1', -1, true, '-1');
 
 -- 文件夹放入取出回收站
 SET global max_sp_recursion_depth = 32;

@@ -31,9 +31,15 @@ public class UserServerImpl implements UserServer {
 
     @Override
     @Transactional
-    public boolean selectUserByUserName(String userName) {
-        return userMapper.selectUserByUserName(userName) != null;
-    }
+    public boolean selectUserByUserName(String userName) { return userMapper.selectUserByUserName(userName) != null;}
+
+    @Override
+    @Transactional
+    public boolean selectUserByEmail(String email) { return userMapper.selectUserByEmail(email) != null;}
+
+    @Override
+    @Transactional
+    public boolean selectUserByPhone(String phone) { return userMapper.selectUserByPhone(phone) != null;}
 
     @Override
     public void UserDelete(long userId){

@@ -46,6 +46,14 @@ public class UserController {
         {
             return "用户名已存在";
         }
+        else if(userServer.selectUserByEmail(user.getEmail()))
+        {
+            return "邮箱已注册";
+        }
+        else if(userServer.selectUserByPhone(user.getPhone()))
+        {
+            return "电话号码已注册";
+        }
         else
         {
             this.userServer.insertUser(user);

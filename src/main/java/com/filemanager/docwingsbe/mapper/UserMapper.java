@@ -11,6 +11,10 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
     public User loginVerification(@Param("userName") String userName, @Param("password") String password);
+    public String selectUserByUserName(@Param("userName") String userName);
+    public String selectUserByEmail(@Param("email") String email);
+    public String selectUserByPhone(@Param("phone") String phone);
+    public void insertUser(@Param("user") User user);
     public void UserDelete(@Param("userId") long userId);
     public void UserCollectionDelete(@Param("userId") long userId);
     public void UpdatePassword(@Param("userId") long userId, @Param("newPassword") String newPassword);

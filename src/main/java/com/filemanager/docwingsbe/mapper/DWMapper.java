@@ -16,5 +16,5 @@ public interface DWMapper {
     List<Map<String, Object>> select(Map<String, Object> map);
     public List<User> queryUsers();
     public User findUserById(@Param("id") Long id);
-    public void insertUser(@Param("user") User user);
+
 }

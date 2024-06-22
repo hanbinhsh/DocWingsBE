@@ -177,6 +177,22 @@ public class FilesController {
         return result;
     }
 
+    @RequestMapping("/findDocxByParentId")
+    public Map<String,Object> findDocxByParentId(@RequestParam long parentId){
+        List<Files> Docx =  this.filesServer.findDocxByParentId(parentId);
+        List<String> urls = new ArrayList<>();
+        for (Files file : Docx) {
+            urls.add("api/downloadFile?fileID="+file.getFileId());
+        }
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
+        result.put("code", 200 );
+        result.put("msg", "请求执行成功并返回相应数据");
+        data.put("docxList",urls);
+        result.put("data",data);
+        return result;
+    }
+
     @RequestMapping("/queryCapacity")
     public Map<String,Object> queryCapacity(){
         //  TODO 加入分类统计

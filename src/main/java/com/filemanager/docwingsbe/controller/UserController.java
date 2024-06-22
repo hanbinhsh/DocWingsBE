@@ -3,10 +3,10 @@ package com.filemanager.docwingsbe.controller;
 import com.filemanager.docwingsbe.entity.User;
 import com.filemanager.docwingsbe.servers.UserServer;
 import jakarta.annotation.Resource;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
 import java.util.HashMap;
@@ -40,6 +40,27 @@ public class UserController {
             userServer.SaveUser(user2.getFailedAttempts(),user2.isAccountLocked(),user2.getLockTime(),user2.getUserId());
         }
         return user;
+    }
+
+    @PostMapping(value = "/registerUser")
+    public String registerUser(@RequestBody User user) {
+        if(userServer.selectUserByUserName(user.getUserName()))
+        {
+            return "用户名已存在";
+        }
+        else if(userServer.selectUserByEmail(user.getEmail()))
+        {
+            return "邮箱已注册";
+        }
+        else if(userServer.selectUserByPhone(user.getPhone()))
+        {
+            return "电话号码已注册";
+        }
+        else
+        {
+            this.userServer.insertUser(user);
+            return "注册成功";
+        }
     }
 
     @RequestMapping("/UserDelete")

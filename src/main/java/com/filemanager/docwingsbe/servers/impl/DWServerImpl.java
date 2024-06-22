@@ -54,9 +54,4 @@ public class DWServerImpl implements DWServer {
         return dwmMapper.findUserById(id);
     }
 
-    @Override
-    @Transactional
-    public void insertUser(User user) {
-        dwmMapper.insertUser(user);
-    }
 }

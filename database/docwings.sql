@@ -116,7 +116,7 @@ SET FOREIGN_KEY_CHECKS = 1;
 SET FOREIGN_KEY_CHECKS = 0;
 INSERT INTO `folders` (`folder_id`,`folder_name`, `parent_id`, `create_time`, `creater_id`, `tag`, `last_modify_time`, `is_deleted`, `last_modifier_id`) VALUES
 (0,'ROOT', 0, '2024-06-01 09:00:00', 1, '', '2024-06-01 09:00:00', false, 1);
--- UPDATE `folders` SET `folder_id` = '0' WHERE (`folder_name` = 'ROOT') and folder_id>=0;
+UPDATE `folders` SET `folder_id` = '0' WHERE (`folder_name` = 'ROOT') and folder_id>=0;
 INSERT INTO `usergroup` (`group_id`,`group_name`, `auth`) VALUES ('1','管理员', 10);
 INSERT INTO `usergroup` (`group_id`,`group_name`, `auth`) VALUES ('-1','已注销账户', -1);
 INSERT INTO `user` (`user_name`, `psw`, `email`, `group_id`, `is_admin`, `phone`) VALUES ('admin', 'admin', '', 1, true, '');

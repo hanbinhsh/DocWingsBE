@@ -7,6 +7,10 @@
         insert into user (user_name, psw, email, group_id, is_admin, phone)
         values(#{user.userName}, #{user.psw}, #{user.email}, #{user.groupId}, #{user.isAdmin}, #{user.phone})
     </insert>
+    <insert id="insertGroup">
+        insert into usergroup (group_name)
+        values {#{groupName}}
+    </insert>
     <update id="UpdatePassword">
         update user
         set psw=SHA2(#{newPassword},256)
@@ -28,7 +32,8 @@
         lock_time = NULL,
         failed_attempts = 0
         WHERE account_locked = TRUE
-        AND TIMESTAMPDIFF(HOUR, lock_time, NOW()) > 2;
+        AND
+        TIMESTAMPDIFF(HOUR, lock_time, NOW()) > 2;
     </update>
     <update id="SaveUser">
         UPDATE user
@@ -40,6 +45,11 @@
     <update id="resetPsw">
         update user
         set psw= SHA2(123456,256)
+        where user_id = #{userId}
+    </update>
+    <update id="updateGroup">
+        update user
+        set group_id=#{groupId}
         where user_id = #{userId}
     </update>
     <delete id="UserDelete">
@@ -69,6 +79,16 @@
     <select id="findUserById" resultType="com.filemanager.docwingsbe.entity.User">
         SELECT * FROM user
         WHERE user_id = #{userId};
+    </select>
+    <select id="findAllUsers" resultType="com.filemanager.docwingsbe.entity.User">
+        select * from user
+        where user_id!=-1
+    </select>
+    <select id="findGroupNameByUserId" resultType="java.lang.String">
+        select group_name
+        from usergroup
+        join user on user.group_id=usergroup.group_id
+        where user.user_id=#{userId}
     </select>
 
 </mapper>

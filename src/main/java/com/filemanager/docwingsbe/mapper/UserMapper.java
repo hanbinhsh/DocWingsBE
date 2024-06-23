@@ -25,4 +25,9 @@ public interface UserMapper {
     public void SaveUser(@Param("failedLoginAttempts") int failedLoginAttempts, @Param("accountLocked") boolean accountLocked,@Param("lockTime") Instant lockTime,@Param("userId") long userId);
     public void resetPsw(@Param("userId") long userId);
     public User findUserById(@Param("userId") long userId);
+    public List<User> findAllUsers();
+    public void updateGroup(@Param("userId") long userId, @Param("groupId") long groupId);
+    public void insertGroup(@Param("groupName") String groupName);
+    public String findGroupNameByUserId(@Param("userId") long userId);
+
 }

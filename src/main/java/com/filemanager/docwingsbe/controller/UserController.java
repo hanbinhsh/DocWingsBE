@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -143,5 +144,25 @@ public class UserController {
     @RequestMapping("/findUserByName")
     public User findUserByName(@RequestBody Map<String, String> map) {
         return userServer.findUserByName(map.get("userName"));
+    }
+
+    @RequestMapping("/findAllUsers")
+    public List<User> findAllUsers() {
+        return this.userServer.findAllUsers();
+    }
+
+    @RequestMapping("/updateGroup")
+    public void updateGroup(@RequestBody Map<String, String> map) {
+        this.userServer.updateGroup(Long.parseLong(map.get("userId")),Long.parseLong(map.get("groupId")));
+    }
+
+    @RequestMapping("/insertGroup")
+    public void insertGroup(@RequestBody Map<String, String> map) {
+        this.userServer.insertGroup(map.get("groupName"));
+    }
+
+    @RequestMapping("/findGroupNameByUserId")
+    public String findGroupNameByUserId(@RequestBody Map<String, String> map) {
+        return this.userServer.findGroupNameByUserId(Long.parseLong(map.get("userId")));
     }
 }

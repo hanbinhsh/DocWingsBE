@@ -92,4 +92,23 @@ public class UserServerImpl implements UserServer {
     public User findUserById(long userId){
         return userMapper.findUserById(userId);
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<User> findAllUsers() {
+        return userMapper.findAllUsers();}
+
+    @Override
+    public void updateGroup(long userId,long groupId){
+        userMapper.updateGroup(userId,groupId);
+    }
+
+    @Override
+    public void insertGroup(String groupName){
+        userMapper.insertGroup(groupName);
+    }
+    @Override
+    public String findGroupNameByUserId(long userId){
+       return userMapper.findGroupNameByUserId(userId);
+    }
 }

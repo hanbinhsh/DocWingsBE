@@ -20,7 +20,7 @@ CREATE TABLE `user`  (
   `group_id` int DEFAULT 0						NOT NULL	COMMENT '用户组ID',
   `is_admin` boolean DEFAULT false	 			NOT NULL	COMMENT '是否是管理员',
   `phone` varchar(32) UNIQUE				 	NOT NULL	COMMENT '电话号码',
-  `failed_attempts` INT DEFAULT 0                           COMMENT '登录失败次数',
+  `failed_attempts` INT DEFAULT 0                            COMMENT '登录失败次数',
   `account_locked` BOOLEAN DEFAULT FALSE                    COMMENT '是否冻结',
   `lock_time` TIMESTAMP NULL                                COMMENT '冻结时间',
   FOREIGN KEY (`group_id`) REFERENCES usergroup(`group_id`)
@@ -119,6 +119,8 @@ INSERT INTO `folders` (`folder_id`,`folder_name`, `parent_id`, `create_time`, `c
 UPDATE `folders` SET `folder_id` = '0' WHERE (`folder_name` = 'ROOT') and folder_id>=0;
 INSERT INTO `usergroup` (`group_id`,`group_name`, `auth`) VALUES ('1','管理员', 10);
 INSERT INTO `usergroup` (`group_id`,`group_name`, `auth`) VALUES ('-1','已注销账户', -1);
+INSERT INTO `user` (`user_name`, `psw`, `email`, `group_id`, `is_admin`, `phone`) VALUES ('admin', 'admin', '', 1, true, '');
+INSERT INTO `user` (`user_name`, `psw`, `email`, `group_id`, `is_admin`, `phone`) VALUES ('已注销账户', '', '', -1, true, '');
 SET FOREIGN_KEY_CHECKS = 1;
 
 -- TRIGGER --
@@ -133,10 +135,6 @@ BEGIN
 END;
 $$
 DELIMITER ;
-
-INSERT INTO `user` (`user_name`, `psw`, `email`, `group_id`, `is_admin`, `phone`) VALUES ('admin', 'admin', '', 1, true, '');
-INSERT INTO `user` (`user_name`, `psw`, `email`, `group_id`, `is_admin`, `phone`) VALUES ('已注销账户', '', '-1', -1, true, '-1');
-UPDATE `user` SET `user_id` = '-1' WHERE (`user_name` = '已注销账户');
 
 -- 文件夹放入取出回收站
 SET global max_sp_recursion_depth = 32;
@@ -232,3 +230,17 @@ BEGIN
     WHERE uploader_id = OLD.user_id OR last_modifier_id = OLD.user_id;
 END$$
 DELIMITER ;
+
+-- DELIMITER $$
+-- DROP TRIGGER IF EXISTS update_lastModifyTime $$
+-- CREATE TRIGGER update_lastModifyTime
+-- BEFORE UPDATE ON files
+-- FOR EACH ROW
+-- BEGIN
+--     SET NEW.last_modify_time = NOW();
+-- END$$ 
+-- DELIMITER ;
+	
+
+
+

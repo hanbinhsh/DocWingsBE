@@ -32,22 +32,22 @@
     </insert>
     <update id="renameFile">
         UPDATE files
-        set file_name = #{fileName}
+        set file_name = #{fileName}, last_modify_time = NOW(), last_modifier_id = #{userId}
         WHERE file_id = #{fileId}
     </update>
     <update id="renameFolder">
         UPDATE folders
-        set folder_name = #{folderName}
+        set folder_name = #{folderName}, last_modify_time = NOW(), last_modifier_id = #{userId}
         WHERE folder_id = #{folderId}
     </update>
     <update id="renameFileTag">
         UPDATE files
-        set tag = #{tag}
+        set tag = #{tag}, last_modify_time = NOW(), last_modifier_id = #{userId}
         WHERE file_id = #{fileId}
     </update>
     <update id="renameFolderTag">
         UPDATE folders
-        set tag = #{tag}
+        set tag = #{tag}, last_modify_time = NOW(), last_modifier_id = #{userId}
         WHERE folder_id = #{folderId}
     </update>
     <update id="changeFileRouteById">

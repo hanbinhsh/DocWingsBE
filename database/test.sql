@@ -94,5 +94,17 @@ ALTER TABLE `folders` MODIFY COLUMN `last_modifier_id` int NOT NULL COMMENT '上
 ALTER TABLE `shares` ADD COLUMN `due_time` datetime COMMENT '到期日期';
 ALTER TABLE `user` MODIFY COLUMN `phone` varchar(32) UNIQUE	NOT NULL COMMENT '电话号码';
 
+ALTER TABLE `shares` MODIFY COLUMN  `file_id` int COMMENT '文件ID';
+ALTER TABLE `shares` MODIFY COLUMN  `folder_id` int COMMENT '文件夹ID';
+ALTER TABLE `shares` MODIFY COLUMN  `accepter_id` int COMMENT '接受者ID';
+
 INSERT INTO `shares` (`file_id`, `folder_id`, `sharer_id`, `auth`, `share_time`, `due_time`, `accepter_id`, `is_folder`) VALUES
 (1, 2, 7, 1, '2024-06-02 09:00:00', '2024-06-22 09:00:00', 2, false);
+
+ALTER TABLE `user`
+ADD COLUMN `failed_attempts` INT DEFAULT 0 COMMENT '登录失败次数',
+ADD COLUMN `account_locked` BOOLEAN DEFAULT FALSE COMMENT '是否冻结',
+ADD COLUMN `lock_time` TIMESTAMP NULL COMMENT '冻结时间';
+
+INSERT INTO `user` (`user_name`, `psw`, `email`, `group_id`, `is_admin`, `phone`) VALUES
+('hanbin', '3', 'admin@example.com', 1, true, '1234567890');

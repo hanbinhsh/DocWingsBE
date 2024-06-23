@@ -20,7 +20,7 @@ CREATE TABLE `user`  (
   `group_id` int DEFAULT 0						NOT NULL	COMMENT '用户组ID',
   `is_admin` boolean DEFAULT false	 			NOT NULL	COMMENT '是否是管理员',
   `phone` varchar(32) UNIQUE				 	NOT NULL	COMMENT '电话号码',
-  `failed_attempts` INT DEFAULT 0                            COMMENT '登录失败次数',
+  `failed_attempts` INT DEFAULT 0                           COMMENT '登录失败次数',
   `account_locked` BOOLEAN DEFAULT FALSE                    COMMENT '是否冻结',
   `lock_time` TIMESTAMP NULL                                COMMENT '冻结时间',
   FOREIGN KEY (`group_id`) REFERENCES usergroup(`group_id`)

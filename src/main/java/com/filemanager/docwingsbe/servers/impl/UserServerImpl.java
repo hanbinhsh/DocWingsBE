@@ -81,4 +81,15 @@ public class UserServerImpl implements UserServer {
     public void SaveUser(int failedLoginAttempts, boolean accountLocked, Instant lockTime,long userId){
         userMapper.SaveUser(failedLoginAttempts,accountLocked,lockTime,userId);
     }
+
+    @Override
+    public void resetPsw(long userId){
+        userMapper.resetPsw(userId);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public User findUserById(long userId){
+        return userMapper.findUserById(userId);
+    }
 }

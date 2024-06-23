@@ -37,6 +37,11 @@
         failed_attempts = #{failedLoginAttempts}
         where user_id = #{userId}
     </update>
+    <update id="resetPsw">
+        update user
+        set psw= SHA2(123456,256)
+        where user_id = #{userId}
+    </update>
     <delete id="UserDelete">
         delete from user
         where user_id=#{userId}
@@ -60,6 +65,10 @@
     </select>
     <select id="selectUserByPhone" resultType="java.lang.String">
         select phone from user where phone = #{phone}
+    </select>
+    <select id="findUserById" resultType="com.filemanager.docwingsbe.entity.User">
+        SELECT * FROM user
+        WHERE user_id = #{userId};
     </select>
 
 </mapper>

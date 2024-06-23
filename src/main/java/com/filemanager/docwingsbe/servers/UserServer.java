@@ -18,4 +18,6 @@ public interface UserServer {
     public User findUserByName(String userName);
     public void UpdateByAccountLockedTrueAndLockTimeBefore();
     public void SaveUser(int failedLoginAttempts, boolean accountLocked, Instant lockTime,long userId);
+    public void resetPsw(long userId);
+    public User findUserById(long userId);
 }

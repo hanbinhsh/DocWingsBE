@@ -20,12 +20,8 @@ public class SharePage {
     private String fileType;
     // 仅后端
     private long validate;
-    private java.sql.Timestamp lastTime;
     private double lastRatio;
     // functions
-    private void generateLastTime(){
-        lastTime = new java.sql.Timestamp(dueTime.getTime()-System.currentTimeMillis());
-    }
     private void generateLastRatio(){
         DecimalFormat df = new DecimalFormat("#.##");
         lastRatio = Double.parseDouble(df.format((double) (dueTime.getTime() - System.currentTimeMillis()) /(dueTime.getTime()-shareTime.getTime())));
@@ -43,7 +39,6 @@ public class SharePage {
         }else{
             validate = 1;  // 正常
         }
-        generateLastTime();
         generateLastRatio();
     }
     // getter&setter
@@ -54,14 +49,6 @@ public class SharePage {
 
     public void setFileType(String fileType) {
         this.fileType = fileType;
-    }
-
-    public Timestamp getLastTime() {
-        return lastTime;
-    }
-
-    public void setLastTime(Timestamp lastTime) {
-        this.lastTime = lastTime;
     }
 
     public double getLastRatio() {

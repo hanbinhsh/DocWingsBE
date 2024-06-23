@@ -48,4 +48,33 @@
     <select id="countSharesByUserId" resultType="java.lang.Integer">
         SELECT COUNT(*) FROM shares WHERE  sharer_id = #{userId}
     </select>
+    <select id="getSharesByShareId" resultType="com.filemanager.docwingsbe.entity.multy.SharePage">
+        SELECT
+            s.share_id AS 'shareId',
+            s.file_id AS 'fileId',
+            f.file_name AS 'fileName',
+            s.folder_id AS 'folderId',
+            fo.folder_name AS 'folderName',
+            s.sharer_id AS 'sharerId',
+            us_sharer.user_name AS 'sharerName',
+            s.auth AS 'auth',
+            s.share_time AS 'shareTime',
+            s.due_time AS 'dueTime',
+            s.accepter_id AS 'accepterId',
+            us_accepter.user_name AS 'accepterName',
+            s.is_folder AS 'isFolder',
+            f.file_type AS 'fileType'
+        FROM
+            shares s
+                LEFT JOIN
+            files f ON s.file_id = f.file_id
+                LEFT JOIN
+            folders fo ON s.folder_id = fo.folder_id
+                JOIN
+            user us_sharer ON s.sharer_id = us_sharer.user_id
+                LEFT JOIN
+            user us_accepter ON s.accepter_id = us_accepter.user_id
+        WHERE
+            s.share_id = #{shareId}
+    </select>
 </mapper>

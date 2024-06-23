@@ -57,8 +57,8 @@ public class FilesController {
         List<FolderPage> folders = this.filesServer.findFoldersByParentId(parentId);
         Map<String, Object> data = new HashMap<>();
         Map<String, Object> result = new HashMap<>();
-        result.put("code", 201 );
-        result.put("msg", "创建成功并返回相应资源数据");
+        result.put("code", 200 );
+        result.put("msg", "请求执行成功并返回相应数据");
         data.put("files",files);
         data.put("folders",folders);
         result.put("data",data);
@@ -66,13 +66,27 @@ public class FilesController {
     }
 
     @RequestMapping("/findFileById")
-    public Files findFileById(@RequestParam long id) {
-        return this.filesServer.findFileById(id);
+    public Map<String, Object> findFileById(@RequestParam long id) {  //Finished
+        Files file =  this.filesServer.findFileById(id);
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
+        result.put("code", 200 );
+        result.put("msg", "请求执行成功并返回相应数据");
+        data.put("file",file);
+        result.put("data",data);
+        return result;
     }
 
     @RequestMapping("/findFolderById")
-    public Folders findFolderById(@RequestParam long id) {
-        return this.filesServer.findFolderById(id);
+    public Map<String, Object> findFolderById(@RequestParam long id) {  //Finished
+        Folders folder =  this.filesServer.findFolderById(id);
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
+        result.put("code", 200 );
+        result.put("msg", "请求执行成功并返回相应数据");
+        data.put("folder",folder);
+        result.put("data",data);
+        return result;
     }
 
     @RequestMapping("/insertOneFolder")  // FINISHED

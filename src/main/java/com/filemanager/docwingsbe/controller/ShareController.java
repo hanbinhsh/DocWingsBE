@@ -37,7 +37,6 @@ public class ShareController {
 
     @RequestMapping("/insertShare")
     public Map<String, Object> insertShare(@RequestBody List<Shares> shares) {
-
         int count = shares.size();
         for (Shares share : shares) {
             shareServer.insertShare(share);
@@ -46,6 +45,25 @@ public class ShareController {
         result.put("code", 201 );
         result.put("msg", "创建成功并返回相应资源数据");
         result.put("count",count);
+        return result;
+    }
+
+    @RequestMapping("/getSharesByShareId")
+    public Map<String, Object> getSharesByShareId(@RequestParam long shareId) {  // FINISHED
+        SharePage share = this.shareServer.getSharesByShareId(shareId);
+        int isExist = 1;
+        if(share == null) {
+            isExist = 0;
+        }else{
+            share.generateThings();
+        }
+        Map<String, Object> result = new HashMap<>();
+        Map<String, Object> data = new HashMap<>();
+        data.put("share", share);
+        data.put("isExist", isExist);
+        result.put("code", 200);
+        result.put("msg", "请求执行成功并返回相应数据");
+        result.put("data", data);
         return result;
     }
 }

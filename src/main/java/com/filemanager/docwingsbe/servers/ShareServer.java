@@ -10,4 +10,5 @@ public interface ShareServer {
     public List<SharePage> getSharesByUserId(@Param("userId") long userId);
     int countSharesByUserId(long userId);
     void insertShare(Shares share);
+    SharePage getSharesByShareId(long shareId);
 }

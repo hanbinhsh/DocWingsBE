@@ -28,10 +28,10 @@ public interface FilesMapper {
     public List<String> findTags();
     public List<FolderPage> findFoldersByTag(@Param("tag") String tag);
     public List<FilesPage> findFilesByTag(@Param("tag") String tag);
-    public void renameFile(@Param("fileId") long fileId, @Param("fileName") String fileName);
-    public void renameFolder(@Param("folderId") long folderId, @Param("folderName") String folderName);
-    public void renameFileTag(@Param("fileId") long fileId, @Param("tag") String tag);
-    public void renameFolderTag(@Param("folderId") long folderId, @Param("tag") String tag);
+    public void renameFile(@Param("fileId") long fileId, @Param("fileName") String fileName, @Param("userId") long userId);
+    public void renameFolder(@Param("folderId") long folderId, @Param("folderName") String folderName, @Param("userId") long userId);
+    public void renameFileTag(@Param("fileId") long fileId, @Param("tag") String tag, @Param("userId") long userId);
+    public void renameFolderTag(@Param("folderId") long folderId, @Param("tag") String tag, @Param("userId") long userId);
     public void recycleBinFile(@Param("fileId") long fileId, @Param("status") long status);
     public void recycleBinFolder(@Param("folderId") long folderId, @Param("status") long status);
     public List<FilesPage> findFileByDelete(@Param("status") long status);

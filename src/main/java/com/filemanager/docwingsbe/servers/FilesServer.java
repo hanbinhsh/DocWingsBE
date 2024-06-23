@@ -31,10 +31,10 @@ public interface FilesServer {
     List<FilesPage> findAudioFiles();
     List<FilesPage> findVideoFiles();
     List<FilesPage> findOtherFiles();
-    void renameFile(long fileId, String fileName);
-    void renameFolder(long folderId, String folderName);
-    void renameFileTag(long fileId, String tag);
-    void renameFolderTag(long folderId, String tag);
+    void renameFile(long fileId, String fileName, long userId);
+    void renameFolder(long folderId, String folderName, long userId);
+    void renameFileTag(long fileId, String tag, long userId);
+    void renameFolderTag(long folderId, String tag, long userId);
     void recycleBinFile(long fileId, long status);
     void recycleParentFolder(long folderId);
     void recycleBinFolder(long folderId, long status);

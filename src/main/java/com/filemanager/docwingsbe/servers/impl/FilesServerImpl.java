@@ -141,8 +141,7 @@ public class FilesServerImpl implements FilesServer {
     }
 
     @Override
-    public void renameFile(long fileId, String fileName) {
-        filesMapper.renameFile(fileId, fileName);
+    public void renameFile(long fileId, String fileName, long userId) { filesMapper.renameFile(fileId, fileName, userId);
     }
 
     @Override
@@ -166,19 +165,16 @@ public class FilesServerImpl implements FilesServer {
     }
 
     @Override
-    public void renameFolder(long folderId, String folderName) {
-        filesMapper.renameFolder(folderId, folderName);
+    public void renameFolder(long folderId, String folderName, long userId) { filesMapper.renameFolder(folderId, folderName, userId);
     }
 
     @Override
-    public void renameFileTag(long fileId, String tag) {
-        filesMapper.renameFileTag(fileId, tag);
+    public void renameFileTag(long fileId, String tag, long userId) {
+        filesMapper.renameFileTag(fileId, tag, userId);
     }
 
     @Override
-    public void renameFolderTag(long folderId, String tag) {
-        filesMapper.renameFolderTag(folderId, tag);
-    }
+    public void renameFolderTag(long folderId, String tag, long userId) { filesMapper.renameFolderTag(folderId, tag, userId);}
 
     @Override
     public void recycleBinFile(long fileId, long status) {

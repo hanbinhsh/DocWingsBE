@@ -343,22 +343,22 @@ public class FilesController {
 
     @RequestMapping("/renameFile")
     public void renameFile(@RequestBody Map<String, String> map)  {  // FINISHED
-        filesServer.renameFile(Long.parseLong(map.get("fileId")), map.get("fileName"));
+        filesServer.renameFile(Long.parseLong(map.get("fileId")), map.get("fileName"), Long.parseLong(map.get("userId")));
     }
 
     @RequestMapping("/renameFolder")
     public void renameFolder(@RequestBody Map<String, String> map) {  // FINISHED
-        filesServer.renameFolder(Long.parseLong(map.get("folderId")), map.get("folderName"));
+        filesServer.renameFolder(Long.parseLong(map.get("folderId")), map.get("folderName"), Long.parseLong(map.get("userId")));
     }
 
     @RequestMapping("/renameFileTag")
     public void renameFileTag(@RequestBody Map<String, String> map) {  // FINISHED
-        filesServer.renameFileTag(Long.parseLong(map.get("fileId")), map.get("tag"));
+        filesServer.renameFileTag(Long.parseLong(map.get("fileId")), map.get("tag"), Long.parseLong(map.get("userId")));
     }
 
     @RequestMapping("/renameFolderTag")
     public void renameFolderTag(@RequestBody Map<String, String> map) {  // FINISHED
-        filesServer.renameFolderTag(Long.parseLong(map.get("folderId")), map.get("tag"));
+        filesServer.renameFolderTag(Long.parseLong(map.get("folderId")), map.get("tag"), Long.parseLong(map.get("userId")));
     }
 
     @RequestMapping("/recycleBinFile")

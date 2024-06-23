@@ -104,4 +104,44 @@ public class UserController {
         result.put("data",data);
         return result;
     }
+
+    @RequestMapping("/resetPsw")
+    public User resetPsw(@RequestBody Map<String, String> map) {//FINISHED
+        User user= userServer.findUserById(Long.parseLong(map.get("userId")));
+        if(user!=null){
+            userServer.resetPsw(Long.parseLong(map.get("userId")));
+            return user;
+        }
+        return null;
+    }
+
+    @RequestMapping("/freeze")
+    public User freeze(@RequestBody Map<String, String> map) {//FINISHED
+        User user= userServer.findUserById(Long.parseLong(map.get("userId")));
+        if(user!=null){
+            user.setAccountLocked(true);
+            user.setLockTime(Instant.now());
+            userServer.SaveUser(user.getFailedAttempts(),user.isAccountLocked(),user.getLockTime(),user.getUserId());
+            return user;
+        }
+        return null;
+    }
+
+    @RequestMapping("/defrost")
+    public User defrost(@RequestBody Map<String, String> map) {//FINISHED
+        User user= userServer.findUserById(Long.parseLong(map.get("userId")));
+        if(user!=null){
+            user.setFailedAttempts(0);
+            user.setAccountLocked(false);
+            user.setLockTime(null);
+            userServer.SaveUser(user.getFailedAttempts(),user.isAccountLocked(),user.getLockTime(),user.getUserId());
+            return user;
+        }
+        return null;
+    }
+
+    @RequestMapping("/findUserByName")
+    public User findUserByName(@RequestBody Map<String, String> map) {
+        return userServer.findUserByName(map.get("userName"));
+    }
 }

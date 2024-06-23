@@ -23,4 +23,6 @@ public interface UserMapper {
     public User findUserByName(@Param("userName") String userName);
     public void UpdateByAccountLockedTrueAndLockTimeBefore();
     public void SaveUser(@Param("failedLoginAttempts") int failedLoginAttempts, @Param("accountLocked") boolean accountLocked,@Param("lockTime") Instant lockTime,@Param("userId") long userId);
+    public void resetPsw(@Param("userId") long userId);
+    public User findUserById(@Param("userId") long userId);
 }

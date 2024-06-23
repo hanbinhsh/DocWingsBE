@@ -126,6 +126,16 @@ public class FilesServerImpl implements FilesServer {
     }
 
     @Override
+    public List<Files> findFilesByName(String fileName) {
+        return filesMapper.findFilesByName(fileName);
+    }
+
+    @Override
+    public List<Folders> findFoldersByName(String folderName) {
+        return filesMapper.findFoldersByName(folderName);
+    }
+
+    @Override
     public double countFileSize() {
         return filesMapper.countFileSize();
     }

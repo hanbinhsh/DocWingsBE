@@ -325,9 +325,7 @@ public class FilesController {
         dBFile.setFileType(contentType);
         dBFile.setUploaderId(userId);
         dBFile.setLastModifierId(userId);
-        //dBFile.setTag("");
         dBFile.setLastModifyTime(timestamp);
-        //dBFile.setIsDeleted(0);
         dBFile.setPath(realFilePath);  // 数据库路径字段
         filesServer.insertFiles(List.of(dBFile));
         // 文件操作
@@ -423,6 +421,20 @@ public class FilesController {
     public Map<String,Object> findCollectionFFsByUserId(@RequestParam long userId) {  // FINISHED
         List<FilesPage> filesPage = filesServer.findCollectionFilesByUserId(userId);
         List<FolderPage> folderPage = filesServer.findCollectionFoldersByUserId(userId);
+        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
+        result.put("code", 200 );
+        result.put("msg", "请求执行成功并返回相应数据");
+        data.put("files",filesPage);
+        data.put("folders",folderPage);
+        result.put("data",data);
+        return result;
+    }
+
+    @RequestMapping("/searchFFsByName")
+    public Map<String,Object> searchFFsByName(@RequestParam String name) {  // FINISHED
+        List<Files> filesPage = filesServer.findFilesByName(name);
+        List<Folders> folderPage = filesServer.findFoldersByName(name);
         Map<String, Object> data = new HashMap<>();
         Map<String, Object> result = new HashMap<>();
         result.put("code", 200 );

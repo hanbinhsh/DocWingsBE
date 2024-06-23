@@ -26,11 +26,6 @@ public interface FilesServer {
     List<String> findTags();
     List<FolderPage> findFoldersByTag(String tag);
     List<FilesPage> findFilesByTag(String tag);
-    List<FilesPage> findDocumentFiles();
-    List<FilesPage> findImageFiles();
-    List<FilesPage> findAudioFiles();
-    List<FilesPage> findVideoFiles();
-    List<FilesPage> findOtherFiles();
     void renameFile(long fileId, String fileName, long userId);
     void renameFolder(long folderId, String folderName, long userId);
     void renameFileTag(long fileId, String tag, long userId);
@@ -59,4 +54,13 @@ public interface FilesServer {
     double countDocumentSize();
     double countVideoSize();
     double countAudioSize();
+    // 类别寻找
+    List<FilesPage> findDocumentFiles();
+    List<FilesPage> findImageFiles();
+    List<FilesPage> findAudioFiles();
+    List<FilesPage> findVideoFiles();
+    List<FilesPage> findOtherFiles();
+    // 文件(夹)搜索
+    List<Files> findFilesByName(String fileName);
+    List<Folders> findFoldersByName(String folderName);
 }

@@ -377,5 +377,10 @@
         WHERE is_deleted = 0 AND file_type LIKE 'audio/%'
     </select>
     <select id="findDocxByParentId" resultType="com.filemanager.docwingsbe.entity.Files"></select>
-
+    <select id="findFilesByName" resultType="com.filemanager.docwingsbe.entity.Files">
+        SELECT * FROM files WHERE file_name like "%${fileName}%"
+    </select>
+    <select id="findFoldersByName" resultType="com.filemanager.docwingsbe.entity.Folders">
+        SELECT * FROM folders WHERE folder_name like "%${folderName}%"
+    </select>
 </mapper>

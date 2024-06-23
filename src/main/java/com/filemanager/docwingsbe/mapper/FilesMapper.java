@@ -66,4 +66,7 @@ public interface FilesMapper {
     public List<FilesPage> findAudioFiles();
     public List<FilesPage> findVideoFiles();
     public List<FilesPage> findOtherFiles();
+    // 文件(夹)搜索
+    public List<Files> findFilesByName(@Param("fileName") String fileName);
+    public List<Folders> findFoldersByName(@Param("folderName") String folderName);
 }

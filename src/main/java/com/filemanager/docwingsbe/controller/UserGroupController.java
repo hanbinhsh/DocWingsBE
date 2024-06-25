@@ -23,7 +23,7 @@ public class UserGroupController {
         Map<String, Object> result = new HashMap<>();
         result.put("code", 200 );
         result.put("msg", "请求执行成功并返回相应数据");
-        result.put("data",userGroups);
+        result.put("usergroups",userGroups);
         return result;
     }
 }

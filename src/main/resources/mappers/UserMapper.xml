@@ -51,6 +51,13 @@
         set group_id=#{groupId}
         where user_id = #{userId}
     </update>
+    <update id="setFreezingTime">
+        update user
+        set lock_time = NOW() + INTERVAL #{time} HOUR,
+            account_locked = true,
+            failed_attempts = 5
+        where user_id = #{userId}
+    </update>
     <delete id="UserDelete">
         delete from user
         where user_id=#{userId}

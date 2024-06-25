@@ -122,4 +122,9 @@ public class UserServerImpl implements UserServer {
     public User findUserByPhone(String phone){
         return userMapper.findUserByPhone(phone);
     }
+
+    @Override
+    public void setFreezingTime(long userId,long time){
+        userMapper.setFreezingTime(userId,time);
+    }
 }

@@ -32,4 +32,5 @@ public interface UserMapper {
     public String findGroupNameByUserId(@Param("userId") long userId);
     public User findUserByEmail(@Param("email") String email);
     public User findUserByPhone(@Param("phone") String phone);
+    public void setFreezingTime(@Param("userId") long userId, @Param("time") long time);
 }

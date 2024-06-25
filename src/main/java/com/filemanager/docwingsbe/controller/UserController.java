@@ -179,4 +179,8 @@ public class UserController {
         return this.userServer.findGroupNameByUserId(Long.parseLong(map.get("userId")));
     }
 
+    @RequestMapping("/setFreezingTime")
+    public void setFreezingTime(@RequestBody Map<String, String> map) {
+        this.userServer.setFreezingTime(Long.parseLong(map.get("userId")),Long.parseLong(map.get("time"))-2);
+    }
 }

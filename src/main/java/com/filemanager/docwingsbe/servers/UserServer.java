@@ -28,4 +28,6 @@ public interface UserServer {
     public String findGroupNameByUserId(long userId);
     public User findUserByEmail(String email);
     public User findUserByPhone(String phone);
+    public void setFreezingTime(long userId,long time);
+
 }

@@ -206,5 +206,7 @@ BEGIN
     SET uploader_id = CASE WHEN uploader_id = OLD.user_id THEN -1 ELSE uploader_id END,
         last_modifier_id = CASE WHEN last_modifier_id = OLD.user_id THEN -1 ELSE last_modifier_id END
     WHERE uploader_id = OLD.user_id OR last_modifier_id = OLD.user_id;
-END$$
-DELIMITER ;
+    DELETE FROM collections
+    WHERE user_id = OLD.user_id;
+    END$$folders
+    DELIMITER ;

@@ -1,6 +1,7 @@
 package com.filemanager.docwingsbe.servers;
 
 import com.filemanager.docwingsbe.entity.User;
+import com.filemanager.docwingsbe.entity.multy.UserAndGroup;
 
 import java.time.Instant;
 import java.util.List;
@@ -21,8 +22,9 @@ public interface UserServer {
     public void SaveUser(int failedLoginAttempts, boolean accountLocked, Instant lockTime,long userId);
     public void resetPsw(long userId);
     public User findUserById(long userId);
-    public List<User> findAllUsers();
+    public List<UserAndGroup> findAllUsers();
     public void updateGroup(long userId, long groupId);
     public void insertGroup(String groupName);
     public String findGroupNameByUserId(long userId);
+
 }

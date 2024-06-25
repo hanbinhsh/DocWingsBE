@@ -1,6 +1,7 @@
 package com.filemanager.docwingsbe.servers.impl;
 
 import com.filemanager.docwingsbe.entity.User;
+import com.filemanager.docwingsbe.entity.multy.UserAndGroup;
 import com.filemanager.docwingsbe.mapper.UserMapper;
 import com.filemanager.docwingsbe.servers.UserServer;
 import jakarta.annotation.Resource;
@@ -95,7 +96,7 @@ public class UserServerImpl implements UserServer {
 
     @Override
     @Transactional(readOnly = true)
-    public List<User> findAllUsers() {
+    public List<UserAndGroup> findAllUsers() {
         return userMapper.findAllUsers();}
 
     @Override

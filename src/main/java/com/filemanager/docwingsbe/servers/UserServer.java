@@ -26,5 +26,6 @@ public interface UserServer {
     public void updateGroup(long userId, long groupId);
     public void insertGroup(String groupName);
     public String findGroupNameByUserId(long userId);
-
+    public User findUserByEmail(String email);
+    public User findUserByPhone(String phone);
 }

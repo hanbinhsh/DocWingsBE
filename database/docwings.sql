@@ -82,11 +82,13 @@ CREATE TABLE `shares`  (
   `share_time` datetime	 			 			NOT NULL	COMMENT '共享日期',
   `due_time` datetime	 			 						COMMENT '到期日期',
   `accepter_id` int											COMMENT '接受者ID',
+  `accept_group_id` int 									COMMENT '接受用户组ID',
   `is_folder` boolean DEFAULT false				NOT NULL	COMMENT '是否是文件夹',
   FOREIGN KEY (`sharer_id`) REFERENCES user(`user_id`),
   FOREIGN KEY (`file_id`) REFERENCES files(`file_id`),
   FOREIGN KEY (`folder_id`) REFERENCES folders(`folder_id`),
-  FOREIGN KEY (`accepter_id`) REFERENCES user(`user_id`)
+  FOREIGN KEY (`accepter_id`) REFERENCES user(`user_id`),
+  FOREIGN KEY (`accept_group_id`) REFERENCES usergroup(`group_id`)
 );
 
 DROP TABLE IF EXISTS `groupauth`;
@@ -114,11 +116,13 @@ CREATE TABLE `collections`  (
 SET FOREIGN_KEY_CHECKS = 1;
 
 SET FOREIGN_KEY_CHECKS = 0;
-INSERT INTO `folders` (`folder_id`,`folder_name`, `parent_id`, `create_time`, `creater_id`, `tag`, `last_modify_time`, `is_deleted`, `last_modifier_id`) VALUES
-(0,'ROOT', 0, '2024-06-01 09:00:00', 1, '', '2024-06-01 09:00:00', false, 1);
-UPDATE `folders` SET `folder_id` = '0' WHERE (`folder_name` = 'ROOT') and folder_id>=0;
 INSERT INTO `usergroup` (`group_id`,`group_name`, `auth`) VALUES ('1','管理员', 10);
 INSERT INTO `usergroup` (`group_id`,`group_name`, `auth`) VALUES ('-1','已注销账户', -1);
+INSERT INTO `user` (`user_id`, `user_name`, `psw`, `email`, `group_id`, `is_admin`, `phone`) VALUES ('1', 'admin', 'admin', '', 1, true, '');
+INSERT INTO `user` (`user_id`, `user_name`, `psw`, `email`, `group_id`, `is_admin`, `phone`) VALUES ('-1', '已注销账户', '', '-1', -1, false, '-1');
+INSERT INTO `folders` (`folder_id`,`folder_name`, `parent_id`, `create_time`, `creater_id`, `tag`, `last_modify_time`, `is_deleted`, `last_modifier_id`)
+VALUES (0,'ROOT', 0, '2024-06-01 09:00:00', 1, null, '2024-06-01 09:00:00', false, 1);
+UPDATE `folders` SET `folder_id` = '0' WHERE (`folder_name` = 'ROOT') and folder_id>=0;
 SET FOREIGN_KEY_CHECKS = 1;
 
 -- TRIGGER --
@@ -134,9 +138,7 @@ END;
 $$
 DELIMITER ;
 
-INSERT INTO `user` (`user_name`, `psw`, `email`, `group_id`, `is_admin`, `phone`) VALUES ('admin', 'admin', '', 1, true, '');
-INSERT INTO `user` (`user_name`, `psw`, `email`, `group_id`, `is_admin`, `phone`) VALUES ('已注销账户', '', '-1', -1, true, '-1');
-UPDATE `user` SET `user_id` = '-1' WHERE (`user_name` = '已注销账户');
+
 
 -- 文件夹放入取出回收站
 SET global max_sp_recursion_depth = 64;

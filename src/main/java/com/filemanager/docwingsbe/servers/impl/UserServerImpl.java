@@ -105,8 +105,8 @@ public class UserServerImpl implements UserServer {
     }
 
     @Override
-    public void insertGroup(String groupName){
-        userMapper.insertGroup(groupName);
+    public void insertGroup(long auth, String groupName){
+        userMapper.insertGroup(auth, groupName);
     }
     @Override
     public String findGroupNameByUserId(long userId){

@@ -8,8 +8,8 @@
         values(#{user.userName}, #{user.psw}, #{user.email}, #{user.groupId}, #{user.isAdmin}, #{user.phone})
     </insert>
     <insert id="insertGroup">
-        insert into usergroup (group_name)
-        values {#{groupName}}
+        insert into usergroup (group_name, auth)
+        values (#{groupName},#{auth})
     </insert>
     <update id="UpdatePassword">
         update user

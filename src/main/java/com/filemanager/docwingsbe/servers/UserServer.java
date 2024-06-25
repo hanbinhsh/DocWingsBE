@@ -24,7 +24,7 @@ public interface UserServer {
     public User findUserById(long userId);
     public List<UserAndGroup> findAllUsers();
     public void updateGroup(long userId, long groupId);
-    public void insertGroup(String groupName);
+    public void insertGroup(long auth, String groupName);
     public String findGroupNameByUserId(long userId);
     public User findUserByEmail(String email);
     public User findUserByPhone(String phone);

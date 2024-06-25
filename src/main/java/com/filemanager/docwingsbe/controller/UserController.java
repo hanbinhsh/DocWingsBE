@@ -170,7 +170,8 @@ public class UserController {
 
     @RequestMapping("/insertGroup")
     public void insertGroup(@RequestBody Map<String, String> map) {
-        this.userServer.insertGroup(map.get("groupName"));
+        System.out.println(map.get("auth"));
+        this.userServer.insertGroup(Long.parseLong(map.get("auth")),map.get("name"));
     }
 
     @RequestMapping("/findGroupNameByUserId")

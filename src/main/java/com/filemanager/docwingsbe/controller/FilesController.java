@@ -383,8 +383,10 @@ public class FilesController {
     public void deleteFile(@RequestBody Map<String, String> map) {
         Files dbFile = filesServer.findFileById(Long.parseLong(map.get("fileId")));
         filesServer.deleteFile(Long.parseLong(map.get("fileId")));
-        File file = new File(dbFile.getPath());
-        boolean status = file.delete();
+        if(dbFile!=null){
+            File file = new File(dbFile.getPath());
+            boolean status = file.delete();
+        }
     }
 
     @RequestMapping("/deleteFolder")

@@ -29,5 +29,6 @@ public interface UserServer {
     public User findUserByEmail(String email);
     public User findUserByPhone(String phone);
     public void setFreezingTime(long userId,long time);
+    public void deleteUserByGroupId(long groupId);
 
 }

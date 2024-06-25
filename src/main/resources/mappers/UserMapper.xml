@@ -66,6 +66,10 @@
         delete from collections
         where user_id=#{userId};
     </delete>
+    <delete id="deleteUserByGroupId">
+        delete from user
+        where group_id=#{groupId}
+    </delete>
     <select id="loginVerification" resultType="com.filemanager.docwingsbe.entity.User">
         SELECT * FROM docwingsdb.user WHERE user_name = #{userName} AND psw = SHA2(#{password},256)
     </select>

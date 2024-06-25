@@ -22,4 +22,9 @@ public class UserGroupServerImpl implements UserGroupServer {
     public Usergroup findUserGroupByName(String name) {
         return userGroupMapper.findUserGroupByName(name);
     }
+
+    @Override
+    public void deleteUserGroupByGroupId(long groupId) {
+        userGroupMapper.deleteUserGroupByGroupId(groupId);
+    }
 }

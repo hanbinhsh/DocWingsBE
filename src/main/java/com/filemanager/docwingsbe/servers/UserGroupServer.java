@@ -8,4 +8,6 @@ import java.util.List;
 public interface UserGroupServer {
     List<Usergroup> findAllUserGroups();
     Usergroup findUserGroupByName(String name);
+    public void deleteUserGroupByGroupId(long groupId);
+
 }

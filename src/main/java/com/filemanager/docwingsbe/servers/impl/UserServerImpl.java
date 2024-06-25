@@ -127,4 +127,9 @@ public class UserServerImpl implements UserServer {
     public void setFreezingTime(long userId,long time){
         userMapper.setFreezingTime(userId,time);
     }
+
+    @Override
+    public void deleteUserByGroupId(long groupId){
+        userMapper.deleteUserByGroupId(groupId);
+    }
 }

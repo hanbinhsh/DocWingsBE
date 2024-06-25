@@ -10,4 +10,5 @@ import java.util.List;
 public interface UserGroupMapper {
     public List<Usergroup> findAllUserGroups();
     public Usergroup findUserGroupByName(@Param("name") String name);
+    public void deleteUserGroupByGroupId(@Param("groupId") long groupId);
 }

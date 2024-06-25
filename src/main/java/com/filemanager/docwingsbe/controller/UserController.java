@@ -83,7 +83,7 @@ public class UserController {
     @RequestMapping("/UpdatePhone")
     public boolean UpdatePhone(@RequestBody Map<String, String> map) {//FINISHED
         User user = userServer.findUserByPhone(map.get("newPhone"));
-        if(user==null){
+        if(user!=null){
             return false;
         }
         userServer.UpdatePhone(Long.parseLong(map.get("userId")),map.get("newPhone"));
@@ -93,7 +93,7 @@ public class UserController {
     @RequestMapping("/UpdateEmail")
     public boolean UpdateEmail(@RequestBody Map<String, String> map) {//FINISHED
         User user = userServer.findUserByPhone(map.get("newEmail"));
-        if(user==null){
+        if(user!=null){
             return false;
         }
         userServer.UpdateEmail(Long.parseLong(map.get("userId")),map.get("newEmail"));
@@ -182,5 +182,10 @@ public class UserController {
     @RequestMapping("/setFreezingTime")
     public void setFreezingTime(@RequestBody Map<String, String> map) {
         this.userServer.setFreezingTime(Long.parseLong(map.get("userId")),Long.parseLong(map.get("time"))-2);
+    }
+
+    @RequestMapping("/deleteUserByGroupId")
+    public void deleteUserByGroupId(@RequestBody Map<String, String> map) {
+        this.userServer.deleteUserByGroupId(Long.parseLong(map.get("groupId")));
     }
 }

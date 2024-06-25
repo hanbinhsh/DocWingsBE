@@ -16,6 +16,8 @@ public class SharePage {
     private java.sql.Timestamp dueTime;
     private long accepterId;
     private String accepterName;
+    private long acceptGroupId;
+    private String acceptGroupName;
     private long isFolder;
     private String fileType;
     // 仅后端
@@ -30,6 +32,9 @@ public class SharePage {
         if(accepterName == null){
             accepterName = "所有人";
         }
+        if(acceptGroupName == null){
+            acceptGroupName = "所有用户组";
+        }
         if(dueTime==null){
             validate = 2;  // 无限
             return;
@@ -42,6 +47,22 @@ public class SharePage {
         generateLastRatio();
     }
     // getter&setter
+
+    public long getAcceptGroupId() {
+        return acceptGroupId;
+    }
+
+    public void setAcceptGroupId(long acceptGroupId) {
+        this.acceptGroupId = acceptGroupId;
+    }
+
+    public String getAcceptGroupName() {
+        return acceptGroupName;
+    }
+
+    public void setAcceptGroupName(String acceptGroupName) {
+        this.acceptGroupName = acceptGroupName;
+    }
 
     public String getFileType() {
         return fileType;

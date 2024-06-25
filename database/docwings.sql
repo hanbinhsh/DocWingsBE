@@ -71,7 +71,6 @@ CREATE TABLE `files`  (
   FOREIGN KEY (`last_modifier_id`) REFERENCES user(`user_id`)
 );
 
-
 DROP TABLE IF EXISTS `shares`;
 CREATE TABLE `shares`  (
   `share_id` int  AUTO_INCREMENT PRIMARY KEY  	NOT NULL	COMMENT '分享ID',

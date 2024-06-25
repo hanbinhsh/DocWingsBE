@@ -34,4 +34,9 @@ public class ShareServerImpl implements ShareServer {
     public SharePage getSharesByShareId(long shareId) {
         return shareMapper.getSharesByShareId(shareId);
     }
+
+    @Override
+    public List<SharePage> getShareByUserIdGroupId(long userId, long groupId) {
+        return shareMapper.getShareByUserIdGroupId(userId, groupId);
+    }
 }

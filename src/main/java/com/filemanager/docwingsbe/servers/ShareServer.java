@@ -11,4 +11,5 @@ public interface ShareServer {
     int countSharesByUserId(long userId);
     void insertShare(Shares share);
     SharePage getSharesByShareId(long shareId);
+    List<SharePage> getShareByUserIdGroupId(long userId, long groupId);
 }

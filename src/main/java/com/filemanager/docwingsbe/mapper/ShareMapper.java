@@ -13,4 +13,5 @@ public interface ShareMapper {
     public int countSharesByUserId(@Param("userId") long userId);
     public void insertShare(@Param("share") Shares share);
     public SharePage getSharesByShareId(@Param("shareId") long shareId);
+    public List<SharePage> getShareByUserIdGroupId(@Param("userId") long userId, @Param("groupId") long groupId);
 }

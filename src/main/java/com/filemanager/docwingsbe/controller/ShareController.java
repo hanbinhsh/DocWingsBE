@@ -66,4 +66,19 @@ public class ShareController {
         result.put("data", data);
         return result;
     }
+
+    @RequestMapping("/getMyAcceptByUserIdGroupId")
+    public Map<String, Object> getMyAcceptByUserIdGroupId(@RequestParam long userId,@RequestParam long groupId) {  // FINISHED
+        List<SharePage> shares = this.shareServer.getShareByUserIdGroupId(userId, groupId);
+        for(SharePage share : shares){
+            share.generateThings();
+        }
+        Map<String, Object> result = new HashMap<>();
+        Map<String, Object> data = new HashMap<>();
+        data.put("shares", shares);
+        result.put("code", 200);
+        result.put("msg", "请求执行成功并返回相应数据");
+        result.put("data", data);
+        return result;
+    }
 }

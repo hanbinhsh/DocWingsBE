@@ -106,6 +106,7 @@ SET FOREIGN_KEY_CHECKS = 1;
 
 SET FOREIGN_KEY_CHECKS = 0;
 INSERT INTO `usergroup` (`group_id`,`group_name`, `auth`) VALUES ('1','管理员', 10);
+INSERT INTO `usergroup` (`group_id`,`group_name`, `auth`) VALUES ('2','默认用户', 3);
 INSERT INTO `usergroup` (`group_id`,`group_name`, `auth`) VALUES ('-1','已注销账户', -1);
 INSERT INTO `user` (`user_id`, `user_name`, `psw`, `email`, `group_id`, `is_admin`, `phone`) VALUES ('1', 'admin', 'admin', '', 1, true, '');
 INSERT INTO `user` (`user_id`, `user_name`, `psw`, `email`, `group_id`, `is_admin`, `phone`) VALUES ('-1', '已注销账户', '', '-1', -1, false, '-1');
@@ -126,8 +127,6 @@ BEGIN
 END;
 $$
 DELIMITER ;
-
-
 
 -- 文件夹放入取出回收站
 SET global max_sp_recursion_depth = 64;

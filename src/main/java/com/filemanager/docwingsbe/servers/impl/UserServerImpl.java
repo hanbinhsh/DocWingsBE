@@ -132,4 +132,9 @@ public class UserServerImpl implements UserServer {
     public void deleteUserByGroupId(long groupId){
         userMapper.deleteUserByGroupId(groupId);
     }
+
+    @Override
+    public long findAuthByUserId(long userId) {
+        return userMapper.findAuthByUserId(userId);
+    }
 }

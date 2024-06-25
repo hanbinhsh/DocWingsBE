@@ -34,4 +34,5 @@ public interface UserMapper {
     public User findUserByPhone(@Param("phone") String phone);
     public void setFreezingTime(@Param("userId") long userId, @Param("time") long time);
     public void deleteUserByGroupId(@Param("groupId") long groupId);
+    public long findAuthByUserId(@Param("userId") long userId);
 }

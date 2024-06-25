@@ -119,5 +119,8 @@
         from user
         where user.phone=#{phone};
     </select>
+    <select id="findAuthByUserId" resultType="java.lang.Long">
+        SELECT auth FROM usergroup,user WHERE usergroup.group_id = user.group_id AND user_id = #{userId}
+    </select>
 
 </mapper>

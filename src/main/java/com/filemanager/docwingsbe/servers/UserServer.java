@@ -2,6 +2,7 @@ package com.filemanager.docwingsbe.servers;
 
 import com.filemanager.docwingsbe.entity.User;
 import com.filemanager.docwingsbe.entity.multy.UserAndGroup;
+import org.apache.ibatis.annotations.Param;
 
 import java.time.Instant;
 import java.util.List;
@@ -30,5 +31,5 @@ public interface UserServer {
     public User findUserByPhone(String phone);
     public void setFreezingTime(long userId,long time);
     public void deleteUserByGroupId(long groupId);
-
+    long findAuthByUserId(long userId);
 }

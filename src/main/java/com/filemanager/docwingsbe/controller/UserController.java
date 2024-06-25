@@ -44,6 +44,11 @@ public class UserController {
         return user;
     }
 
+    @RequestMapping("/findAuthByUserId")
+    public long findAuthByUserId(@RequestParam long userId){
+        return userServer.findAuthByUserId(userId);
+    }
+
     @PostMapping(value = "/registerUser")
     public String registerUser(@RequestBody User user) {
         if(userServer.selectUserByUserName(user.getUserName()))

@@ -17,4 +17,9 @@ public class UserGroupServerImpl implements UserGroupServer {
     public List<Usergroup> findAllUserGroups() {
         return userGroupMapper.findAllUserGroups();
     }
+
+    @Override
+    public Usergroup findUserGroupByName(String name) {
+        return userGroupMapper.findUserGroupByName(name);
+    }
 }

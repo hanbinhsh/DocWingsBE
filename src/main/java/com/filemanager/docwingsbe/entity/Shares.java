@@ -13,7 +13,16 @@ public class Shares {
   private java.sql.Timestamp shareTime;
   private java.sql.Timestamp dueTime;
   private long accepterId;
+  private String acceptGroupId;
   private long isFolder;
+
+  public String getAcceptGroupId() {
+    return acceptGroupId;
+  }
+
+  public void setAcceptGroupId(String acceptGroupId) {
+    this.acceptGroupId = acceptGroupId;
+  }
 
   public Timestamp getDueTime() {
     return dueTime;

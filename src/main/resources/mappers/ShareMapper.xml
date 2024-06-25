@@ -5,7 +5,7 @@
 <mapper namespace="com.filemanager.docwingsbe.mapper.ShareMapper">
     <insert id="insertShare">
         INSERT INTO `shares`
-            (`file_id`, `folder_id`, `sharer_id`, `auth`, `share_time`, `due_time`, `accepter_id`, `is_folder`)
+            (`file_id`, `folder_id`, `sharer_id`, `auth`, `share_time`, `due_time`, `accepter_id`, `accept_group_id`, `is_folder`)
         VALUES
             (IF(#{share.fileId} = -2, NULL, #{share.fileId}),
              IF(#{share.folderId} = -2, NULL, #{share.folderId}),
@@ -14,6 +14,7 @@
              #{share.shareTime},
              IF(#{share.dueTime} = #{share.shareTime}, NULL, #{share.dueTime}),
              IF(#{share.accepterId} = -2, NULL, #{share.accepterId}),
+             IF(#{share.acceptGroupId} = -2, NULL, #{share.acceptGroupId}),
              #{share.isFolder})
     </insert>
     <select id="getSharesByUserId" resultType="com.filemanager.docwingsbe.entity.multy.SharePage">

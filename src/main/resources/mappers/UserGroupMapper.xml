@@ -7,4 +7,7 @@
     <select id="findAllUserGroups" resultType="com.filemanager.docwingsbe.entity.Usergroup">
         SELECT * FROM usergroup
     </select>
+    <select id="findUserGroupByName" resultType="com.filemanager.docwingsbe.entity.Usergroup">
+        SELECT * FROM usergroup WHERE group_name = #{name}
+    </select>
 </mapper>

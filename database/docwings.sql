@@ -91,16 +91,6 @@ CREATE TABLE `shares`  (
   FOREIGN KEY (`accept_group_id`) REFERENCES usergroup(`group_id`)
 );
 
-DROP TABLE IF EXISTS `groupauth`;
-CREATE TABLE `groupauth`  (
-  `groupauth_id` int AUTO_INCREMENT PRIMARY KEY NOT NULL	COMMENT '用户组权限ID',
-  `group_id` int 								NOT NULL	COMMENT '用户组ID',
-  `folder_id` int 								NOT NULL	COMMENT '文件夹ID',
-  `auth` tinyint 								NOT NULL	COMMENT '用户组权限',
-  FOREIGN KEY (`group_id`) REFERENCES usergroup(`group_id`),
-  FOREIGN KEY (`folder_id`) REFERENCES folders(`folder_id`)
-);
-
 DROP TABLE IF EXISTS `collections`;
 CREATE TABLE `collections`  (
   `col_id` int AUTO_INCREMENT PRIMARY KEY 		NOT NULL	COMMENT '收藏ID',

@@ -81,13 +81,23 @@ public class UserController {
     }
 
     @RequestMapping("/UpdatePhone")
-    public void UpdatePhone(@RequestBody Map<String, String> map) {//FINISHED
+    public boolean UpdatePhone(@RequestBody Map<String, String> map) {//FINISHED
+        User user = userServer.findUserByPhone(map.get("newPhone"));
+        if(user==null){
+            return false;
+        }
         userServer.UpdatePhone(Long.parseLong(map.get("userId")),map.get("newPhone"));
+        return true;
     }
 
     @RequestMapping("/UpdateEmail")
-    public void UpdateEmail(@RequestBody Map<String, String> map) {//FINISHED
+    public boolean UpdateEmail(@RequestBody Map<String, String> map) {//FINISHED
+        User user = userServer.findUserByPhone(map.get("newEmail"));
+        if(user==null){
+            return false;
+        }
         userServer.UpdateEmail(Long.parseLong(map.get("userId")),map.get("newEmail"));
+        return true;
     }
 
     @RequestMapping("/queryIfExistsUserByUserName")
@@ -167,4 +177,5 @@ public class UserController {
     public String findGroupNameByUserId(@RequestBody Map<String, String> map) {
         return this.userServer.findGroupNameByUserId(Long.parseLong(map.get("userId")));
     }
+
 }

@@ -30,5 +30,6 @@ public interface UserMapper {
     public void updateGroup(@Param("userId") long userId, @Param("groupId") long groupId);
     public void insertGroup(@Param("groupName") String groupName);
     public String findGroupNameByUserId(@Param("userId") long userId);
-
+    public User findUserByEmail(@Param("email") String email);
+    public User findUserByPhone(@Param("phone") String phone);
 }

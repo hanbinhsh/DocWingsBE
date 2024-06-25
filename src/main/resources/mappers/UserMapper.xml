@@ -98,5 +98,15 @@
         join usergroup on user.group_id=usergroup.group_id
         where user.user_id!=-1;
     </select>
+    <select id="findUserByEmail" resultType="com.filemanager.docwingsbe.entity.User">
+        select *
+        from user
+        where user.email=#{email};
+    </select>
+    <select id="findUserByPhone" resultType="com.filemanager.docwingsbe.entity.User">
+        select *
+        from user
+        where user.phone=#{phone};
+    </select>
 
 </mapper>

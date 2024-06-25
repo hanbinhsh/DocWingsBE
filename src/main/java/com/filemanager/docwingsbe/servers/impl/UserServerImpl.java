@@ -112,4 +112,14 @@ public class UserServerImpl implements UserServer {
     public String findGroupNameByUserId(long userId){
        return userMapper.findGroupNameByUserId(userId);
     }
+
+    @Override
+    public User findUserByEmail(String email){
+        return userMapper.findUserByEmail(email);
+    }
+
+    @Override
+    public User findUserByPhone(String phone){
+        return userMapper.findUserByPhone(phone);
+    }
 }

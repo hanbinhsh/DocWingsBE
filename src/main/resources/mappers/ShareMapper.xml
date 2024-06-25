@@ -67,6 +67,8 @@
             s.due_time AS 'dueTime',
             s.accepter_id AS 'accepterId',
             us_accepter.user_name AS 'accepterName',
+            s.accept_group_id AS 'acceptGroupId',
+            us_acceptgroup.group_name AS 'acceptGroupName',
             s.is_folder AS 'isFolder',
             f.file_type AS 'fileType'
         FROM
@@ -79,6 +81,8 @@
             user us_sharer ON s.sharer_id = us_sharer.user_id
                 LEFT JOIN
             user us_accepter ON s.accepter_id = us_accepter.user_id
+                LEFT JOIN
+            usergroup us_acceptgroup ON s.accept_group_id = us_acceptgroup.group_id
         WHERE
             s.share_id = #{shareId}
     </select>
@@ -96,6 +100,8 @@
             s.due_time AS 'dueTime',
             s.accepter_id AS 'accepterId',
             us_accepter.user_name AS 'accepterName',
+            s.accept_group_id AS 'acceptGroupId',
+            us_acceptgroup.group_name AS 'acceptGroupName',
             s.is_folder AS 'isFolder',
             f.file_type AS 'fileType'
         FROM
@@ -108,6 +114,8 @@
             user us_sharer ON s.sharer_id = us_sharer.user_id
                 LEFT JOIN
             user us_accepter ON s.accepter_id = us_accepter.user_id
+                LEFT JOIN
+            usergroup us_acceptgroup ON s.accept_group_id = us_acceptgroup.group_id
         WHERE
             s.accepter_id = #{userId} OR s.accept_group_id = #{groupId}
     </select>

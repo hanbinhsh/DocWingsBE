@@ -76,6 +76,7 @@ public class ShareController {
         Map<String, Object> result = new HashMap<>();
         Map<String, Object> data = new HashMap<>();
         data.put("shares", shares);
+        data.put("acceptCount", shares.size());
         result.put("code", 200);
         result.put("msg", "请求执行成功并返回相应数据");
         result.put("data", data);

@@ -1,6 +1,7 @@
 package com.filemanager.docwingsbe.controller;
 
 import com.filemanager.docwingsbe.entity.User;
+import com.filemanager.docwingsbe.entity.multy.UserAndGroup;
 import com.filemanager.docwingsbe.servers.UserServer;
 import jakarta.annotation.Resource;
 import org.springframework.http.HttpStatus;
@@ -120,6 +121,7 @@ public class UserController {
     public User freeze(@RequestBody Map<String, String> map) {//FINISHED
         User user= userServer.findUserById(Long.parseLong(map.get("userId")));
         if(user!=null){
+            user.setFailedAttempts(5);
             user.setAccountLocked(true);
             user.setLockTime(Instant.now());
             userServer.SaveUser(user.getFailedAttempts(),user.isAccountLocked(),user.getLockTime(),user.getUserId());
@@ -147,7 +149,7 @@ public class UserController {
     }
 
     @RequestMapping("/findAllUsers")
-    public List<User> findAllUsers() {
+    public List<UserAndGroup> findAllUsers() {
         return this.userServer.findAllUsers();
     }
 

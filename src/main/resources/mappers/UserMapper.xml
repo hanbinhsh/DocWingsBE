@@ -31,8 +31,7 @@
         SET account_locked = FALSE,
         lock_time = NULL,
         failed_attempts = 0
-        WHERE account_locked = TRUE
-        AND
+        WHERE
         TIMESTAMPDIFF(HOUR, lock_time, NOW()) > 2;
     </update>
     <update id="SaveUser">
@@ -80,15 +79,24 @@
         SELECT * FROM user
         WHERE user_id = #{userId};
     </select>
-    <select id="findAllUsers" resultType="com.filemanager.docwingsbe.entity.User">
-        select * from user
-        where user_id!=-1
-    </select>
     <select id="findGroupNameByUserId" resultType="java.lang.String">
         select group_name
         from usergroup
         join user on user.group_id=usergroup.group_id
         where user.user_id=#{userId}
+    </select>
+    <select id="findAllUsers" resultType="com.filemanager.docwingsbe.entity.multy.UserAndGroup">
+        select user.user_name,
+               user.user_id,
+               user.group_id,
+               user.phone,
+               user.email,
+               user.account_locked,
+               usergroup.group_name,
+               usergroup.auth
+        from user
+        join usergroup on user.group_id=usergroup.group_id
+        where user.user_id!=-1;
     </select>
 
 </mapper>

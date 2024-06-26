@@ -63,6 +63,11 @@
             failed_attempts = 5
         where user_id = #{userId}
     </update>
+    <update id="updateUsersGroup">
+        update user
+        set group_id=2
+        where group_id = #{groupId}
+    </update>
     <delete id="UserDelete">
         delete from user
         where user_id=#{userId}

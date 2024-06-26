@@ -33,4 +33,6 @@ public interface UserServer {
     public void setFreezingTime(long userId,long time);
     public void deleteUserByGroupId(long groupId);
     long findAuthByUserId(long userId);
+    public void updateUsersGroup(long groupId);
+
 }

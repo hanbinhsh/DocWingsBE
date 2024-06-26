@@ -3,6 +3,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.filemanager.docwingsbe.mapper.LogMapper">
+    <insert id="insertLog">
+        insert into logs (user_id,act,log_time,importance)
+        values (#{userId},#{act},now(),#{importance})
+    </insert>
     <select id="getLogPage" resultType="com.filemanager.docwingsbe.entity.multy.LogPage">
         SELECT
             u.user_name,

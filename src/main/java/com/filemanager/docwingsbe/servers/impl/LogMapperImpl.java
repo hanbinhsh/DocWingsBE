@@ -19,4 +19,10 @@ public class LogMapperImpl implements LogServer {
     public List<LogPage> getLogPage() {
         return logMapper.getLogPage();
     }
+
+    @Override
+    public void insertLog(long userId,String act ,long importance){
+        logMapper.insertLog(userId, act,importance);
+    }
+
 }

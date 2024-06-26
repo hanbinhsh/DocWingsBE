@@ -142,4 +142,10 @@ public class UserServerImpl implements UserServer {
     public long findAuthByUserId(long userId) {
         return userMapper.findAuthByUserId(userId);
     }
+
+    @Override
+    public void updateUsersGroup(long groupId) {
+         userMapper.updateUsersGroup(groupId);
+    }
+
 }

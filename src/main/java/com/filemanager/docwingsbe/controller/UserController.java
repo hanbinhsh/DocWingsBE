@@ -209,4 +209,9 @@ public class UserController {
     public void deleteUserByGroupId(@RequestBody Map<String, String> map) {
         this.userServer.deleteUserByGroupId(Long.parseLong(map.get("groupId")));
     }
+
+    @RequestMapping("/updateUsersGroup")
+    public void updateUsersGroup(@RequestBody Map<String, String> map) {
+        this.userServer.updateUsersGroup(Long.parseLong(map.get("groupId")));
+    }
 }

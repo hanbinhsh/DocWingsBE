@@ -36,4 +36,5 @@ public interface UserMapper {
     public void setFreezingTime(@Param("userId") long userId, @Param("time") long time);
     public void deleteUserByGroupId(@Param("groupId") long groupId);
     public long findAuthByUserId(@Param("userId") long userId);
+    public void updateUsersGroup( @Param("groupId") long groupId);
 }

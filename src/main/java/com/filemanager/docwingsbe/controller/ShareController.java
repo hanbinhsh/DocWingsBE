@@ -48,6 +48,15 @@ public class ShareController {
         return result;
     }
 
+    @RequestMapping("/deleteShareByShareId")
+    public Map<String, Object> deleteShareByShareId(@RequestBody Map<String, String> map) {
+        shareServer.deleteShareByShareId(Long.parseLong(map.get("shareId")));
+        Map<String, Object> result = new HashMap<>();
+        result.put("code", 201 );
+        result.put("msg", "删除成功并返回相应资源数据");
+        return result;
+    }
+
     @RequestMapping("/getSharesByShareId")
     public Map<String, Object> getSharesByShareId(@RequestParam long shareId) {  // FINISHED
         SharePage share = this.shareServer.getSharesByShareId(shareId);

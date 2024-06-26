@@ -31,6 +31,11 @@ public class ShareServerImpl implements ShareServer {
     }
 
     @Override
+    public void deleteShareByShareId(long shareId) {
+        shareMapper.deleteShareByShareId(shareId);
+    }
+
+    @Override
     public void updateShare(Shares share) {
         shareMapper.updateShare(share);
     }

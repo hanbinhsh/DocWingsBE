@@ -26,6 +26,9 @@
             accept_group_id = IF(#{share.acceptGroupId} = -2, NULL, #{share.acceptGroupId})
         where share_id = #{share.shareId}
     </update>
+    <delete id="deleteShareByShareId">
+        delete from shares where share_id = #{shareId}
+    </delete>
     <select id="getSharesByUserId" resultType="com.filemanager.docwingsbe.entity.multy.SharePage">
         SELECT
             s.share_id AS 'shareId',

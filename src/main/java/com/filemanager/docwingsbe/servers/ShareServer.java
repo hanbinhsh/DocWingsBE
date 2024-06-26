@@ -9,6 +9,7 @@ import java.util.List;
 public interface ShareServer {
     public List<SharePage> getSharesByUserId(@Param("userId") long userId);
     int countSharesByUserId(long userId);
+    void deleteShareByShareId(long shareId);
     void insertShare(Shares share);
     void updateShare(Shares share);
     SharePage getSharesByShareId(long shareId);

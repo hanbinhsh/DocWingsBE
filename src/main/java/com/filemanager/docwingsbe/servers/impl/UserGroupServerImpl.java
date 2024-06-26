@@ -27,4 +27,10 @@ public class UserGroupServerImpl implements UserGroupServer {
     public void deleteUserGroupByGroupId(long groupId) {
         userGroupMapper.deleteUserGroupByGroupId(groupId);
     }
+
+    @Override
+    public void updateAuth(long groupId, long auth) { userGroupMapper.updateAuth(groupId, auth); }
+
+    @Override
+    public void updateGroupName(long groupId, String groupName) { userGroupMapper.updateGroupName(groupId, groupName); }
 }

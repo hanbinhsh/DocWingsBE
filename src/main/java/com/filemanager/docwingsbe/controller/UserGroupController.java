@@ -51,4 +51,15 @@ public class UserGroupController {
     public void deleteUserGroupByGroupId(@RequestBody Map<String, String> map) {
          this.userGroupServer.deleteUserGroupByGroupId(Long.parseLong(map.get("groupId")));
     }
+
+    @RequestMapping("/updateAuth")
+    public void updateAuth(@RequestBody Map<String, String> map) throws Exception {
+        this.userGroupServer.updateAuth(Long.parseLong(map.get("groupId")),Long.parseLong(map.get("auth")));
+    }
+
+    @RequestMapping("/updateGroupName")
+    public void updateGroupName(@RequestBody Map<String, String> map) throws Exception {
+        this.userGroupServer.updateGroupName(Long.parseLong(map.get("groupId")),map.get("groupName"));
+    }
+
 }

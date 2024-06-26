@@ -55,4 +55,25 @@ public class    LogController {
         this.logServer.insertLog(Long.parseLong(map.get("userId")),act,1);
     }
 
+    @RequestMapping("/updatePhoneLog")
+    public void updatePhoneLog(@RequestBody Map<String, String> map) {
+        long oldPhone = Long.parseLong(map.get("oldPhone"));
+        long newPhone = Long.parseLong(map.get("newPhone"));
+        String act = "将旧电话号码"+oldPhone+"更改为"+newPhone;
+        this.logServer.insertLog(Long.parseLong(map.get("userId")),act,1);
+    }
+
+    @RequestMapping("/updateEmailLog")
+    public void updateEmailLog(@RequestBody Map<String, String> map) {
+        String oldEmail =map.get("oldEmail");
+        String newEmail = map.get("newEmail");
+        String act = "将旧邮箱"+oldEmail+"更改为"+newEmail;
+        this.logServer.insertLog(Long.parseLong(map.get("userId")),act,1);
+    }
+
+    @RequestMapping("/logoutLog")
+    public void logoutLog(@RequestBody Map<String, String> map) {
+        String act = "用户注销";
+        this.logServer.insertLog(Long.parseLong(map.get("userId")),act,2);
+    }
 }

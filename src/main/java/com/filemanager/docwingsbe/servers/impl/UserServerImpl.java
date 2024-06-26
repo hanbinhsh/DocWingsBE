@@ -53,6 +53,11 @@ public class UserServerImpl implements UserServer {
     }
 
     @Override
+    public void updateUserName(long userId, String userName){
+        userMapper.updateUserName(userId, userName);
+    }
+
+    @Override
     public void UpdatePassword(long userId,String newPassword){
         userMapper.UpdatePassword(userId,newPassword);
     }

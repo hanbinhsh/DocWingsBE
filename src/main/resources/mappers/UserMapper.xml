@@ -11,6 +11,11 @@
         insert into usergroup (group_name, auth)
         values (#{groupName},#{auth})
     </insert>
+    <update id="updateUserName">
+        update user
+        set user_name = #{userName}
+        where user_id = #{userId}
+    </update>
     <update id="UpdatePassword">
         update user
         set psw=SHA2(#{newPassword},256)

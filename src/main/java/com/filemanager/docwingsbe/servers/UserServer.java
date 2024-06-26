@@ -15,6 +15,7 @@ public interface UserServer {
     boolean selectUserByPhone(String phone);
     public void UserDelete(long userId);
     public void UserCollectionDelete(long userId);
+    public void updateUserName(long userId, String userName);
     public void UpdatePassword(long userId, String newPassword);
     public void UpdateEmail(long userId, String newEmail);
     public void UpdatePhone(long userId, String newPhone);

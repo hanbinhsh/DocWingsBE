@@ -80,6 +80,11 @@ public class UserController {
         userServer.UserCollectionDelete(Long.parseLong(map.get("userId")));
     }
 
+    @RequestMapping("/updateUserName")
+    public void UpdateUserName(@RequestBody Map<String, String> map) {//FINISHED
+        userServer.updateUserName(Long.parseLong(map.get("userId")),map.get("userName"));
+    }
+
     @RequestMapping("/UpdatePassword")
     public void UpdatePassword(@RequestBody Map<String, String> map) {//FINISHED
         userServer.UpdatePassword(Long.parseLong(map.get("userId")),map.get("newPassword"));
@@ -97,7 +102,7 @@ public class UserController {
 
     @RequestMapping("/UpdateEmail")
     public boolean UpdateEmail(@RequestBody Map<String, String> map) {//FINISHED
-        User user = userServer.findUserByPhone(map.get("newEmail"));
+        User user = userServer.findUserByEmail(map.get("newEmail"));
         if(user!=null){
             return false;
         }
@@ -159,8 +164,8 @@ public class UserController {
     }
 
     @RequestMapping("/findUserByName")
-    public User findUserByName(@RequestBody Map<String, String> map) {
-        return userServer.findUserByName(map.get("userName"));
+    public boolean findUserByName(@RequestBody Map<String, String> map) {
+        return userServer.selectUserByUserName(map.get("userName"));
     }
 
     @RequestMapping("/findAllUsers")
@@ -182,6 +187,17 @@ public class UserController {
     @RequestMapping("/findGroupNameByUserId")
     public String findGroupNameByUserId(@RequestBody Map<String, String> map) {
         return this.userServer.findGroupNameByUserId(Long.parseLong(map.get("userId")));
+
+    }
+
+    @RequestMapping("/findUserByEmail")
+    public boolean findUserByEmail(@RequestBody Map<String, String> map) {
+        return this.userServer.selectUserByEmail(map.get("email"));
+    }
+
+    @RequestMapping("/findUserByPhone")
+    public boolean findUserByPhone(@RequestBody Map<String, String> map) {
+        return this.userServer.selectUserByPhone(map.get("phone"));
     }
 
     @RequestMapping("/setFreezingTime")

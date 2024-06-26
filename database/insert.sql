@@ -70,3 +70,7 @@ ALTER TABLE `user`
 ADD COLUMN `failed_attempts` INT DEFAULT 0 COMMENT '登录失败次数',
 ADD COLUMN `account_locked` BOOLEAN DEFAULT FALSE COMMENT '是否冻结',
 ADD COLUMN `lock_time` TIMESTAMP NULL COMMENT '冻结时间';
+
+ALTER TABLE `shares`
+ADD COLUMN `accept_group_id` int COMMENT '接受用户组ID',
+ADD CONSTRAINT `fk_accept_group_id` FOREIGN KEY (`accept_group_id`) REFERENCES `usergroup`(`group_id`);

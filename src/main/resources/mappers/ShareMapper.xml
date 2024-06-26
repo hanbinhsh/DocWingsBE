@@ -17,6 +17,14 @@
              IF(#{share.acceptGroupId} = -2, NULL, #{share.acceptGroupId}),
              #{share.isFolder})
     </insert>
+    <update id="updateShare">
+        update shares
+        set
+            auth = #{share.auth},
+            due_time = #{share.dueTime},
+            accepter_id = #{share.accepterId},
+            accept_group_id = #{share.acceptGroupId},
+    </update>
     <select id="getSharesByUserId" resultType="com.filemanager.docwingsbe.entity.multy.SharePage">
         SELECT
             s.share_id AS 'shareId',

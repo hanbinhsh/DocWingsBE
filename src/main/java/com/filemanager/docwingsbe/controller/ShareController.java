@@ -82,4 +82,17 @@ public class ShareController {
         result.put("data", data);
         return result;
     }
+
+    @RequestMapping("/updateShare")
+    public Map<String, Object> updateShare(@RequestBody List<Shares> shares) {
+        int count = shares.size();
+        for (Shares share : shares) {
+            shareServer.updateShare(share);
+        }
+        Map<String, Object> result = new HashMap<>();
+        result.put("code", 201 );
+        result.put("msg", "修改成功并返回相应资源数据");
+        result.put("count",count);
+        return result;
+    }
 }

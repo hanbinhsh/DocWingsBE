@@ -31,6 +31,11 @@ public class ShareServerImpl implements ShareServer {
     }
 
     @Override
+    public void updateShare(Shares share) {
+        shareMapper.updateShare(share);
+    }
+
+    @Override
     public SharePage getSharesByShareId(long shareId) {
         return shareMapper.getSharesByShareId(shareId);
     }

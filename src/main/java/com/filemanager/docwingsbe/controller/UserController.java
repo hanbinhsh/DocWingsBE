@@ -97,7 +97,7 @@ public class UserController {
 
     @RequestMapping("/UpdateEmail")
     public boolean UpdateEmail(@RequestBody Map<String, String> map) {//FINISHED
-        User user = userServer.findUserByPhone(map.get("newEmail"));
+        User user = userServer.findUserByEmail(map.get("newEmail"));
         if(user!=null){
             return false;
         }

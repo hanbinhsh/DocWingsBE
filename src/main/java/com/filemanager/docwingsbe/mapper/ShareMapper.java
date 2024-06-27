@@ -16,4 +16,5 @@ public interface ShareMapper {
     public void updateShare(@Param("share") Shares share);
     public SharePage getSharesByShareId(@Param("shareId") long shareId);
     public List<SharePage> getShareByUserIdGroupId(@Param("userId") long userId, @Param("groupId") long groupId);
+    public long getDownloadCount(@Param("shareId") long shareId, @Param("fileId") long fileId);
 }

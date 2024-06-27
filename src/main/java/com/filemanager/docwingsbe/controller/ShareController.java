@@ -104,4 +104,14 @@ public class ShareController {
         result.put("count",count);
         return result;
     }
+
+    @RequestMapping("/getDownloadCount")
+    public Map<String, Object> getDownloadCount(@RequestBody Map<String, String> map) {
+        long count = shareServer.getDownloadCount(Long.parseLong(map.get("shareId")), Long.parseLong(map.get("fileId")));
+        Map<String, Object> result = new HashMap<>();
+        result.put("code", 200 );
+        result.put("msg", "请求执行成功并返回相应数据");
+        result.put("count",count);
+        return result;
+    }
 }

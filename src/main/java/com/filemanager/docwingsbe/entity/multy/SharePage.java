@@ -20,6 +20,7 @@ public class SharePage {
     private String acceptGroupName;
     private long isFolder;
     private String fileType;
+    private long downloadCount;
     // 仅后端
     private long validate;
     private double lastRatio;
@@ -66,6 +67,13 @@ public class SharePage {
 
     public String getFileType() {
         return fileType;
+    }
+    public long getDownloadCount() {
+        return downloadCount;
+    }
+
+    public void setDownloadCount(long downloadCount) {
+        this.downloadCount = downloadCount;
     }
 
     public void setFileType(String fileType) {

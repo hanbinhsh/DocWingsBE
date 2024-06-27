@@ -131,4 +131,9 @@
         WHERE
             s.accepter_id = #{userId} OR s.accept_group_id = #{groupId}
     </select>
+    <select id="getDownloadCount" resultType="java.lang.Long">
+        SELECT COUNT(*)
+        FROM logs
+        WHERE act LIKE "%分享Id为${shareId},文件Id为${fileId}%";
+    </select>
 </mapper>

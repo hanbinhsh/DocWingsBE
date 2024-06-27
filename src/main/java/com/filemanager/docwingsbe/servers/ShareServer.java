@@ -14,4 +14,5 @@ public interface ShareServer {
     void updateShare(Shares share);
     SharePage getSharesByShareId(long shareId);
     List<SharePage> getShareByUserIdGroupId(long userId, long groupId);
+    long getDownloadCount(long shareId, long fileId);
 }

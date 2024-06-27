@@ -164,8 +164,8 @@ public class UserController {
     }
 
     @RequestMapping("/findUserByName")
-    public boolean findUserByName(@RequestBody Map<String, String> map) {
-        return userServer.selectUserByUserName(map.get("userName"));
+    public User findUserByName(@RequestBody Map<String, String> map) {
+        return userServer.findUserByName(map.get("userName"));
     }
 
     @RequestMapping("/findAllUsers")

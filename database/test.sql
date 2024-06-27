@@ -94,6 +94,10 @@ ALTER TABLE `folders` MODIFY COLUMN `last_modifier_id` int NOT NULL COMMENT '上
 ALTER TABLE `shares` ADD COLUMN `due_time` datetime COMMENT '到期日期';
 ALTER TABLE `user` MODIFY COLUMN `phone` varchar(32) UNIQUE	NOT NULL COMMENT '电话号码';
 
+ALTER TABLE `shares`
+ADD COLUMN `accept_group_id` int COMMENT '接受用户组ID',
+ADD CONSTRAINT `fk_accept_group_id` FOREIGN KEY (`accept_group_id`) REFERENCES `usergroup`(`group_id`);
+
 ALTER TABLE `shares` MODIFY COLUMN  `file_id` int COMMENT '文件ID';
 ALTER TABLE `shares` MODIFY COLUMN  `folder_id` int COMMENT '文件夹ID';
 ALTER TABLE `shares` MODIFY COLUMN  `accepter_id` int COMMENT '接受者ID';

@@ -207,5 +207,7 @@ BEGIN
     WHERE uploader_id = OLD.user_id OR last_modifier_id = OLD.user_id;
     DELETE FROM collections
     WHERE user_id = OLD.user_id;
+    DELETE FROM shares
+    where sharer_id = OLD.user_id or accepter_id = OLD.user_id;
     END$$
     DELIMITER ;

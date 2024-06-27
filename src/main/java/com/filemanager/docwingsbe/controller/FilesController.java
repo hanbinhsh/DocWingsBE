@@ -22,14 +22,21 @@ import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.Map;
 
+// 控制层的类
+// 使用注解--表明该类是控制类--特征：返回JSON格式
 @RestController
 public class FilesController {
+    // 依赖注入--业务层的接口
     @Resource
     private FilesServer filesServer;
 
+    // 获取前端请求并推送响应结果
+    // 此处注解使用@PostMpping/@GetMapping
+    // 形参加入@RequestBody注解(JSON格式)
     @RequestMapping("/downloadFile")
     @CrossOrigin(origins = "*")  // 跨域
     public ResponseEntity<byte[]> downloadFile(@RequestParam long fileID) throws IOException {
+        // 调用业务层接口的方法
         Files file = filesServer.findFileById(fileID);
         ResponseEntity.BodyBuilder builder = ResponseEntity.ok();  // 设置响应对象为二进制流
         builder.contentType(MediaType.APPLICATION_OCTET_STREAM);
@@ -39,16 +46,6 @@ public class FilesController {
         builder.header("Accept-Ranges", "bytes");
         File dFile = new File(file.getPath());
         return builder.body(FileUtils.readFileToByteArray(dFile));
-    }
-
-    @RequestMapping("/findFoldersByParentId")
-    public List<FolderPage> findFoldersByParentId(@RequestParam long parentId) {
-        return this.filesServer.findFoldersByParentId(parentId);
-    }
-
-    @RequestMapping("/findFilesByParentId")
-    public List<FilesPage> findFilesByParentId(@RequestParam long parentId) {
-        return this.filesServer.findFilesByParentId(parentId);
     }
 
     @RequestMapping("/findFFsByParentId")
@@ -131,16 +128,6 @@ public class FilesController {
         data.put("parentId",parentId);
         result.put("data",data);
         return result;
-    }
-
-    @RequestMapping("/countFFsByParentId")
-    public long countFFsByParentId(@RequestParam long parentId){
-        return filesServer.countFFsByParentId(parentId);
-    }
-
-    @RequestMapping("/countFFsByParentIdUserId")
-    public long countFFsByParentIdUserId( @RequestBody Map<String, String> map){
-        return filesServer.countFFsByParentIdUserId(Long.parseLong(map.get("userId")));
     }
 
     @RequestMapping("/findImagesByParentId")

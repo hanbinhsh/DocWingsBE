@@ -208,6 +208,6 @@ BEGIN
     DELETE FROM collections
     WHERE user_id = OLD.user_id;
     DELETE FROM shares
-    where user_id = OLD.user_id;
+    where sharer_id = OLD.user_id;
     END$$
     DELIMITER ;

@@ -9,5 +9,5 @@ import java.util.List;
 public interface LogServer {
     List<LogPage> getLogPage();
     public void insertLog(long userId, String act,long importance);
-
+    public void updateLogoutUserLog(long userId);
 }

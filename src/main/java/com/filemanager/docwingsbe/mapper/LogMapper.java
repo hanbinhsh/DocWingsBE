@@ -11,4 +11,5 @@ import java.util.List;
 public interface LogMapper {
     public List<LogPage> getLogPage();
     public void insertLog(@Param("userId") long userId, @Param("act") String act, @Param("importance") long importance);
+    public void updateLogoutUserLog(@Param("userId") long userId);
 }

@@ -25,4 +25,8 @@ public class LogMapperImpl implements LogServer {
         logMapper.insertLog(userId, act,importance);
     }
 
+    @Override
+    public void updateLogoutUserLog(long userId){
+        logMapper.updateLogoutUserLog(userId);
+    }
 }

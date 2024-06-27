@@ -7,6 +7,11 @@
         insert into logs (user_id,act,log_time,importance)
         values (#{userId},#{act},now(),#{importance})
     </insert>
+    <update id="updateLogoutUserLog">
+        update logs
+        set user_id=-1
+        where user_id = #{userId}
+    </update>
     <select id="getLogPage" resultType="com.filemanager.docwingsbe.entity.multy.LogPage">
         SELECT
             u.user_name,

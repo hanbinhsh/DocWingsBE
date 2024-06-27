@@ -74,6 +74,7 @@ public class    LogController {
     @RequestMapping("/logoutLog")
     public void logoutLog(@RequestBody Map<String, String> map) {
         String act = "用户注销";
-        this.logServer.insertLog(Long.parseLong(map.get("userId")),act,2);
+        this.logServer.updateLogoutUserLog(Long.parseLong(map.get("userId")));
+        this.logServer.insertLog(Long.parseLong(map.get("updateId")),act,2);
     }
 }

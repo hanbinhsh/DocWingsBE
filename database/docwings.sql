@@ -2,7 +2,7 @@ create database IF NOT EXISTS docwingsdb;
 use docwingsdb;
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
-
+SET sql_safe_updates = 0;
 
 DROP TABLE IF EXISTS `usergroup`;
 CREATE TABLE `usergroup`  (
@@ -108,7 +108,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 INSERT INTO `usergroup` (`group_id`,`group_name`, `auth`) VALUES ('1','管理员', 10);
 INSERT INTO `usergroup` (`group_id`,`group_name`, `auth`) VALUES ('2','默认用户', 3);
 INSERT INTO `usergroup` (`group_id`,`group_name`, `auth`) VALUES ('-1','已注销账户', -1);
-INSERT INTO `user` (`user_id`, `user_name`, `psw`, `email`, `group_id`, `is_admin`, `phone`) VALUES ('1', 'admin', 'admin', '', 1, true, '');
+INSERT INTO `user` (`user_id`, `user_name`, `psw`, `email`, `group_id`, `is_admin`, `phone`) VALUES ('1', SHA2('admin', 256), 'admin', '', 1, true, '');
 INSERT INTO `user` (`user_id`, `user_name`, `psw`, `email`, `group_id`, `is_admin`, `phone`) VALUES ('-1', '已注销账户', '', '-1', -1, false, '-1');
 INSERT INTO `folders` (`folder_id`,`folder_name`, `parent_id`, `create_time`, `creater_id`, `tag`, `last_modify_time`, `is_deleted`, `last_modifier_id`)
 VALUES (0,'ROOT', 0, '2024-06-01 09:00:00', 1, null, '2024-06-01 09:00:00', false, 1);

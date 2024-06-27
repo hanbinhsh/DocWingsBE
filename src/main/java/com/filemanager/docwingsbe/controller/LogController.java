@@ -76,4 +76,9 @@ public class    LogController {
         String act = "用户注销";
         this.logServer.insertLog(Long.parseLong(map.get("userId")),act,2);
     }
+
+    @RequestMapping("/insertLog")
+    public void insertLog(@RequestBody Map<String, String> map) {
+        this.logServer.insertLog(Long.parseLong(map.get("userId")),map.get("act"),Long.parseLong(map.get("importance")));
+    }
 }

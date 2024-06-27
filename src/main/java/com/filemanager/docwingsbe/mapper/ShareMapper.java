@@ -10,6 +10,7 @@ import java.util.List;
 @Mapper
 public interface ShareMapper {
     public List<SharePage> getSharesByUserId(@Param("userId") long userId);
+    public List<SharePage> getAllShares();
     public int countSharesByUserId(@Param("userId") long userId);
     public void insertShare(@Param("share") Shares share);
     public void deleteShareByShareId(@Param("shareId") long shareId);

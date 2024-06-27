@@ -21,6 +21,11 @@ public class ShareServerImpl implements ShareServer {
     }
 
     @Override
+    public List<SharePage> getAllShares(){
+        return shareMapper.getAllShares();
+    }
+
+    @Override
     public int countSharesByUserId(long userId) {
         return shareMapper.countSharesByUserId(userId);
     }

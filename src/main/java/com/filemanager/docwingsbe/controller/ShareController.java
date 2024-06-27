@@ -38,14 +38,14 @@ public class ShareController {
     @RequestMapping("/getAllShares")
     public Map<String, Object> getAllShares() {
         List<SharePage> shares = this.shareServer.getAllShares();
-        int shareCount = shares.size();
+        int allCount = shares.size();
         for (SharePage share : shares) {
             share.generateThings();
         }
         Map<String, Object> result = new HashMap<>();
         Map<String, Object> data = new HashMap<>();
         data.put("shares", shares);
-        data.put("shareCount", shareCount);
+        data.put("allCount", allCount);
         result.put("code", 200);
         result.put("msg", "请求执行成功并返回相应数据");
         result.put("data", data);

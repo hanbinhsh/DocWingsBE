@@ -18,4 +18,5 @@ public interface ShareMapper {
     public SharePage getSharesByShareId(@Param("shareId") long shareId);
     public List<SharePage> getShareByUserIdGroupId(@Param("userId") long userId, @Param("groupId") long groupId);
     public long getDownloadCount(@Param("shareId") long shareId, @Param("fileId") long fileId);
+    public long getDownloadCountByShareId(@Param("shareId") long shareId);
 }

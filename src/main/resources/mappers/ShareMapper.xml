@@ -165,6 +165,11 @@
     <select id="getDownloadCount" resultType="java.lang.Long">
         SELECT COUNT(*)
         FROM logs
-        WHERE act LIKE "%分享Id为${shareId},文件Id为${fileId}%";
+        WHERE act LIKE "下载%分享Id为${shareId},文件Id为${fileId}%";
+    </select>
+    <select id="getDownloadCountByShareId" resultType="java.lang.Long">
+        SELECT COUNT(*)
+        FROM logs
+        WHERE act LIKE "下载%分享Id为${shareId},%";
     </select>
 </mapper>

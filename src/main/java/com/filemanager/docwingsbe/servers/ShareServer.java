@@ -16,4 +16,5 @@ public interface ShareServer {
     SharePage getSharesByShareId(long shareId);
     List<SharePage> getShareByUserIdGroupId(long userId, long groupId);
     long getDownloadCount(long shareId, long fileId);
+    long getDownloadCountByShareId(long shareId);
 }

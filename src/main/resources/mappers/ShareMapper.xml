@@ -21,7 +21,7 @@
         update shares
         set
             auth = #{share.auth},
-            due_time = #{share.dueTime},
+            due_time = IF(#{share.dueTime} = #{share.shareTime}, NULL, #{share.dueTime}),
             accepter_id = IF(#{share.accepterId} = -2, NULL, #{share.accepterId}),
             accept_group_id = IF(#{share.acceptGroupId} = -2, NULL, #{share.acceptGroupId})
         where share_id = #{share.shareId}

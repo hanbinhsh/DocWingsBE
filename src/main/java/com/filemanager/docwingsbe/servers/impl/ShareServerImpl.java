@@ -59,4 +59,9 @@ public class ShareServerImpl implements ShareServer {
     public long getDownloadCount(long shareId, long fileId) {
         return shareMapper.getDownloadCount(shareId, fileId);
     }
+
+    @Override
+    public long getDownloadCountByShareId(long shareId) {
+        return shareMapper.getDownloadCountByShareId(shareId);
+    }
 }

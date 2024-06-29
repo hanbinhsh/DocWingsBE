@@ -29,17 +29,24 @@ public class UserController {
             user2.setFailedAttempts(0);
             user2.setAccountLocked(false); // 确保解冻
             userServer.SaveUser(user2.getFailedAttempts(),user2.isAccountLocked(),user2.getLockTime(),user2.getUserId());
-        }else if(user2!=null){
-            user2.setFailedAttempts(user2.getFailedAttempts()+1);
-            userServer.SaveUser(user2.getFailedAttempts(),user2.isAccountLocked(),user2.getLockTime(),user2.getUserId());
+        }else if(user2!=null ){
+            if(!user2.isAccountLocked()){
+                user2.setFailedAttempts(user2.getFailedAttempts()+1);
+                userServer.SaveUser(user2.getFailedAttempts(),user2.isAccountLocked(),user2.getLockTime(),user2.getUserId());
+            }
             if (user2.getFailedAttempts() >= 5) {
                 // 达到尝试次数限制，冻结用户
-                user2.setAccountLocked(true);
-                user2.setLockTime(Instant.now());
-                userServer.SaveUser(user2.getFailedAttempts(),user2.isAccountLocked(),user2.getLockTime(),user2.getUserId());
+                if(!user2.isAccountLocked()){
+                    user2.setAccountLocked(true);
+                    user2.setLockTime(Instant.now());
+                    userServer.SaveUser(user2.getFailedAttempts(),user2.isAccountLocked(),user2.getLockTime(),user2.getUserId());
+                }
                 return user2;
             }
-            userServer.SaveUser(user2.getFailedAttempts(),user2.isAccountLocked(),user2.getLockTime(),user2.getUserId());
+            if(!user2.isAccountLocked()){
+                userServer.SaveUser(user2.getFailedAttempts(),user2.isAccountLocked(),user2.getLockTime(),user2.getUserId());
+            }
+
         }
         return user;
     }

@@ -22,6 +22,8 @@ import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.Map;
 
+import static com.filemanager.docwingsbe.controller.Utils.getUploadLocation;
+
 // 控制层的类
 // 使用注解--表明该类是控制类--特征：返回JSON格式
 @RestController
@@ -286,7 +288,7 @@ public class FilesController {
         if(suffixIndex > 0){  // 有后缀名
             randomFileName = randomFileName + fileName.substring(suffixIndex);
         }
-        String realFilePath = "c:/DocWings/"+randomFileName;
+        String realFilePath = getUploadLocation() + randomFileName;
         // 数据库包装
         Files dBFile = new Files();
         dBFile.setFileName(fileName);
